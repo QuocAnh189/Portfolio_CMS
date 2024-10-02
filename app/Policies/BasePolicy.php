@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\User;
+use App\Domains\User\Models\User;
 
 class BasePolicy
 {
