@@ -1,6 +1,58 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\EducationController;
+use App\Http\Controllers\Admin\ExperienceController;
+use App\Http\Controllers\Admin\FeatureController;
+use App\Http\Controllers\Admin\LinkController;
+use App\Http\Controllers\Admin\MajorController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\ProjectGalleryController;
+use App\Http\Controllers\Admin\RoleSoftwareController;
+use App\Http\Controllers\Admin\SkillController;
+use App\Http\Controllers\Admin\TechnologyController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+/**Category route */
+Route::resource('categories', CategoryController::class);
+
+/**RoleSoftware route */
+Route::resource('role-softwares', RoleSoftwareController::class);
+
+/**Major route */
+Route::resource('majors', MajorController::class);
+
+/**Technology route */
+Route::resource('technologies', TechnologyController::class);
+
+/**Project route */
+Route::resource('projects', ProjectController::class);
+
+/**Project Gallery route */
+Route::resource('project-galleries', ProjectGalleryController::class);
+
+/**Feature route */
+Route::resource('features', FeatureController::class);
+
+/**Link route */
+Route::resource('links', LinkController::class);
+
+/**User route */
+Route::resource('users', UserController::class);
+
+/**Experience route */
+Route::resource('experience', ExperienceController::class);
+
+/**Skill route */
+Route::resource('skills', SkillController::class);
+
+/**Education route */
+Route::resource('educations', EducationController::class);
+
+/**Profile route */
+Route::resource('profile', ProfileController::class);

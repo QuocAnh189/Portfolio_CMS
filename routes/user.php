@@ -1,6 +1,39 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\EducationController;
+use App\Http\Controllers\User\ExperienceController;
+use App\Http\Controllers\User\FeatureController;
+use App\Http\Controllers\User\LinkController;
+use App\Http\Controllers\User\ProjectGalleryController;
+use App\Http\Controllers\User\ProjectController;
+use App\Http\Controllers\User\SkillController;
 use App\Http\Controllers\User\UserDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
+
+
+/**Project route */
+Route::resource('projects', ProjectController::class);
+
+/**Project Gallery route */
+Route::resource('project-galleries', ProjectGalleryController::class);
+
+/**Feature route */
+Route::resource('features', FeatureController::class);
+
+/**Link route */
+Route::resource('links', LinkController::class);
+
+/**Experience route */
+Route::resource('experience', ExperienceController::class);
+
+/**Skill route */
+Route::resource('skills', SkillController::class);
+
+/**Education route */
+Route::resource('educations', EducationController::class);
+
+/**Profile route */
+Route::resource('profile', ProfileController::class);
