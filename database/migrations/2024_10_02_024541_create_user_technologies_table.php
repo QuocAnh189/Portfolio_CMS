@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained('users');
             $table->foreignUuid('technology_id')->constrained('technologies');
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

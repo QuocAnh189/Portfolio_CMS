@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignUuid('role_software_id')->constrained('role_software');
             $table->text('description');
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

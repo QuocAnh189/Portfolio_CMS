@@ -18,6 +18,8 @@ return new class extends Migration
             $table->enum('title', Link::$title);
             $table->string('url')->nullable();
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

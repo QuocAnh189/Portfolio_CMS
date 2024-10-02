@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignUuid('project_id')->constrained('projects');
             $table->string('image');
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 
