@@ -2,8 +2,11 @@
 
 namespace App\Domains\Technology\Models;
 
+use App\Domains\Relation\Models\UserTechnologies;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class Technology extends Model
@@ -21,5 +24,10 @@ class Technology extends Model
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });
+    }
+
+    public function user_technologies(): HasMany
+    {
+        return $this->hasMany(UserTechnologies::class);
     }
 }

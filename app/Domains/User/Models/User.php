@@ -3,7 +3,13 @@
 namespace App\Domains\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Domains\Experience\Models\Experience;
+use App\Domains\Project\Models\Project;
+use App\Domains\Relation\Models\UserTechnologies;
+use App\Domains\Technology\Models\Skill;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -42,5 +48,25 @@ class User extends Authenticatable
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });
+    }
+
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function skills(): HasMany
+    {
+        return $this->hasMany(Skill::class);
+    }
+
+    public function user_technologies(): HasMany
+    {
+        return $this->hasMany(UserTechnologies::class);
+    }
+
+    public function experiences(): HasMany
+    {
+        return $this->hasMany(Experience::class);
     }
 }

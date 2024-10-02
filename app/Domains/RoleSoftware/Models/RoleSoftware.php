@@ -2,8 +2,12 @@
 
 namespace App\Domains\RoleSoftware\Models;
 
+use App\Domains\Experience\Models\Experience;
+use App\Domains\Technology\Models\Skill;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Str;
 
 class RoleSoftware extends Model
@@ -21,5 +25,15 @@ class RoleSoftware extends Model
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });
+    }
+
+    public function skills(): HasMany
+    {
+        return $this->hasMany(Skill::class);
+    }
+
+    public function experiences(): HasMany
+    {
+        return $this->hasMany(Experience::class);
     }
 }

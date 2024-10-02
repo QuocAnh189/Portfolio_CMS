@@ -2,8 +2,10 @@
 
 namespace App\Domains\ProjectGallery\Models;
 
+use App\Domains\Project\Models\Project;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
 class ProjectGallery extends Model
@@ -21,5 +23,10 @@ class ProjectGallery extends Model
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });
+    }
+
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
     }
 }
