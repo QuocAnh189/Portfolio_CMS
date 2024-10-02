@@ -12,7 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('resume_link')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('fullname')->nullable();
+            $table->string('contact_number')->nullable();
+            $table->string('bio')->nullable();
+            $table->string('facebook_link')->nullable();
+            $table->string('github_link')->nullable();
+            $table->string('youtube_link')->nullable();
+            $table->string('instagram_link')->nullable();
             $table->timestamps();
         });
     }

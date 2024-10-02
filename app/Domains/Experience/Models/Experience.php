@@ -13,7 +13,7 @@ class Experience extends Model
 {
     use HasFactory;
 
-    public static array $level = ['intern', 'fresher', 'middle', 'junior', 'senior', 'expert'];
+    public static array $levels = ['intern', 'fresher', 'middle', 'junior', 'senior', 'expert'];
 
     public $incrementing = false;
 
