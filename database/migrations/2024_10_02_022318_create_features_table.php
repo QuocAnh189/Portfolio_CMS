@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('features', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('project_id')->constrained('projects')->cascadeOnDelete();
+            $table->foreignUuid('project_id')->constrained('projects');
             $table->string('name');
             $table->timestamps();
         });

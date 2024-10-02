@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domains\Tool\Repository;
+namespace App\Domains\Link\Repository;
 
-class ToolService
+class LinkRepository
 {
     public function __construct()
     {

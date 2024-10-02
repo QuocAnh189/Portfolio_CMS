@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('user_technologies', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->constrained('users');
+            $table->foreignUuid('technology_id')->constrained('technologies');
             $table->timestamps();
         });
     }

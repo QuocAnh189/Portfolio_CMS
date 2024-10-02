@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name')->unique();
-            $table->string(column: 'image')->nullable();
+            $table->string('name');
+            $table->string(column: 'image');
             $table->timestamps();
         });
     }

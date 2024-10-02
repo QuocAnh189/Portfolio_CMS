@@ -14,10 +14,10 @@ return new class extends Migration
     {
         Schema::create('experiences', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignUuid('role_software_id')->constrained('role_software')->cascadeOnDelete();
+            $table->foreignUuid('user_id')->constrained('users');
+            $table->foreignUuid('role_software_id')->constrained('role_software');
             $table->string('company_name');
-            $table->text('job_title');
+            $table->string('job_title');
             $table->text('job_description');
             $table->enum('level', Experience::$levels);
             $table->boolean('is_current');

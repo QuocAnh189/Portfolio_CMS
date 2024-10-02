@@ -4,8 +4,10 @@ namespace App\Domains\Project\Models;
 
 use App\Domain\Feature\Models\Feature;
 use App\Domains\Category\Models\Category;
+use App\Domains\Link\Models\Link;
 use App\Domains\ProjectGallery\Models\ProjectGallery;
 use App\Domains\Relation\Models\ProjectTools;
+use App\Domains\Technology\Models\Technology;
 use App\Domains\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -45,9 +47,14 @@ class Project extends Model
         return $this->hasMany(ProjectGallery::class);
     }
 
-    public function project_tools(): HasMany
+    public function project_technologies(): HasMany
     {
-        return $this->hasMany(ProjectTools::class);
+        return $this->hasMany(Technology::class);
+    }
+
+    public function links(): HasMany
+    {
+        return $this->hasMany(Link::class);
     }
 
     public function user(): BelongsTo

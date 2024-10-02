@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('education', function (Blueprint $table) {
+        Schema::create('majors', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->constrained('users');
-            $table->string('university_name');
-            $table->foreignUuid('major_id')->constrained('majors');
+            $table->string('name');
+            $table->string('image');
             $table->text('description');
-            $table->boolean('degree');
-            $table->date('start_date');
-            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('education');
+        Schema::dropIfExists('majors');
     }
 };

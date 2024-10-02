@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_tools', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('project_id')->constrained('projects');
-            $table->foreignUuid('tool_id')->constrained('tools');
+            $table->foreignUuid('user_id')->constrained('users');
+            $table->foreignUuid('category_id')->constrained('categories');
+            $table->string('name');
+            $table->text('description');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_tools');
+        Schema::dropIfExists('projects');
     }
 };

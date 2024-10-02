@@ -1,5 +1,6 @@
 <?php
 
+use App\Domains\Link\Models\Link;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('majors', function (Blueprint $table) {
+        Schema::create('links', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('description');
-            $table->string('image');
+            $table->foreignUuid('project_id')->constrained('projects');
+            $table->enum('title', Link::$title);
+            $table->string('url')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('majors');
+        Schema::dropIfExists('links');
     }
 };

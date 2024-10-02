@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Domains\RoleSoftware\Models;
+namespace App\Domains\Link\Models;
 
-use App\Domains\Relation\Models\ProjectTools;
+use App\Domains\Project\Models\Project;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
-class Tool extends Model
+class Link extends Model
 {
     use HasFactory;
 
+    public static array $title = ['github', 'demo'];
     public $incrementing = false;
 
     protected $keyType = 'string';
@@ -25,8 +26,8 @@ class Tool extends Model
         });
     }
 
-    public function project_tools(): HasMany
+    public function project(): BelongsTo
     {
-        return $this->hasMany(ProjectTools::class);
+        return $this->belongsTo(Project::class);
     }
 }

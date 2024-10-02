@@ -4,12 +4,13 @@ namespace App\Domains\Relation\Models;
 
 use App\Domains\Project\Models\Project;
 use App\Domains\RoleSoftware\Models\Tool;
+use App\Domains\Technology\Models\Technology;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
-class ProjectTools extends Model
+class ProjectTechnologies extends Model
 {
     use HasFactory;
 
@@ -31,8 +32,8 @@ class ProjectTools extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function tool(): BelongsTo
+    public function technology(): BelongsTo
     {
-        return $this->belongsTo(Tool::class);
+        return $this->belongsTo(related: Technology::class);
     }
 }
