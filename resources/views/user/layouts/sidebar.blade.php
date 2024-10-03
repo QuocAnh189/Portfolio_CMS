@@ -10,7 +10,7 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Portfolio Dashboard</li>
             <li class="dropdown active">
-                <a class="nav-link" href="{{ route('user.dashboard', ['user' => $user]) }}">
+                <a class="nav-link" href="{{ route('user.dashboard') }}">
                     <i class="fas fa-fire"></i>
                     <span>Dashboard</span>
                 </a>

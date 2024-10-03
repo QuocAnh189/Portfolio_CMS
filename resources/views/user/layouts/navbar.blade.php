@@ -8,13 +8,12 @@
     <ul class="navbar-nav navbar-right">
         <li class="dropdown">
             <a class="nav-link dropdown-toggle nav-link-lg nav-link-user" data-toggle="dropdown" href="#">
-                <img alt="image" class="rounded-circle mr-1"
-                    src="https://res.cloudinary.com/dadvtny30/image/upload/v1712409123/eventhub/event/w3xvrrue35iu1gncudsa.jpg"
+                <img alt="image" class="rounded-circle mr-1" src="{{ auth()->user()->profile->avatar }}"
                     style="width: 40px;height: 40px;object-fit: cover;">
                 <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item has-icon" href="">
+                <a class="dropdown-item has-icon" href="{{ route('user.profile.edit') }}">
                     <i class="far fa-user"></i> Profile
                 </a>
 

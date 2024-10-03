@@ -29,7 +29,7 @@ class ProfileController extends Controller
     {
         $profile = $this->profileService->getProfile(Auth::id());
 
-        return view('profile.edit', [
+        return view(Auth::user()->is_admin ? 'admin.profile.edit' : 'user.profile.edit', [
             'profile' => $profile,
         ]);
     }
@@ -47,7 +47,7 @@ class ProfileController extends Controller
             flash()->option('position', 'top-center')->success('Update profile successfully.');
         }
 
-        return Redirect::route('admin.profile.edit');
+        return Auth::user()->is_admin ? Redirect::route('admin.profile.edit') : Redirect::route('user.profile.edit');
     }
 
 
@@ -61,6 +61,6 @@ class ProfileController extends Controller
             flash()->option('position', 'top-center')->success('Update password successfully.');
         }
 
-        return Redirect::route('profile.edit');
+        return Auth::user()->is_admin ? Redirect::route('admin.profile.edit') : Redirect::route('user.profile.edit');
     }
 }
