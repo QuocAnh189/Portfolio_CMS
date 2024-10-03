@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Domains\Category\Services\CategoryService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    private CategoryService $categoryService;
+
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     /**
      * Display a listing of the resource.
      */

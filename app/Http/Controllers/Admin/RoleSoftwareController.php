@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Domains\RoleSoftware\Services\RoleSoftwareService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class RoleSoftwareController extends Controller
 {
+    private RoleSoftwareService $roleSoftwareService;
+
+    public function __construct(RoleSoftwareService $roleSoftwareService)
+    {
+        $this->roleSoftwareService = $roleSoftwareService;
+    }
+
     /**
      * Display a listing of the resource.
      */

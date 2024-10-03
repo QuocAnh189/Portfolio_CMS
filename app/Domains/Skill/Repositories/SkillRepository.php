@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Skill\Repository;
+namespace App\Domains\Skill\Repositories;
 
 class SkillRepository
 {

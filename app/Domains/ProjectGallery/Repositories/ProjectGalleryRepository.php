@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\ProjectGallery\Repository;
+namespace App\Domains\ProjectGallery\Repositories;
 
 class ProjectGalleryRepository
 {

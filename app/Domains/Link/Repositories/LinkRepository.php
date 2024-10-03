@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Link\Repository;
+namespace App\Domains\Link\Repositories;
 
 class LinkRepository
 {

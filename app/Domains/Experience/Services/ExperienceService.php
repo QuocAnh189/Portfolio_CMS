@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Domains\Experience\Repository;
+namespace App\Domains\Experience\Services;
+
+use App\Domains\Experience\Repositories\ExperienceRepository;
 
 class ExperienceService
 {
-    public function __construct()
+    private ExperienceRepository $experienceRepository;
+    public function __construct(ExperienceRepository $experienceRepository)
     {
-        //
+        $this->experienceRepository = $experienceRepository;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\RoleSoftware\Repository;
+namespace App\Domains\RoleSoftware\Repositories;
 
 class RoleSoftwareRepository
 {

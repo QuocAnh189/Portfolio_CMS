@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Technology\Repository;
+namespace App\Domains\Technology\Repositories;
 
 class TechnologyRepository
 {

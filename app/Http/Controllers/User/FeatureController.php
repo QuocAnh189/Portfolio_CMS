@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Domains\Feature\Services\FeatureService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class FeatureController extends Controller
 {
+    private FeatureService $featureService;
+
+    public function __construct(FeatureService $featureService)
+    {
+        $this->featureService = $featureService;
+    }
+
     /**
      * Display a listing of the resource.
      */

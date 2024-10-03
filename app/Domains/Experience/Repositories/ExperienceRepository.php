@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Experience\Repository;
+namespace App\Domains\Experience\Repositories;
 
 class ExperienceRepository
 {

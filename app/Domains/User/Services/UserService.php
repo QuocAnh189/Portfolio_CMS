@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Domains\User\Repository;
+namespace App\Domains\User\Repositories;
 
 class UserService
 {
-    public function __construct()
+    private UserRepository $userRepository;
+    public function __construct(UserRepository $userRepository)
     {
-        //
+        $this->userRepository = $userRepository;
     }
 }

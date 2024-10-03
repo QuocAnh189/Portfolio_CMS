@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Education\Repository;
+namespace App\Domains\Education\Repositories;
 
 class EducationRepository
 {

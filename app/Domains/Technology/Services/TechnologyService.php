@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Domains\Technology\Repository;
+namespace App\Domains\Technology\Services;
+
+use App\Domains\Technology\Repositories\TechnologyRepository;
 
 class TechnologyService
 {
-    public function __construct()
+    private TechnologyRepository $technologyRepository;
+    public function __construct(TechnologyRepository $technologyRepository)
     {
-        //
+        $this->technologyRepository = $technologyRepository;
     }
 }

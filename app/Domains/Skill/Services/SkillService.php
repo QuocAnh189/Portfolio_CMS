@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Domains\Skill\Repository;
+namespace App\Domains\Skill\Services;
+
+use App\Domains\Skill\Repositories\SkillRepository;
 
 class SkillService
 {
-    public function __construct()
+    private SkillRepository $skillRepository;
+    public function __construct(SkillRepository $skillRepository)
     {
-        //
+        $this->skillRepository = $skillRepository;
     }
 }

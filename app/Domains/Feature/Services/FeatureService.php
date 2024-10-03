@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Domains\Feature\Repository;
+namespace App\Domains\Feature\Services;
+
+use App\Domains\Feature\Repositories\FeatureRepository;
 
 class FeatureService
 {
-    public function __construct()
+    private FeatureRepository $featureRepository;
+    public function __construct(FeatureRepository $featureRepository)
     {
-        //
+        $this->featureRepository = $featureRepository;
     }
 }

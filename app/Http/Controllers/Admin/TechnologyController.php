@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Domains\Technology\Services\TechnologyService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class TechnologyController extends Controller
 {
+    private TechnologyService $technologyService;
+
+    public function __construct(TechnologyService $technologyService)
+    {
+        $this->technologyService = $technologyService;
+    }
+
     /**
      * Display a listing of the resource.
      */

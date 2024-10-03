@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Domains\Project\Services\ProjectService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+    private ProjectService $projectService;
+
+    public function __construct(ProjectService $projectService)
+    {
+        $this->projectService = $projectService;
+    }
     /**
      * Display a listing of the resource.
      */

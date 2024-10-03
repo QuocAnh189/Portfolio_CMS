@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Category\Repository;
+namespace App\Domains\Category\Repositories;
 
 class CategoryRepository
 {

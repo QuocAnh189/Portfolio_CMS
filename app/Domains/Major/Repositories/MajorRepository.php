@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Major\Repository;
+namespace App\Domains\Major\Repositories;
 
 class MajorRepository
 {

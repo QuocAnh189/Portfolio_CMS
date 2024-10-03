@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Domains\RoleSoftware\Repository;
+namespace App\Domains\RoleSoftware\Services;
+
+use App\Domains\RoleSoftware\Repositories\RoleSoftwareRepository;
 
 class RoleSoftwareService
 {
-    public function __construct()
+    private RoleSoftwareRepository $roleSoftwareRepository;
+    public function __construct(RoleSoftwareRepository $roleSoftwareRepository)
     {
-        //
+        $this->roleSoftwareRepository = $roleSoftwareRepository;
     }
 }

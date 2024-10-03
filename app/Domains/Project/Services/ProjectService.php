@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Domains\Project\Repository;
+namespace App\Domains\Project\Services;
+
+use App\Domains\Project\Repositories\ProjectRepository;
 
 class ProjectService
 {
-    public function __construct()
+    private ProjectRepository $projectRepository;
+    public function __construct(ProjectRepository $projectRepository)
     {
-        //
+        $this->projectRepository = $projectRepository;
     }
 }

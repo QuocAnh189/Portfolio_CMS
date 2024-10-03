@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Feature\Repository;
+namespace App\Domains\Feature\Repositories;
 
 class FeatureRepository
 {

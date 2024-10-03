@@ -1,11 +1,15 @@
 <?php
 
-namespace App\Domains\Category\Repository;
+namespace App\Domains\Category\Services;
+
+use App\Domains\Category\Repositories\CategoryRepository;
 
 class CategoryService
 {
-    public function __construct()
+    private CategoryRepository $categoryRepository;
+
+    public function __construct(CategoryRepository $categoryRepository)
     {
-        //
+        $this->categoryRepository = $categoryRepository;
     }
 }

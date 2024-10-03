@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Domains\Major\Services\MajorService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class MajorController extends Controller
 {
+    private MajorService $majorService;
+
+    public function __construct(MajorService $majorService)
+    {
+        $this->majorService = $majorService;
+    }
     /**
      * Display a listing of the resource.
      */

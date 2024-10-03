@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Domains\ProjectGallery\Repository;
+namespace App\Domains\ProjectGallery\Services;
+
+use App\Domains\ProjectGallery\Repositories\ProjectGalleryRepository;
 
 class ProjectGalleryService
 {
-    public function __construct()
+    private ProjectGalleryRepository $projectGalleryRepository;
+    public function __construct(ProjectGalleryRepository $projectGalleryRepository)
     {
-        //
+        $this->projectGalleryRepository = $projectGalleryRepository;
     }
 }

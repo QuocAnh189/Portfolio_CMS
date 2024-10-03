@@ -1,11 +1,15 @@
 <?php
 
-namespace App\Domains\Education\Repository;
+namespace App\Domains\Education\Services;
+
+use App\Domains\Education\Repositories\EducationRepository;
+
 
 class EducationService
 {
-    public function __construct()
+    private EducationRepository $educationRepository;
+    public function __construct(EducationRepository $educationRepository)
     {
-        //
+        $this->educationRepository = $educationRepository;
     }
 }
