@@ -12,6 +12,20 @@ use Illuminate\Support\Str;
 class Profile extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'user_id',
+        'resume_link',
+        'avatar',
+        'fullname',
+        'contact_number',
+        'bio',
+        'facebook_link',
+        'github_link',
+        'youtube_link',
+        'instagram_link',
+    ];
+
     public $incrementing = false;
 
     protected $keyType = 'string';

@@ -5,11 +5,13 @@ namespace App\Domains\User\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Domains\Experience\Models\Experience;
+use App\Domains\Profile\Models\Profile;
 use App\Domains\Project\Models\Project;
 use App\Domains\Relation\Models\UserTechnologies;
 use App\Domains\Technology\Models\Skill;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,6 +51,11 @@ class User extends Authenticatable
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });
+    }
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
     }
 
     public function projects(): HasMany

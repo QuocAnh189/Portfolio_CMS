@@ -55,4 +55,6 @@ Route::resource('skills', SkillController::class);
 Route::resource('educations', EducationController::class);
 
 /**Profile route */
-Route::resource('profile', ProfileController::class);
+Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::put('profile/{profile}', [ProfileController::class, 'update'])->name('profile.update');
+Route::put('profile/change-password/{user}', [ProfileController::class, 'change_password'])->name('profile.change-password');

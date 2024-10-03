@@ -2,59 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Domains\Profile\Dto\UpdatePasswordDto;
+use App\Domains\Profile\Dto\UpdateProfileDto;
+use App\Domains\Profile\Models\Profile;
+use App\Domains\Profile\Services\ProfileService;
+use App\Domains\User\Models\User;
+use App\Http\Requests\Profile\PasswordRequest;
+use App\Http\Requests\Profile\ProfileRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    private ProfileService $profileService;
+    public function __construct(ProfileService $profileService)
+    {
+        $this->profileService = $profileService;
+    }
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit(): View
     {
+        $profile = $this->profileService->getProfile(Auth::id());
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'profile' => $profile,
         ]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileRequest $request, Profile $profile): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $updateProfileDto = UpdateProfileDto::fromAppRequest($request, $profile);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $updatedProfile = $this->profileService->updateProfile($updateProfileDto);
+
+        if ($updatedProfile) {
+            flash()->option('position', 'top-center')->success('Update profile successfully.');
         }
 
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('admin.profile.edit');
     }
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
+
+    public function change_password(PasswordRequest $request)
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+        $updatePasswordDto = UpdatePasswordDto::fromAppRequest($request);
 
-        $user = $request->user();
+        $updatedPassword = $this->profileService->updatePassword($updatePasswordDto);
 
-        Auth::logout();
+        if ($updatedPassword) {
+            flash()->option('position', 'top-center')->success('Update password successfully.');
+        }
 
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        return Redirect::route('profile.edit');
     }
 }
