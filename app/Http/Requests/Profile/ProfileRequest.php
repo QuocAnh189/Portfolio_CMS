@@ -42,6 +42,7 @@ class ProfileRequest extends FormRequest
             'contact_number' => 'string|nullable',
             'bio' => 'string|nullable',
             'facebook_link' => 'string|nullable',
+            'youtube_link' => 'string|nullable',
             'github_link' => 'string|nullable',
             'instagram_link' => 'string|nullable',
             'resume_link' => 'string|nullable',

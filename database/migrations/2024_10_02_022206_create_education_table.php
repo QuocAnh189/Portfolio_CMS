@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,8 +21,9 @@ return new class extends Migration
             $table->boolean('degree');
             $table->date('start_date');
             $table->date('end_date')->nullable();
-            $table->timestamps();
+            $table->enum('status', Status::toArray())->default(Status::Active->value);
 
+            $table->timestamps();
             $table->softDeletes();
         });
     }
