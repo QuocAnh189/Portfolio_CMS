@@ -3,6 +3,7 @@
 namespace App\DataTables\Admin;
 
 use App\Domains\Category\Models\Category;
+use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -20,31 +21,41 @@ class CategoryDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.category.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('admin.category.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
-
-                return $editBtn . $deleteBtn;
+            ->addColumn('image', function ($query) {
+                return '<img src="' . $query->image . '" style="width: 40px; height: 40px;" alt="icon">';
             })
-            ->addColumn('icon', function ($query) {
-                return '<i style="font-size:40px" class="' . $query->icon . '"></i>';
+            ->addColumn('name', function ($query) {
+                return '<h6 class="">' . $query->name . '</h6>';
             })
             ->addColumn('status', function ($query) {
-                if ($query->status == 1) {
-                    $button = '<label class="custom-switch mt-2">
-                        <input type="checkbox" checked name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status" >
-                        <span class="custom-switch-indicator"></span>
-                    </label>';
-                } else {
-                    $button = '<label class="custom-switch mt-2">
-                        <input type="checkbox" name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status">
-                        <span class="custom-switch-indicator"></span>
-                    </label>';
+                if ($query->status === Status::Active->value) {
+                    $button =
+                        '<label class="custom-switch mt-2">
+                            <input type="checkbox" checked name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status" >
+                            <span class="custom-switch-indicator"></span>
+                        </label>';
+                }
+                if ($query->status === Status::Inactive->value) {
+                    $button =
+                        '<label class="custom-switch mt-2">
+                            <input type="checkbox" name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status">
+                            <span class="custom-switch-indicator"></span>
+                        </label>';
                 }
 
                 return $button;
             })
-            ->rawColumns(['icon', 'action', 'status'])
+            ->addColumn('action', function ($query) {
+                $editBtn = "<a href='" . route('admin.categories.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.categories.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+
+                return $editBtn . $deleteBtn;
+            })
+            ->filterColumn('name', function ($query, $keyword) {
+                $query->where('name', 'like', "%" . $keyword . "%");
+            })
+
+            ->rawColumns(['image', 'name', 'status', 'action'])
             ->setRowId('id');
     }
 
@@ -83,10 +94,10 @@ class CategoryDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(100),
-            Column::make('image')->width(300),
+            Column::make('id')->width(300),
+            Column::make('image'),
             Column::make('name'),
-            Column::make('status')->width(200),
+            Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

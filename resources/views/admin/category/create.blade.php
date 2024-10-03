@@ -14,14 +14,14 @@
                             <h4>Create Category</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.categories.store') }}" method="POST">
+                            <form action="{{ route('admin.categories.store') }}" enctype="multipart/form-data" method="POST">
                                 @csrf
                                 <div class="form-group col-12">
                                     <div class="mb-3">
-                                        <img alt="" src="" width="100px">
+                                        <img alt="" src="{{ asset('images/category_default.jpg') }}" width="150px">
                                     </div>
                                     <label>Image</label>
-                                    <input class="form-control" name="avatar" type="file">
+                                    <input class="form-control" name="image" type="file">
                                 </div>
                                 <div class="form-group">
                                     <label>Name</label>
@@ -29,9 +29,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputState">Status</label>
-                                    <select class="form-control" id="inputState" name="status">
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
+                                    <select class="form-control" id="status" name="status">
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
                                     </select>
                                 </div>
                                 <button class="btn btn-primary" type="submmit">Create</button>

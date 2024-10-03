@@ -51,7 +51,6 @@
                         console.log(error);
                     }
                 })
-
             })
         })
     </script>

@@ -15,8 +15,8 @@
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['admin.categories.*']) }}">
+                <a class="nav-link" href="{{ route('admin.categories.index') }}">
                     <i class="fas fa-list"></i>
                     <span>Category</span>
                 </a>

@@ -20,6 +20,7 @@ Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dash
 
 /**Category route */
 Route::resource('categories', CategoryController::class);
+Route::put('change-status', [CategoryController::class, 'change_status'])->name('categories.change-status');
 
 /**RoleSoftware route */
 Route::resource('role-softwares', RoleSoftwareController::class);
