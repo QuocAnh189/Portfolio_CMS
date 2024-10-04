@@ -47,6 +47,7 @@ Route::resource('features', FeatureController::class);
 Route::resource('links', LinkController::class);
 
 /**User route */
+Route::put('users/change-status', [UserController::class, 'change_status'])->name('users.change-status');
 Route::resource('users', UserController::class);
 
 /**Experience route */

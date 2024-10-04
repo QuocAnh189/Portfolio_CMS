@@ -27,10 +27,11 @@ class ProfileController extends Controller
      */
     public function edit(): View
     {
-        $profile = $this->profileService->getProfile(Auth::id());
+        $data = $this->profileService->getProfile(Auth::id());
 
         return view(Auth::user()->is_admin ? 'admin.profile.edit' : 'user.profile.edit', [
-            'profile' => $profile,
+            'profile' => $data['profile'],
+            'role_softwares' => $data['role_softwares'],
         ]);
     }
 

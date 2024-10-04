@@ -20,6 +20,7 @@ class Profile extends Model
         'fullname',
         'contact_number',
         'bio',
+        'role_software_id',
         'facebook_link',
         'github_link',
         'youtube_link',

@@ -71,8 +71,8 @@
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['admin.users.*']) }}">
+                <a class="nav-link" href="{{ route('admin.users.index') }}">
                     <i class="fas fa-users"></i>
                     <span>User</span>
                 </a>

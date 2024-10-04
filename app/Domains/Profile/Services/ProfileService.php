@@ -3,21 +3,30 @@
 namespace App\Domains\Profile\Services;
 
 use App\Domains\Profile\Repositories\ProfileRepository;
+use App\Domains\RoleSoftware\Repositories\RoleSoftwareRepository;
 use App\Models\Traits\UploadImage;
 
 class ProfileService
 {
     use UploadImage;
     private ProfileRepository $profileRepository;
-    public function __construct(ProfileRepository $profileRepository)
+    private RoleSoftwareRepository $roleSoftwareRepository;
+    public function __construct(ProfileRepository $profileRepository, RoleSoftwareRepository $roleSoftwareRepository)
     {
         $this->profileRepository = $profileRepository;
+        $this->roleSoftwareRepository = $roleSoftwareRepository;
     }
 
     public function getProfile($userId)
     {
         try {
-            return $this->profileRepository->findProfileByUserId($userId);
+            $profile = $this->profileRepository->findProfileByUserId($userId);
+            $role_softwares = $this->roleSoftwareRepository->findAll();
+
+            return [
+                'profile' => $profile,
+                'role_softwares' => $role_softwares,
+            ];
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }

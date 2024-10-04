@@ -44,6 +44,7 @@ class ProfileRequest extends FormRequest
             'fullname' => 'string|nullable',
             'contact_number' => 'string|nullable',
             'bio' => 'string|nullable',
+            'role_software_id' => 'uuid|nullable',
             'facebook_link' => 'string|nullable',
             'youtube_link' => 'string|nullable',
             'github_link' => 'string|nullable',

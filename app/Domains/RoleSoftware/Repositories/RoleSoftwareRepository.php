@@ -11,6 +11,11 @@ class RoleSoftwareRepository
         //
     }
 
+    public function findAll()
+    {
+        return RoleSoftware::where("status", "active")->get();
+    }
+
     public function createRoleSoftware($createRoleSoftwareDto): RoleSoftware
     {
         return RoleSoftware::create($createRoleSoftwareDto);

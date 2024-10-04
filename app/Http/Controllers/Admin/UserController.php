@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Domains\User\Repositories\UserService;
+use App\Domains\User\Services\UserService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangeStatusRequest;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -70,4 +71,6 @@ class UserController extends Controller
     {
         //
     }
+
+    public function change_status(ChangeStatusRequest $request) {}
 }
