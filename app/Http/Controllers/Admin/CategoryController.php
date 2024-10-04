@@ -89,15 +89,23 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $this->categoryService->deleteCategory($category);
+        try {
+            $this->categoryService->deleteCategory($category);
 
-        return response(['status' => 'success', 'Deleted Successfully!']);
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->option('position', 'top-center')->error($e->getMessage());
+        }
     }
 
     public function change_status(ChangeStatusRequest $request)
     {
-        $this->categoryService->changeStatusCategory($request->id, $request->status);
+        try {
+            $this->categoryService->changeStatusCategory($request->id, $request->status);
 
-        return response(['message' => 'status has been updated!']);
+            return response(['message' => 'status has been updated!']);
+        } catch (\Exception $e) {
+            flash()->option('position', 'top-center')->error($e->getMessage());
+        }
     }
 }

@@ -9,7 +9,7 @@
         <li class="dropdown">
             <a class="nav-link dropdown-toggle nav-link-lg nav-link-user" data-toggle="dropdown" href="#">
                 <img alt="image" class="rounded-circle z-[1] mr-1"
-                    src="{{ auth()->user()->profile->avatar ?? 'https://res.cloudinary.com/dadvtny30/image/upload/v1710062870/portfolio/frj9fscqteb90eumokqj.jpg' }}"
+                    src="{{ auth()->user()->profile->avatar ?? asset('images/avatar_default.jpg') }}"
                     style="width: 40px;height: 40px;object-fit: cover;">
                 <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div>
             </a>

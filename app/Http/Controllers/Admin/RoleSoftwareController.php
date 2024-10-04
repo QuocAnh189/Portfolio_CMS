@@ -91,9 +91,13 @@ class RoleSoftwareController extends Controller
      */
     public function destroy(RoleSoftware $roleSoftware)
     {
-        $this->roleSoftwareService->deleteRoleSoftware($roleSoftware);
+        try {
+            $this->roleSoftwareService->deleteRoleSoftware($roleSoftware);
 
-        return response(['status' => 'success', 'Deleted Successfully!']);
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->option('position', 'top-center')->error($e->getMessage());
+        }
     }
 
     /**
@@ -101,8 +105,12 @@ class RoleSoftwareController extends Controller
      */
     public function change_status(ChangeStatusRequest $request)
     {
-        $this->roleSoftwareService->changeStatusRoleSoftware($request->id, $request->status);
+        try {
+            $this->roleSoftwareService->changeStatusRoleSoftware($request->id, $request->status);
 
-        return response(['message' => 'status has been updated!']);
+            return response(['message' => 'status has been updated!']);
+        } catch (\Exception $e) {
+            flash()->option('position', 'top-center')->error($e->getMessage());
+        }
     }
 }

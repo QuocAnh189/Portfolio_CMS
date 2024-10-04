@@ -13,6 +13,8 @@ class Technology extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['image', 'name', 'status'];
+
     public $incrementing = false;
 
     protected $keyType = 'string';

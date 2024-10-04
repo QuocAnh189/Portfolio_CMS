@@ -36,8 +36,8 @@
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['admin.technologies.*']) }}">
+                <a class="nav-link" href="{{ route('admin.technologies.index') }}">
                     <i class="fas fa-tv"></i>
                     <span>Technologies</span>
                 </a>
@@ -87,7 +87,7 @@
 
             <li class="{{ setActive(['']) }}">
                 <a class="nav-link" href="">
-                    <i class="fab fa-skill"></i>
+                    <i class="fas fa-skull"></i>
                     <span>Skills</span>
                 </a>
             </li>
@@ -96,13 +96,6 @@
                 <a class="nav-link" href="">
                     <i class="fas fa-school"></i>
                     <span>Education</span>
-                </a>
-            </li>
-
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
-                    <i class="fas fa-user"></i>
-                    <span>Profile</span>
                 </a>
             </li>
     </aside>

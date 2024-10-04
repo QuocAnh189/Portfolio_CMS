@@ -29,7 +29,7 @@
 
                                     <div class="form-group col-12">
                                         <div class="mb-3">
-                                            <img alt="" src="{{ $profile->avatar }}" width="100px">
+                                            <img alt="" src="{{ $profile->avatar ?? assets('images/image_default.jpg') }}" width="100px">
                                         </div>
                                         <label>Image</label>
                                         <input class="form-control" name="avatar" type="file"

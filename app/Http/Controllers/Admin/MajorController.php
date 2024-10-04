@@ -89,9 +89,13 @@ class MajorController extends Controller
      */
     public function destroy(Major $major)
     {
-        $this->majorService->deleteMajor($major);
+        try {
+            $this->majorService->deleteMajor($major);
 
-        return response(['status' => 'success', 'Deleted Successfully!']);
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->option('position', 'top-center')->error($e->getMessage());
+        }
     }
 
     /**
@@ -99,8 +103,12 @@ class MajorController extends Controller
      */
     public function change_status(ChangeStatusRequest $request)
     {
-        $this->majorService->changeStatusMajor($request->id, $request->status);
+        try {
+            $this->majorService->changeStatusMajor($request->id, $request->status);
 
-        return response(['message' => 'status has been updated!']);
+            return response(['message' => 'status has been updated!']);
+        } catch (\Exception $e) {
+            flash()->option('position', 'top-center')->error($e->getMessage());
+        }
     }
 }

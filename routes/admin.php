@@ -31,6 +31,7 @@ Route::put('majors/change-status', [MajorController::class, 'change_status'])->n
 Route::resource('majors', MajorController::class);
 
 /**Technology route */
+Route::put('technologies/change-status', [TechnologyController::class, 'change_status'])->name('technologies.change-status');
 Route::resource('technologies', TechnologyController::class);
 
 /**Project route */
