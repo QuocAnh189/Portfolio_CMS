@@ -22,8 +22,8 @@
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['admin.role-softwares.*']) }}">
+                <a class="nav-link" href="{{ route('admin.role-softwares.index') }}">
                     <i class="fas fa-podcast"></i>
                     <span>Role Softwares</span>
                 </a>

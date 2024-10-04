@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CategoryRequest;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
+use App\Http\Requests\ChangeStatusRequest;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -97,13 +98,9 @@ class CategoryController extends Controller
         return response(['status' => 'success', 'Deleted Successfully!']);
     }
 
-    public function change_status(Request $request)
+    public function change_status(ChangeStatusRequest $request)
     {
-        // dd($request->all());
         $this->categoryService->changeStatusCategory($request->id, $request->status);
-        // $category = Category::findOrFail($request->id);
-        // $category->status = $request->status === 'true' ? 'active' : 'inactive';
-        // $category->save();
 
         return response(['message' => 'status has been updated!']);
     }

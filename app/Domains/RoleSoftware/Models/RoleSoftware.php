@@ -7,13 +7,14 @@ use App\Domains\Technology\Models\Skill;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class RoleSoftware extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = ['name', 'status', 'image',];
 
     public $incrementing = false;
 

@@ -18,7 +18,7 @@
                                 @csrf
                                 <div class="form-group col-12">
                                     <div class="mb-3">
-                                        <img alt="" src="{{ asset('images/category_default.jpg') }}" width="150px">
+                                        <img alt="" src="{{ asset('images/image_default.jpg') }}" width="150px">
                                     </div>
                                     <label>Image</label>
                                     <input class="form-control" name="image" type="file">

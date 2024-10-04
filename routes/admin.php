@@ -19,11 +19,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
 /**Category route */
+Route::put('categories/change-status', [CategoryController::class, 'change_status'])->name('categories.change-status');
 Route::resource('categories', CategoryController::class);
-Route::put('change-status', [CategoryController::class, 'change_status'])->name('categories.change-status');
 
 /**RoleSoftware route */
+Route::put('role-softwares/change-status', [RoleSoftwareController::class, 'change_status'])->name('role-softwares.change-status');
 Route::resource('role-softwares', RoleSoftwareController::class);
+
 
 /**Major route */
 Route::resource('majors', MajorController::class);
