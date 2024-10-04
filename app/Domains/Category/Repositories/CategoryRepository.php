@@ -16,9 +16,9 @@ class CategoryRepository
         return Category::create($createCategoryDto);
     }
 
-    public function updateCategory($createCategoryDto, Category $category)
+    public function updateCategory($updateCategoryDto, Category $category)
     {
-        return $category->update($createCategoryDto);
+        return $category->update($updateCategoryDto);
     }
 
     public function deleteCategory(Category $category)

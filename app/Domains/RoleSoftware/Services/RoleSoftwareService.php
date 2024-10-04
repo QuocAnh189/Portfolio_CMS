@@ -28,7 +28,7 @@ class RoleSoftwareService
     public function updateRoleSoftware($updateRoleSoftwareDto, RoleSoftware $roleSoftware)
     {
         if (file_exists($updateRoleSoftwareDto['image'])) {
-            $updateRoleSoftwareDto['image'] = $this->uploadImage($updateRoleSoftwareDto['image'], 'roleSoftware');
+            $updateRoleSoftwareDto['image'] = $this->uploadImage($updateRoleSoftwareDto['image'], 'role-software');
         }
 
         return $this->roleSoftwareRepository->updateRoleSoftware($updateRoleSoftwareDto, $roleSoftware);

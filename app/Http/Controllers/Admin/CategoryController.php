@@ -8,11 +8,9 @@ use App\Domains\Category\Dto\UpdateCategoryDto;
 use App\Domains\Category\Models\Category;
 use App\Domains\Category\Services\CategoryService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Category\CategoryRequest;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Http\Requests\ChangeStatusRequest;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -29,8 +27,6 @@ class CategoryController extends Controller
     public function index(CategoryDataTable $dataTable)
     {
         return $dataTable->render('admin.category.index');
-        // $category = Category::withTrashed()->first();
-        // $category->restore();
     }
 
     /**

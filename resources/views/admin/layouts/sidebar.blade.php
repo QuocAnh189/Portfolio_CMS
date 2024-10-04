@@ -29,8 +29,8 @@
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['admin.majors.*']) }}">
+                <a class="nav-link" href="{{ route('admin.majors.index') }}">
                     <i class="fas fa-film"></i>
                     <span>Major</span>
                 </a>

@@ -2,13 +2,43 @@
 
 namespace App\Domains\Major\Services;
 
+use App\Domains\Major\Models\Major;
 use App\Domains\Major\Repositories\MajorRepository;
+use App\Models\Traits\UploadImage;
 
 class MajorService
 {
+    use UploadImage;
     private MajorRepository $majorRepository;
     public function __construct(MajorRepository $majorRepository)
     {
         $this->majorRepository = $majorRepository;
+    }
+
+    public function createMajor($createMajorDto)
+    {
+        if ($createMajorDto['image'] !== null) {
+            $createMajorDto['image'] = $this->uploadImage($createMajorDto['image'], 'major');
+        }
+        return $this->majorRepository->createMajor($createMajorDto);
+    }
+
+    public function updateMajor($updateMajorDto, Major $major)
+    {
+        if (file_exists($updateMajorDto['image'])) {
+            $updateMajorDto['image'] = $this->uploadImage($updateMajorDto['image'], 'major');
+        }
+
+        return $this->majorRepository->updateMajor($updateMajorDto, $major);
+    }
+
+    public function deleteMajor(Major $major)
+    {
+        return $this->majorRepository->deleteMajor($major);
+    }
+
+    public function changeStatusMajor($majorId, $status)
+    {
+        return $this->majorRepository->changeStatusMajor($majorId, $status);
     }
 }

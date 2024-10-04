@@ -26,8 +26,8 @@ Route::resource('categories', CategoryController::class);
 Route::put('role-softwares/change-status', [RoleSoftwareController::class, 'change_status'])->name('role-softwares.change-status');
 Route::resource('role-softwares', RoleSoftwareController::class);
 
-
 /**Major route */
+Route::put('majors/change-status', [MajorController::class, 'change_status'])->name('majors.change-status');
 Route::resource('majors', MajorController::class);
 
 /**Technology route */

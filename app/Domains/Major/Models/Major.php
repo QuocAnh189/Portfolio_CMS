@@ -13,6 +13,8 @@ class Major extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['image', 'name', 'description', 'status'];
+
     public $incrementing = false;
 
     protected $keyType = 'string';

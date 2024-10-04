@@ -16,9 +16,9 @@ class RoleSoftwareRepository
         return RoleSoftware::create($createRoleSoftwareDto);
     }
 
-    public function updateRoleSoftware($createRoleSoftwareDto, RoleSoftware $roleSoftware)
+    public function updateRoleSoftware($updateRoleSoftwareDto, RoleSoftware $roleSoftware)
     {
-        return $roleSoftware->update($createRoleSoftwareDto);
+        return $roleSoftware->update($updateRoleSoftwareDto);
     }
 
     public function deleteRoleSoftware(RoleSoftware $roleSoftware)
