@@ -17,6 +17,11 @@ class RoleSoftwareService
         $this->roleSoftwareRepository = $roleSoftwareRepository;
     }
 
+    public function getAllRoleSoftwares()
+    {
+        return $this->roleSoftwareRepository->findAll();
+    }
+
     public function createRoleSoftware($createRoleSoftwareDto)
     {
         if ($createRoleSoftwareDto['image'] !== null) {

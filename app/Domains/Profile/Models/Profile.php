@@ -2,6 +2,7 @@
 
 namespace App\Domains\Profile\Models;
 
+use App\Domains\RoleSoftware\Models\RoleSoftware;
 use App\Domains\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +39,11 @@ class Profile extends Model
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });
+    }
+
+    public function role_software(): BelongsTo
+    {
+        return $this->belongsTo(RoleSoftware::class);
     }
 
     public function user(): BelongsTo

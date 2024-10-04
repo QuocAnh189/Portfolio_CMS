@@ -36,7 +36,6 @@ class UpdateProfileDto
 
         return [
             'id' => $request->validated('id'),
-            'user_id' => $request->validated('user_id'),
             'upload' => $avatarPath,
             'avatar' => $avatarPath === null ? $profile->avatar : $avatarPath,
             'fullname' => $request->validated('fullname'),
@@ -49,6 +48,7 @@ class UpdateProfileDto
             'instagram_link' => $request->validated('instagram_link'),
             'resume_link' => $request->validated('resume_link'),
             'user' => [
+                'id' => $request->validated('user_id'),
                 'name' => $request->validated('name') ?? $profile->user->name,
                 'email' => $request->validated('email') ?? $profile->user->email,
             ]

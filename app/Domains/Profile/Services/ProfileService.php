@@ -2,55 +2,62 @@
 
 namespace App\Domains\Profile\Services;
 
+use App\Domains\Profile\Models\Profile;
 use App\Domains\Profile\Repositories\ProfileRepository;
 use App\Domains\RoleSoftware\Repositories\RoleSoftwareRepository;
+use App\Domains\User\Repositories\UserRepository;
 use App\Models\Traits\UploadImage;
 
 class ProfileService
 {
     use UploadImage;
     private ProfileRepository $profileRepository;
+    private UserRepository $userRepository;
+
     private RoleSoftwareRepository $roleSoftwareRepository;
-    public function __construct(ProfileRepository $profileRepository, RoleSoftwareRepository $roleSoftwareRepository)
+    public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, RoleSoftwareRepository $roleSoftwareRepository)
     {
         $this->profileRepository = $profileRepository;
+        $this->userRepository = $userRepository;
         $this->roleSoftwareRepository = $roleSoftwareRepository;
     }
 
-    public function getProfile($userId)
+    public function getProfileByUserId($userId)
     {
-        try {
-            $profile = $this->profileRepository->findProfileByUserId($userId);
-            $role_softwares = $this->roleSoftwareRepository->findAll();
+        $profile = $this->profileRepository->findProfileByUserId($userId);
 
-            return [
-                'profile' => $profile,
-                'role_softwares' => $role_softwares,
-            ];
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
-        }
+        return $profile;
     }
 
     public function updateProfile($updateProfileDto)
     {
-        try {
-            if ($updateProfileDto['upload'] !== null) {
-                $updateProfileDto['avatar'] = $this->uploadImage($updateProfileDto['upload'], 'user');
-            }
 
-            return $this->profileRepository->updateProfile($updateProfileDto);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
+        $user = $this->userRepository->updateUser($updateProfileDto['user']);
+
+        if ($updateProfileDto['upload'] !== null) {
+            $updateProfileDto['avatar'] = $this->uploadImage($updateProfileDto['upload'], 'user');
         }
+
+        $profile = $this->profileRepository->updateProfile($updateProfileDto);
+
+        return [
+            'user' => $user,
+            'profile' => $profile,
+        ];
     }
 
     public function updatePassword($updatePasswordDto)
     {
-        try {
-            return $this->profileRepository->updatePassword($updatePasswordDto);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
-        }
+        return $this->profileRepository->updatePassword($updatePasswordDto);
+    }
+
+    public function deleteProfile(Profile $profile)
+    {
+        return $this->profileRepository->deleteProfile($profile);
+    }
+
+    public function changeStatusProfileByUserId($userId, $status)
+    {
+        return $this->profileRepository->changeStatusProfileByUserId($userId, $status);
     }
 }
