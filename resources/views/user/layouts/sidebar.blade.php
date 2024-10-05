@@ -44,15 +44,15 @@
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['user.experiences.*']) }}">
+                <a class="nav-link" href="{{ route('user.experiences.index') }}">
                     <i class="fab fa-creative-commons-nd"></i>
                     <span>Experiences</span>
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['user.skills.*']) }}">
+                <a class="nav-link" href="{{ route('user.skills.index') }}">
                     <i class="fas fa-wind"></i>
                     <span>Skills</span>
                 </a>

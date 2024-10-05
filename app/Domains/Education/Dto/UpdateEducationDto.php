@@ -3,7 +3,6 @@
 namespace App\Domains\Education\Dto;
 
 use App\Domains\Education\Models\Education;
-use App\Http\Requests\Education\CreateEducationRequest;
 use App\Http\Requests\Education\UpdateEducationRequest;
 
 class UpdateEducationDto

@@ -14,7 +14,20 @@ class Experience extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public static array $levels = ['intern', 'fresher', 'middle', 'junior', 'senior', 'expert'];
+    protected $fillable = [
+        'user_id',
+        'role_software_id',
+        'company_name',
+        'job_title',
+        'job_description',
+        'level',
+        'is_current',
+        'start_date',
+        'end_date',
+        'status',
+    ];
+
+    public static array $levels = ['intern', 'fresher', 'junior', 'middle', 'senior', 'expert'];
 
     public $incrementing = false;
 

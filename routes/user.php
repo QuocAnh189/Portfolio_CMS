@@ -27,7 +27,8 @@ Route::resource('features', FeatureController::class);
 Route::resource('links', LinkController::class);
 
 /**Experience route */
-Route::resource('experience', ExperienceController::class);
+Route::put('experiences/change-status', [ExperienceController::class, 'change_status'])->name('experiences.change-status');
+Route::resource('experiences', ExperienceController::class);
 
 /**Skill route */
 Route::resource('skills', SkillController::class);
