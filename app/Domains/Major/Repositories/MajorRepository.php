@@ -3,12 +3,18 @@
 namespace App\Domains\Major\Repositories;
 
 use App\Domains\Major\Models\Major;
+use App\Enum\Status;
 
 class MajorRepository
 {
     public function __construct()
     {
         //
+    }
+
+    public function findAll()
+    {
+        return Major::where('status', operator: Status::Active)->orderBy('created_at', 'desc')->get();
     }
 
     public function createMajor($createMajorDto): Major

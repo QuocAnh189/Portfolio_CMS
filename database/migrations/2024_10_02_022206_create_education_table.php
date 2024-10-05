@@ -15,6 +15,8 @@ return new class extends Migration
         Schema::create('education', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users');
+            $table->string('logo');
+            $table->float('gpa');
             $table->string('university_name');
             $table->foreignUuid('major_id')->constrained('majors');
             $table->text('description');
@@ -22,8 +24,8 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->enum('status', Status::toArray())->default(Status::Active->value);
-
             $table->timestamps();
+
             $table->softDeletes();
         });
     }

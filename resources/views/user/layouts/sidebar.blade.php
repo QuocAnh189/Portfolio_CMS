@@ -58,8 +58,8 @@
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['user.education.*']) }}">
+                <a class="nav-link" href="{{ route('user.education.index') }}">
                     <i class="fas fa-school"></i>
                     <span>My Education</span>
                 </a>

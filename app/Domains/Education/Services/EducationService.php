@@ -2,14 +2,45 @@
 
 namespace App\Domains\Education\Services;
 
+use App\Domains\Education\Models\Education;
 use App\Domains\Education\Repositories\EducationRepository;
+use App\Models\Traits\UploadImage;
 
 
 class EducationService
 {
+    use UploadImage;
     private EducationRepository $educationRepository;
     public function __construct(EducationRepository $educationRepository)
     {
         $this->educationRepository = $educationRepository;
+    }
+
+    public function createEducation($createEducationDto)
+    {
+        if (file_exists(filename: $createEducationDto['logo'])) {
+            $createEducationDto['logo'] = $this->uploadImage($createEducationDto['logo'], 'education');
+        }
+
+        return $this->educationRepository->createEducation($createEducationDto);
+    }
+
+    public function updateEducation(Education $education, $updateEducationDto)
+    {
+        if (file_exists(filename: $updateEducationDto['logo'])) {
+            $updateEducationDto['logo'] = $this->uploadImage($updateEducationDto['logo'], 'education');
+        }
+
+        return $this->educationRepository->updateEducation($education, $updateEducationDto);
+    }
+
+    public function deleteEducation(Education $education)
+    {
+        return $this->educationRepository->deleteEducation($education);
+    }
+
+    public function changeStatusEducation($educationId, $status)
+    {
+        return $this->educationRepository->changeStatusEducation($educationId, $status);
     }
 }

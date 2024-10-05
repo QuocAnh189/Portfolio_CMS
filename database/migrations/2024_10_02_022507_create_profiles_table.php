@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users');
+            $table->foreignUuid('role_software_id')->nullable()->constrained('role_software');
             $table->string('resume_link')->nullable();
             $table->string('avatar')->nullable();
             $table->string('fullname')->nullable();

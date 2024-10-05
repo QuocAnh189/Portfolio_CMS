@@ -15,6 +15,11 @@ class MajorService
         $this->majorRepository = $majorRepository;
     }
 
+    public function getAllMajor()
+    {
+        return $this->majorRepository->findAll();
+    }
+
     public function createMajor($createMajorDto)
     {
         if ($createMajorDto['image'] !== null) {

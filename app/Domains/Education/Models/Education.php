@@ -14,6 +14,19 @@ class Education extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'user_id',
+        'major_id',
+        'gpa',
+        'logo',
+        'university_name',
+        'description',
+        'degree',
+        'start_date',
+        'end_date',
+        'status',
+    ];
+
     public $incrementing = false;
 
     protected $keyType = 'string';
