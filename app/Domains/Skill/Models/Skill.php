@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Technology\Models;
+namespace App\Domains\Skill\Models;
 
 use App\Domains\RoleSoftware\Models\RoleSoftware;
 use App\Domains\User\Models\User;
@@ -13,6 +13,13 @@ use Illuminate\Support\Str;
 class Skill extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'user_id',
+        'role_software_id',
+        'description',
+        'status',
+    ];
 
     public $incrementing = false;
 

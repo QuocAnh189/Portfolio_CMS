@@ -31,6 +31,7 @@ Route::put('experiences/change-status', [ExperienceController::class, 'change_st
 Route::resource('experiences', ExperienceController::class);
 
 /**Skill route */
+Route::put('skills/change-status', [SkillController::class, 'change_status'])->name('skills.change-status');
 Route::resource('skills', SkillController::class);
 
 /**Education route */
