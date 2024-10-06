@@ -1,19 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Project;
 
-use App\Domains\Project\Services\ProjectService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class ProjectLinkController extends Controller
 {
-    private ProjectService $projectService;
-
-    public function __construct(ProjectService $projectService)
-    {
-        $this->projectService = $projectService;
-    }
     /**
      * Display a listing of the resource.
      */
