@@ -8,13 +8,6 @@ use Illuminate\Http\Request;
 
 class FeatureController extends Controller
 {
-    private FeatureService $featureService;
-
-    public function __construct(FeatureService $featureService)
-    {
-        $this->featureService = $featureService;
-    }
-
     /**
      * Display a listing of the resource.
      */

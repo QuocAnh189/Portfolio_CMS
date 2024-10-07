@@ -16,6 +16,11 @@ class CategoryService
         $this->categoryRepository = $categoryRepository;
     }
 
+    public function getAllCategory()
+    {
+        return $this->categoryRepository->findAll();
+    }
+
     public function createCategory($createCategoryDto)
     {
         if ($createCategoryDto['image'] !== null) {

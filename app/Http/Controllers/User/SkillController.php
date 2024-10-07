@@ -15,15 +15,6 @@ use Illuminate\Http\Request;
 
 class SkillController extends Controller
 {
-    private SkillService $skillService;
-    private RoleSoftwareService $roleSoftwareService;
-
-    public function __construct(SkillService $skillService, RoleSoftwareService $roleSoftwareService)
-    {
-        $this->skillService = $skillService;
-        $this->roleSoftwareService = $roleSoftwareService;
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -35,21 +26,21 @@ class SkillController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(RoleSoftwareService $roleSoftwareService)
     {
-        $role_softwares = $this->roleSoftwareService->getAllRoleSoftwares();
+        $role_softwares = $roleSoftwareService->getAllRoleSoftwares();
         return view('user.skill.create', compact('role_softwares'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateSkillRequest $request)
+    public function store(SkillService $skillService, CreateSkillRequest $request)
     {
         try {
             $createSkillDto = CreateSkillDto::fromAppRequest($request);
 
-            $createdSkill = $this->skillService->createSkill($createSkillDto);
+            $createdSkill = $skillService->createSkill($createSkillDto);
 
             if ($createdSkill) {
                 flash()->option('position', 'top-center')->success('Create skill successfully.');
@@ -64,21 +55,21 @@ class SkillController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Skill $skill)
+    public function edit(RoleSoftwareService $roleSoftwareService, Skill $skill)
     {
-        $role_softwares = $this->roleSoftwareService->getAllRoleSoftwares();
+        $role_softwares = $roleSoftwareService->getAllRoleSoftwares();
         return view('user.skill.edit', compact('skill', 'role_softwares'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSkillRequest $request, Skill $skill)
+    public function update(SkillService $skillService, UpdateSkillRequest $request, Skill $skill)
     {
         try {
             $updateSkillDto = UpdateSkillDto::fromAppRequest($request);
 
-            $updatedSkill = $this->skillService->updateSkill($skill, $updateSkillDto);
+            $updatedSkill = $skillService->updateSkill($skill, $updateSkillDto);
 
             if ($updatedSkill) {
                 flash()->option('position', 'top-center')->success('Update skill successfully.');
@@ -93,10 +84,10 @@ class SkillController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Skill $skill)
+    public function destroy(SkillService $skillService, Skill $skill)
     {
         try {
-            $this->skillService->deleteSkill($skill);
+            $skillService->deleteSkill($skill);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
@@ -104,10 +95,10 @@ class SkillController extends Controller
         }
     }
 
-    public function change_status(Request $request)
+    public function change_status(SkillService $skillService, Request $request)
     {
         try {
-            $this->skillService->changeStatusSkill($request->id, $request->status);
+            $skillService->changeStatusSkill($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {

@@ -8,12 +8,6 @@ use Illuminate\Http\Request;
 
 class LinkController extends Controller
 {
-    private LinkService $featureService;
-
-    public function __construct(LinkService $featureService)
-    {
-        $this->featureService = $featureService;
-    }
     /**
      * Display a listing of the resource.
      */

@@ -20,6 +20,17 @@ class Project extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'user_id',
+        'category_id',
+        'cover_image',
+        'name',
+        'description',
+        'start_date',
+        'end_date',
+        'status',
+    ];
+
     public $incrementing = false;
 
     protected $keyType = 'string';

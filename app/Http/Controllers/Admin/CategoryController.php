@@ -14,13 +14,6 @@ use App\Http\Requests\ChangeStatusRequest;
 
 class CategoryController extends Controller
 {
-    private CategoryService $categoryService;
-
-    public function __construct(CategoryService $categoryService)
-    {
-        $this->categoryService = $categoryService;
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -40,11 +33,11 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateCategoryRequest $request)
+    public function store(CategoryService $categoryService, CreateCategoryRequest $request)
     {
         try {
             $createCategoryDto = CreateCategoryDto::fromAppRequest($request);
-            $createdCategory = $this->categoryService->createCategory($createCategoryDto);
+            $createdCategory = $categoryService->createCategory($createCategoryDto);
 
             if ($createdCategory) {
                 flash()->option('position', 'top-center')->success('Create category successfully.');
@@ -67,12 +60,12 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(CategoryService $categoryService, UpdateCategoryRequest $request, Category $category)
     {
         try {
             $updateCategoryDto = UpdateCategoryDto::fromAppRequest($request, $category);
 
-            $updatedCategory = $this->categoryService->updateCategory($updateCategoryDto, $category);
+            $updatedCategory = $categoryService->updateCategory($updateCategoryDto, $category);
 
             if ($updatedCategory) {
                 flash()->option('position', 'top-center')->success('Update category successfully.');
@@ -87,10 +80,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(CategoryService $categoryService, Category $category)
     {
         try {
-            $this->categoryService->deleteCategory($category);
+            $categoryService->deleteCategory($category);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
@@ -98,10 +91,10 @@ class CategoryController extends Controller
         }
     }
 
-    public function change_status(ChangeStatusRequest $request)
+    public function change_status(CategoryService $categoryService, ChangeStatusRequest $request)
     {
         try {
-            $this->categoryService->changeStatusCategory($request->id, $request->status);
+            $categoryService->changeStatusCategory($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {

@@ -12,7 +12,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Experience\CreateExperienceRequest;
 use App\Http\Requests\Experience\UpdateExperienceRequest;
-use Illuminate\Http\Request;
 
 class ExperienceController extends Controller
 {
@@ -37,21 +36,21 @@ class ExperienceController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(RoleSoftwareService $roleSoftwareService)
     {
-        $role_softwares = $this->roleSoftwareService->getAllRoleSoftwares();
+        $role_softwares = $roleSoftwareService->getAllRoleSoftwares();
         return view("user.experience.create", compact("role_softwares"));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateExperienceRequest $request)
+    public function store(ExperienceService $experienceService, CreateExperienceRequest $request)
     {
         try {
             $createExperienceDto = CreateExperienceDto::fromAppRequest($request);
 
-            $createdExperience = $this->experienceService->createExperiences($createExperienceDto);
+            $createdExperience = $experienceService->createExperiences($createExperienceDto);
 
             if ($createdExperience) {
                 flash()->option('position', 'top-center')->success('Create Experience successfully.');
@@ -66,21 +65,21 @@ class ExperienceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Experience $experience)
+    public function edit(RoleSoftwareService $roleSoftwareService, Experience $experience)
     {
-        $role_softwares = $this->roleSoftwareService->getAllRoleSoftwares();
+        $role_softwares = $roleSoftwareService->getAllRoleSoftwares();
         return view("user.experience.edit", compact("experience", "role_softwares"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateExperienceRequest $request, Experience $experience)
+    public function update(ExperienceService $experienceService, UpdateExperienceRequest $request, Experience $experience)
     {
         try {
             $updateExperiencesDto = UpdateExperienceDto::fromAppRequest($request);
 
-            $updatedExperiences = $this->experienceService->updateExperiences($experience, $updateExperiencesDto);
+            $updatedExperiences = $experienceService->updateExperiences($experience, $updateExperiencesDto);
 
             if ($updatedExperiences) {
                 flash()->option('position', 'top-center')->success('Update Experiences successfully.');
@@ -95,10 +94,10 @@ class ExperienceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Experience $experience)
+    public function destroy(ExperienceService $experienceService, Experience $experience)
     {
         try {
-            $this->experienceService->deleteExperiences($experience);
+            $experienceService->deleteExperiences($experience);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
@@ -106,10 +105,10 @@ class ExperienceController extends Controller
         }
     }
 
-    public function change_status(ChangeStatusRequest $request)
+    public function change_status(ExperienceService $experienceService, ChangeStatusRequest $request)
     {
         try {
-            $this->experienceService->changeStatusExperiences($request->id, $request->status);
+            $experienceService->changeStatusExperiences($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {

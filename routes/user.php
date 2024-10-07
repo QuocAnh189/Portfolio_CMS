@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
 
-
 /**Project route */
+Route::put('projects/change-status', [ProjectController::class, 'change_status'])->name('projects.change-status');
 Route::resource('projects', ProjectController::class);
 Route::resource('projects.galleries', ProjectGalleryController::class);
 Route::resource('projects.technologies', ProjectTechnologyController::class);

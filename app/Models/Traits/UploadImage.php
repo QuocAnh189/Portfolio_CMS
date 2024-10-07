@@ -5,13 +5,13 @@ namespace App\Models\Traits;
 
 trait UploadImage
 {
-    public function uploadImage($file, $folder)
+    public function uploadImage($file, $folder, $size = null)
     {
         $uploadedFileUrl = cloudinary()->upload($file->getRealPath(), [
             'folder' => 'portfolio/' . $folder,
             'transformation' => [
-                'width' => 500,
-                'height' => 500,
+                'width' => $size['width'] ? $size['width'] : 500,
+                'height' =>  $size['height'] ? $size['height'] : 500,
                 'crop' => 'fill'
             ]
         ])->getSecurePath();

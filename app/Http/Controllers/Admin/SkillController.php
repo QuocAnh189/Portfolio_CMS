@@ -8,13 +8,6 @@ use Illuminate\Http\Request;
 
 class SkillController extends Controller
 {
-    private SkillService $skillService;
-
-    public function __construct(SkillService $skillService)
-    {
-        $this->skillService = $skillService;
-    }
-
     /**
      * Display a listing of the resource.
      */

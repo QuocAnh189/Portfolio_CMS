@@ -11,6 +11,11 @@ class CategoryRepository
         //
     }
 
+    public function findAll()
+    {
+        return Category::where('status', 'active')->get();
+    }
+
     public function createCategory($createCategoryDto): Category
     {
         return Category::create($createCategoryDto);

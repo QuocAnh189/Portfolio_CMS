@@ -17,17 +17,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    private UserService $userService;
-    private ProfileService $profileService;
-    private RoleSoftwareService $roleSoftwareService;
-
-    public function __construct(UserService $userService, ProfileService $profileService, RoleSoftwareService $roleSoftwareService)
-    {
-        $this->userService = $userService;
-        $this->profileService = $profileService;
-        $this->roleSoftwareService = $roleSoftwareService;
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -39,9 +28,9 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(RoleSoftwareService $roleSoftwareService)
     {
-        $role_softwares = $this->roleSoftwareService->getAllRoleSoftwares();
+        $role_softwares = $roleSoftwareService->getAllRoleSoftwares();
 
         return view("admin.user.create", compact("role_softwares"));
     }
@@ -49,12 +38,12 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateUserRequest $request)
+    public function store(UserService $userService, CreateUserRequest $request)
     {
         try {
             $createUserDto = CreateUserDto::fromAppRequest($request);
 
-            $createdUser = $this->userService->createUser($createUserDto);
+            $createdUser = $userService->createUser($createUserDto);
 
             if ($createdUser) {
                 flash()->option('position', 'top-center')->success('Create user successfully.');
@@ -69,11 +58,11 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(ProfileService $profileService, RoleSoftwareService $roleSoftwareService, User $user)
     {
         try {
-            $profile = $this->profileService->getProfileByUserId($user->id);
-            $role_softwares = $this->roleSoftwareService->getAllRoleSoftwares();
+            $profile = $profileService->getProfileByUserId($user->id);
+            $role_softwares = $roleSoftwareService->getAllRoleSoftwares();
 
             return view('admin.user.edit', compact('profile', 'role_softwares'));
         } catch (\Exception $e) {
@@ -84,12 +73,12 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UserService $userService, UpdateUserRequest $request, User $user)
     {
         try {
             $updateUserDto = UpdateUserDto::fromAppRequest($request, $user->load('profile'));
 
-            $updatedUser = $this->userService->updateUser($updateUserDto);
+            $updatedUser = $userService->updateUser($updateUserDto);
 
             if ($updatedUser) {
                 flash()->option('position', 'top-center')->success('Update user successfully.');
@@ -104,12 +93,12 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($userService, ProfileService $profileService, User $user)
     {
         try {
-            $this->userService->deleteUser($user);
+            $userService->deleteUser($user);
 
-            $this->profileService->deleteProfile($user->profile);
+            $profileService->deleteProfile($user->profile);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
@@ -117,11 +106,11 @@ class UserController extends Controller
         }
     }
 
-    public function change_status(ChangeStatusRequest $request, User $user)
+    public function change_status($userService, ProfileService $profileService, ChangeStatusRequest $request)
     {
         try {
-            $this->userService->changeStatusUser($request->id, $request->status);
-            $this->profileService->changeStatusProfileByUserId($request->id, $request->status);
+            $userService->changeStatusUser($request->id, $request->status);
+            $profileService->changeStatusProfileByUserId($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {

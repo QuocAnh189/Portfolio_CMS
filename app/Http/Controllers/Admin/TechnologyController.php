@@ -15,13 +15,6 @@ use Illuminate\Http\Request;
 
 class TechnologyController extends Controller
 {
-    private TechnologyService $technologyService;
-
-    public function __construct(TechnologyService $technologyService)
-    {
-        $this->technologyService = $technologyService;
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -41,12 +34,12 @@ class TechnologyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateTechnologyRequest $request)
+    public function store(TechnologyService $technologyService, CreateTechnologyRequest $request)
     {
         try {
             $createTechnologyDto = CreateTechnologyDto::fromAppRequest($request);
 
-            $createdTechnology = $this->technologyService->createTechnology($createTechnologyDto);
+            $createdTechnology = $technologyService->createTechnology($createTechnologyDto);
 
             if ($createdTechnology) {
                 flash()->option('position', 'top-center')->success('Create technology successfully.');
@@ -70,12 +63,12 @@ class TechnologyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTechnologyRequest $request, Technology $technology)
+    public function update(TechnologyService $technologyService, UpdateTechnologyRequest $request, Technology $technology)
     {
         try {
             $updateTechnologyDto = UpdateTechnologyDto::fromAppRequest($request, $technology);
 
-            $updatedTechnology = $this->technologyService->updateTechnology($updateTechnologyDto, $technology);
+            $updatedTechnology = $technologyService->updateTechnology($updateTechnologyDto, $technology);
 
             if ($updatedTechnology) {
                 flash()->option('position', 'top-center')->success('Update technology successfully.');
@@ -90,10 +83,10 @@ class TechnologyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Technology $technology)
+    public function destroy(TechnologyService $technologyService, Technology $technology)
     {
         try {
-            $this->technologyService->deleteTechnology($technology);
+            $technologyService->deleteTechnology($technology);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
@@ -101,10 +94,10 @@ class TechnologyController extends Controller
         }
     }
 
-    public function change_status(ChangeStatusRequest $request)
+    public function change_status(TechnologyService $technologyService, ChangeStatusRequest $request)
     {
         try {
-            $this->technologyService->changeStatusTechnology($request->id, $request->status);
+            $technologyService->changeStatusTechnology($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {

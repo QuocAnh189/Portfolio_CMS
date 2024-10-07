@@ -8,13 +8,6 @@ use Illuminate\Http\Request;
 
 class EducationController extends Controller
 {
-    private EducationService $educationService;
-
-    public function __construct(EducationService $educationService)
-    {
-        $this->educationService = $educationService;
-    }
-
     /**
      * Display a listing of the resource.
      */

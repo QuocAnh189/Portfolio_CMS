@@ -8,13 +8,6 @@ use Illuminate\Http\Request;
 
 class ExperienceController extends Controller
 {
-    private ExperienceService $experienceService;
-
-    public function __construct(ExperienceService $experienceService)
-    {
-        $this->experienceService = $experienceService;
-    }
-
     /**
      * Display a listing of the resource.
      */

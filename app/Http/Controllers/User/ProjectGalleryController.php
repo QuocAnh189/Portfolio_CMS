@@ -8,12 +8,6 @@ use Illuminate\Http\Request;
 
 class ProjectGalleryController extends Controller
 {
-    private ProjectService $projectService;
-
-    public function __construct(ProjectService $projectService)
-    {
-        $this->projectService = $projectService;
-    }
     /**
      * Display a listing of the resource.
      */

@@ -15,13 +15,6 @@ use Illuminate\Http\Request;
 
 class RoleSoftwareController extends Controller
 {
-    private RoleSoftwareService $roleSoftwareService;
-
-    public function __construct(RoleSoftwareService $roleSoftwareService)
-    {
-        $this->roleSoftwareService = $roleSoftwareService;
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -41,12 +34,12 @@ class RoleSoftwareController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateRoleSoftwareRequest $request)
+    public function store(RoleSoftwareService $roleSoftwareService, CreateRoleSoftwareRequest $request)
     {
         try {
             $createRoleSoftwareDto = CreateRoleSoftwareDto::fromAppRequest($request);
 
-            $createdRoleSoftware = $this->roleSoftwareService->createRoleSoftware($createRoleSoftwareDto);
+            $createdRoleSoftware = $roleSoftwareService->createRoleSoftware($createRoleSoftwareDto);
 
             if ($createdRoleSoftware) {
                 flash()->option('position', 'top-center')->success('Create roleSoftware successfully.');
@@ -69,12 +62,12 @@ class RoleSoftwareController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRoleSoftwareRequest $request, RoleSoftware $roleSoftware)
+    public function update(RoleSoftwareService $roleSoftwareService, UpdateRoleSoftwareRequest $request, RoleSoftware $roleSoftware)
     {
         try {
             $updateRoleSoftwareDto = UpdateRoleSoftwareDto::fromAppRequest($request, $roleSoftware);
 
-            $updatedRoleSoftware = $this->roleSoftwareService->updateRoleSoftware($updateRoleSoftwareDto, $roleSoftware);
+            $updatedRoleSoftware = $roleSoftwareService->updateRoleSoftware($updateRoleSoftwareDto, $roleSoftware);
 
             if ($updatedRoleSoftware) {
                 flash()->option('position', 'top-center')->success('Update rolesoftware successfully.');
@@ -89,10 +82,10 @@ class RoleSoftwareController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RoleSoftware $roleSoftware)
+    public function destroy(RoleSoftwareService $roleSoftwareService, RoleSoftware $roleSoftware)
     {
         try {
-            $this->roleSoftwareService->deleteRoleSoftware($roleSoftware);
+            $roleSoftwareService->deleteRoleSoftware($roleSoftware);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
@@ -103,10 +96,10 @@ class RoleSoftwareController extends Controller
     /**
      * Change status
      */
-    public function change_status(ChangeStatusRequest $request)
+    public function change_status(RoleSoftwareService $roleSoftwareService, ChangeStatusRequest $request)
     {
         try {
-            $this->roleSoftwareService->changeStatusRoleSoftware($request->id, $request->status);
+            $roleSoftwareService->changeStatusRoleSoftware($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {

@@ -15,12 +15,6 @@ use Illuminate\Http\Request;
 
 class MajorController extends Controller
 {
-    private MajorService $majorService;
-
-    public function __construct(MajorService $majorService)
-    {
-        $this->majorService = $majorService;
-    }
     /**
      * Display a listing of the resource.
      */
@@ -40,11 +34,11 @@ class MajorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateMajorRequest $request)
+    public function store(MajorService $majorService, CreateMajorRequest $request)
     {
         try {
             $createMajorDto = CreateMajorDto::fromAppRequest($request);
-            $createdMajor = $this->majorService->createMajor($createMajorDto);
+            $createdMajor = $majorService->createMajor($createMajorDto);
 
             if ($createdMajor) {
                 flash()->option('position', 'top-center')->success('Create major successfully.');
@@ -67,12 +61,12 @@ class MajorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMajorRequest $request, Major $major)
+    public function update(MajorService $majorService, UpdateMajorRequest $request, Major $major)
     {
         try {
             $updateMajorDto = UpdateMajorDto::fromAppRequest($request, $major);
 
-            $updatedMajor = $this->majorService->updateMajor($updateMajorDto, $major);
+            $updatedMajor = $majorService->updateMajor($updateMajorDto, $major);
 
             if ($updatedMajor) {
                 flash()->option('position', 'top-center')->success('Update major successfully.');
@@ -87,10 +81,10 @@ class MajorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Major $major)
+    public function destroy(MajorService $majorService, Major $major)
     {
         try {
-            $this->majorService->deleteMajor($major);
+            $majorService->deleteMajor($major);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
@@ -101,10 +95,10 @@ class MajorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function change_status(ChangeStatusRequest $request)
+    public function change_status(MajorService $majorService, ChangeStatusRequest $request)
     {
         try {
-            $this->majorService->changeStatusMajor($request->id, $request->status);
+            $majorService->changeStatusMajor($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
