@@ -19,7 +19,7 @@ class EducationService
     public function createEducation($createEducationDto)
     {
         if (file_exists(filename: $createEducationDto['logo'])) {
-            $createEducationDto['logo'] = $this->uploadImage($createEducationDto['logo'], 'education');
+            $createEducationDto['logo'] = $this->uploadImage($createEducationDto['logo'], 'education', ['width' => 300, 'height' => 300]);
         }
 
         return $this->educationRepository->createEducation($createEducationDto);
@@ -28,7 +28,7 @@ class EducationService
     public function updateEducation(Education $education, $updateEducationDto)
     {
         if (file_exists(filename: $updateEducationDto['logo'])) {
-            $updateEducationDto['logo'] = $this->uploadImage($updateEducationDto['logo'], 'education');
+            $updateEducationDto['logo'] = $this->uploadImage($updateEducationDto['logo'], 'education', ['width' => 300, 'height' => 300]);
         }
 
         return $this->educationRepository->updateEducation($education, $updateEducationDto);

@@ -34,8 +34,8 @@ class ProfileService
 
         $user = $this->userRepository->updateUser($updateProfileDto['user']);
 
-        if ($updateProfileDto['upload'] !== null) {
-            $updateProfileDto['avatar'] = $this->uploadImage($updateProfileDto['upload'], 'user');
+        if (file_exists($updateProfileDto['upload'])) {
+            $updateProfileDto['avatar'] = $this->uploadImage($updateProfileDto['upload'], 'user', ['width' => 300, 'height' => 300]);
         }
 
         $profile = $this->profileRepository->updateProfile($updateProfileDto);

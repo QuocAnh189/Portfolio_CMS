@@ -24,8 +24,8 @@ class UserService
         if ($user) {
             $createUserDto['profile']['user_id'] = (string) $user->id;
 
-            if ($createUserDto['profile']['avatar'] !== null) {
-                $createUserDto['profile']['avatar'] = $this->uploadImage($createUserDto['profile']['avatar'], 'user');
+            if (file_exists($createUserDto['profile']['avatar'])) {
+                $createUserDto['profile']['avatar'] = $this->uploadImage($createUserDto['profile']['avatar'], 'user', ['width' => 300, 'height' => 300]);
             }
 
             $profile = $this->profileRepository->createProfile($createUserDto['profile']);
@@ -42,7 +42,7 @@ class UserService
         $user = $this->userRepository->updateUser($updateUserDto['user']);
 
         if (file_exists($updateUserDto['profile']['avatar'])) {
-            $updateUserDto['profile']['avatar'] = $this->uploadImage($updateUserDto['profile']['avatar'], 'user');
+            $updateUserDto['profile']['avatar'] = $this->uploadImage($updateUserDto['profile']['avatar'], 'user', ['width' => 300, 'height' => 300]);
         }
 
         $profile = $this->profileRepository->updateProfile($updateUserDto['profile']);

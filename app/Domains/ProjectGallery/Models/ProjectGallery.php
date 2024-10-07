@@ -13,6 +13,12 @@ class ProjectGallery extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'project_id',
+        'image',
+        'status',
+    ];
+
     public $incrementing = false;
 
     protected $keyType = 'string';

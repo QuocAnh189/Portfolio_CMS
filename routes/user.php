@@ -10,6 +10,7 @@ use App\Http\Controllers\User\Project\ProjectGalleryController;
 use App\Http\Controllers\User\Project\ProjectLinkController;
 use App\Http\Controllers\User\Project\ProjectFeatureController;
 use App\Http\Controllers\User\Project\ProjectTechnologyController;
+use App\Http\Controllers\User\ProjectGalleryController as GalleryController;
 use App\Http\Controllers\User\SkillController;
 use App\Http\Controllers\User\UserDashboardController;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,8 @@ Route::resource('projects.features', ProjectFeatureController::class);
 Route::resource('projects.links', ProjectLinkController::class);
 
 /**Project Gallery route */
-Route::resource('project-galleries', ProjectGalleryController::class);
+Route::put('project-galleries/change-status', [GalleryController::class, 'change_status'])->name('project-galleries.change-status');
+Route::resource('project-galleries', GalleryController::class);
 
 /**Feature route */
 Route::put('features/change-status', [FeatureController::class, 'change_status'])->name('features.change-status');

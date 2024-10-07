@@ -2,69 +2,41 @@
 
 namespace App\Http\Controllers\User\Project;
 
+use App\DataTables\User\Project\ProjectGalleryDataTable;
+use App\Domains\Project\Models\Project;
+use App\Domains\ProjectGallery\Dto\CreateProjectGalleryDto;
+use App\Domains\ProjectGallery\Models\ProjectGallery;
+use App\Domains\ProjectGallery\Services\ProjectGalleryService;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Gallery\CreateProjectGalleryRequest;
 
 class ProjectGalleryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Project $project, ProjectGallery $projectGallery)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $datatable = new ProjectGalleryDataTable($project);
+        return $datatable->render('user.project.gallery.index', compact('project', 'projectGallery'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProjectGalleryService $galleryService, CreateProjectGalleryRequest $request, Project $project)
     {
-        //
-    }
+        try {
+            $createGalleryDto = CreateProjectGalleryDto::fromAppRequest($request);
+            $createdGallery = $galleryService->createProjectGallery($createGalleryDto);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+            if ($createdGallery) {
+                flash()->option('position', 'top-center')->success('Create gallery successfully.');
+            }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
-    public function change_status()
-    {
-        //
+            return redirect()->route('user.projects.galleries.index', $project);
+        } catch (\Exception $e) {
+            flash()->option('position', 'top-center')->error($e->getMessage());
+        }
     }
 }

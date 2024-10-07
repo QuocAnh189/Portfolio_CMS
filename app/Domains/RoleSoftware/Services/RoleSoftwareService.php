@@ -24,8 +24,8 @@ class RoleSoftwareService
 
     public function createRoleSoftware($createRoleSoftwareDto)
     {
-        if ($createRoleSoftwareDto['image'] !== null) {
-            $createRoleSoftwareDto['image'] = $this->uploadImage($createRoleSoftwareDto['image'], 'role-software');
+        if (file_exists($createRoleSoftwareDto['image'])) {
+            $createRoleSoftwareDto['image'] = $this->uploadImage($createRoleSoftwareDto['image'], 'role-software', ['width' => 300, 'height' => 300]);
         }
         return $this->roleSoftwareRepository->createRoleSoftware($createRoleSoftwareDto);
     }
@@ -33,7 +33,7 @@ class RoleSoftwareService
     public function updateRoleSoftware($updateRoleSoftwareDto, RoleSoftware $roleSoftware)
     {
         if (file_exists($updateRoleSoftwareDto['image'])) {
-            $updateRoleSoftwareDto['image'] = $this->uploadImage($updateRoleSoftwareDto['image'], 'role-software');
+            $updateRoleSoftwareDto['image'] = $this->uploadImage($updateRoleSoftwareDto['image'], 'role-software', ['width' => 300, 'height' => 300]);
         }
 
         return $this->roleSoftwareRepository->updateRoleSoftware($updateRoleSoftwareDto, $roleSoftware);

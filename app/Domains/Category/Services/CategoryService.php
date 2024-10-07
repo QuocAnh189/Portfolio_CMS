@@ -23,8 +23,8 @@ class CategoryService
 
     public function createCategory($createCategoryDto)
     {
-        if ($createCategoryDto['image'] !== null) {
-            $createCategoryDto['image'] = $this->uploadImage($createCategoryDto['image'], 'category');
+        if (file_exists($createCategoryDto['image'])) {
+            $createCategoryDto['image'] = $this->uploadImage($createCategoryDto['image'], 'category', ['width' => 300, 'height' => 300]);
         }
         return $this->categoryRepository->createCategory($createCategoryDto);
     }
@@ -32,7 +32,7 @@ class CategoryService
     public function updateCategory($updateCategoryDto, Category $category)
     {
         if (file_exists($updateCategoryDto['image'])) {
-            $updateCategoryDto['image'] = $this->uploadImage($updateCategoryDto['image'], 'category');
+            $updateCategoryDto['image'] = $this->uploadImage($updateCategoryDto['image'], 'category', ['width' => 300, 'height' => 300]);
         }
 
         return $this->categoryRepository->updateCategory($updateCategoryDto, $category);

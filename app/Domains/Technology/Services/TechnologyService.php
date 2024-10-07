@@ -18,8 +18,8 @@ class TechnologyService
 
     public function createTechnology($createTechnologyDto)
     {
-        if ($createTechnologyDto['image'] !== null) {
-            $createTechnologyDto['image'] = $this->uploadImage($createTechnologyDto['image'], 'technology');
+        if (file_exists($createTechnologyDto['image'])) {
+            $createTechnologyDto['image'] = $this->uploadImage($createTechnologyDto['image'], 'technology', ['width' => 300, 'height' => 300]);
         }
         return $this->technologyRepository->createTechnology($createTechnologyDto);
     }
@@ -27,7 +27,7 @@ class TechnologyService
     public function updateTechnology($updateTechnologyDto, Technology $technology)
     {
         if (file_exists($updateTechnologyDto['image'])) {
-            $updateTechnologyDto['image'] = $this->uploadImage($updateTechnologyDto['image'], 'technology');
+            $updateTechnologyDto['image'] = $this->uploadImage($updateTechnologyDto['image'], 'technology', ['width' => 300, 'height' => 300]);
         }
 
         return $this->technologyRepository->updateTechnology($updateTechnologyDto, $technology);
