@@ -67,7 +67,7 @@ class ProjectFeatureController extends Controller
         try {
             $updateFeatureDto = UpdateFeatureDto::fromAppRequest($request);
 
-            $updateFeature = $featureService->updateFeature($updateFeatureDto, $feature);
+            $updateFeature = $featureService->updateFeature($feature,  $updateFeatureDto);
 
             if ($updateFeature) {
                 flash()->option('position', 'top-center')->success('Update feature successfully.');

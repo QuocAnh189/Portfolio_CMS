@@ -23,9 +23,9 @@ class FeatureService
         return $this->featureRepository->createFeature($createFeatureDto);
     }
 
-    public function updateFeature($updateFeatureDto, Feature $feature)
+    public function updateFeature(Feature $feature, $updateFeatureDto)
     {
-        return $this->featureRepository->updateFeature($updateFeatureDto, $feature);
+        return $this->featureRepository->updateFeature($feature, $updateFeatureDto);
     }
 
     public function deleteFeature(Feature $feature)

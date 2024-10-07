@@ -66,7 +66,7 @@ class ProjectLinkController extends Controller
     {
         try {
             $updateLinkDto = UpdateLinkDto::fromAppRequest($request);
-            $updateLink = $linkService->updateLink($updateLinkDto, $link);
+            $updateLink = $linkService->updateLink($link, $updateLinkDto);
 
             if ($updateLink) {
                 flash()->option('position', 'top-center')->success('Update link successfully.');

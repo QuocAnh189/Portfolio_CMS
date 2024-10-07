@@ -21,7 +21,7 @@ class FeatureRepository
         return Feature::create($createFeatureDto);
     }
 
-    public function updateFeature($updateFeatureDto, Feature $feature)
+    public function updateFeature(Feature $feature, $updateFeatureDto)
     {
         return $feature->update($updateFeatureDto);
     }
