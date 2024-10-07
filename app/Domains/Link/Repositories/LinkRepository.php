@@ -21,7 +21,7 @@ class LinkRepository
         return Link::create($createLinkDto);
     }
 
-    public function updateLink($updateLinkDto, Link $link)
+    public function updateLink(Link $link, $updateLinkDto)
     {
         return $link->update($updateLinkDto);
     }

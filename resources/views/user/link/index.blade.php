@@ -3,19 +3,15 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Project Links</h1>
-        </div>
-        <div class="mb-3">
-            <a class="btn btn-primary" href="{{ route('user.projects.index') }}">Back</a>
+            <h1>All Link</h1>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>{{ $project->name }}</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-primary" href="{{ route('user.projects.links.create', $project) }}">
+                                <a class="btn btn-primary" href="{{ route('user.links.create') }}">
                                     <i class="fas fa-plus"></i>
                                     Create New
                                 </a>

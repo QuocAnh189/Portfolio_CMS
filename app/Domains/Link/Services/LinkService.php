@@ -23,9 +23,9 @@ class LinkService
         return $this->linkRepository->createLink($createLinkDto);
     }
 
-    public function updateLink($updateLinkDto, Link $link)
+    public function updateLink(Link $link, $updateLinkDto)
     {
-        return $this->linkRepository->updateLink($updateLinkDto, $link);
+        return $this->linkRepository->updateLink($link, $updateLinkDto);
     }
 
     public function deleteLink(Link $link)
