@@ -13,6 +13,13 @@ class Link extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'project_id',
+        'title',
+        'url',
+        'status'
+    ];
+
     public static array $title = ['github', 'demo'];
     public $incrementing = false;
 
