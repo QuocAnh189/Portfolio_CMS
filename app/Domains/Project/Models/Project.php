@@ -2,7 +2,7 @@
 
 namespace App\Domains\Project\Models;
 
-use App\Domain\Feature\Models\Feature;
+use App\Domains\Feature\Models\Feature;
 use App\Domains\Category\Models\Category;
 use App\Domains\Link\Models\Link;
 use App\Domains\ProjectGallery\Models\ProjectGallery;

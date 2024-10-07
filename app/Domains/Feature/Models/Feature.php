@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Feature\Models;
+namespace App\Domains\Feature\Models;
 
 use App\Domains\Project\Models\Project;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,6 +12,12 @@ use Illuminate\Support\Str;
 class Feature extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'project_id',
+        'name',
+        'status',
+    ];
 
     public $incrementing = false;
 

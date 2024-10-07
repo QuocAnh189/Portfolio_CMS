@@ -28,6 +28,7 @@ Route::resource('projects.links', ProjectLinkController::class);
 Route::resource('project-galleries', ProjectGalleryController::class);
 
 /**Feature route */
+Route::put('features/change-status', [FeatureController::class, 'change_status'])->name('features.change-status');
 Route::resource('features', FeatureController::class);
 
 /**Link route */

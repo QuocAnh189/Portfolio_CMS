@@ -62,4 +62,9 @@ class ProjectGalleryController extends Controller
     {
         //
     }
+
+    public function change_status()
+    {
+        //
+    }
 }
