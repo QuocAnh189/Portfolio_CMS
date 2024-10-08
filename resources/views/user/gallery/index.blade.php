@@ -3,27 +3,39 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Project Gallery</h1>
+            <h1>Galleries</h1>
         </div>
         <div class="mb-3">
-            <a class="btn btn-primary" href="{{ route('user.projects.index') }}">Back</a>
+            <a class="btn btn-primary" href="{{ route('user.project-galleries.index') }}">Back</a>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Project: {{ $project->name }}</h4>
+                            <h4>Upload Gallery</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('user.projects.galleries.store', [$project, $projectGallery]) }}"
-                                enctype="multipart/form-data" method="POST">
+                            <form action="{{ route('user.project-galleries.store') }}" enctype="multipart/form-data"
+                                method="POST">
                                 @csrf
                                 <div class="row">
-                                    <div class="form-group col-6">
-                                        <input class="d-none" name="project_id" type="hidden" value="{{ $project->id }}">
+                                    <div class="form-group col-12">
                                         <label for="">Image</label>
                                         <input class="form-control" multiple name="image" type="file">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="inputState">Project</label>
+                                        <select class="form-control" id="project_id" name="project_id">
+                                            <option value="">None</option>
+                                            @forelse (Auth::user()->projects as $project)
+                                                <option value="{{ $project->id }}">
+                                                    {{ $project->name }}
+                                                </option>
+                                            @empty
+                                                No Project
+                                            @endforelse
+                                        </select>
                                     </div>
                                     <div class="form-group col-6">
                                         <label for="inputState">Status</label>

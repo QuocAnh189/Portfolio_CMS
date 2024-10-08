@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
+use App\DataTables\User\GalleryDataTable;
 use App\Domains\Project\Services\ProjectService;
+use App\Domains\ProjectGallery\Dto\CreateProjectGalleryDto;
 use App\Domains\ProjectGallery\Models\ProjectGallery;
 use App\Domains\ProjectGallery\Services\ProjectGalleryService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
+use App\Http\Requests\Gallery\CreateProjectGalleryRequest;
 use Illuminate\Http\Request;
 
 class ProjectGalleryController extends Controller
@@ -14,49 +17,28 @@ class ProjectGalleryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(GalleryDataTable $dataTable)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return $dataTable->render('user.gallery.index');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProjectGalleryService $projectGalleryService, CreateProjectGalleryRequest $request)
     {
-        //
-    }
+        try {
+            $createGalleryDto = CreateProjectGalleryDto::fromAppRequest($request);
+            $projectGalleryService->createProjectGallery($createGalleryDto);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+            if ($createGalleryDto) {
+                flash()->option('position', 'top-center')->success('Create gallery successfully.');
+            }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+            return redirect()->route('user.project-galleries.index');
+        } catch (\Exception $e) {
+            flash()->option('position', 'top-center')->error($e->getMessage());
+        }
     }
 
     /**

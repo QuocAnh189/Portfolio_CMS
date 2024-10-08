@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('links', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('project_id')->constrained('projects');
-            $table->enum('title', Link::$title);
+            $table->string('title');
             $table->string('url')->nullable();
             $table->enum('status', Status::toArray())->default(Status::Active->value);
 
