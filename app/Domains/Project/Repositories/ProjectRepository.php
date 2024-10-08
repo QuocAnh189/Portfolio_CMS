@@ -3,12 +3,13 @@
 namespace App\Domains\Project\Repositories;
 
 use App\Domains\Project\Models\Project;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectRepository
 {
-    public function __construct()
+    public function countProjectOfUser()
     {
-        //
+        return Project::where('user_id', Auth::id())->count();
     }
 
     public function findAll()

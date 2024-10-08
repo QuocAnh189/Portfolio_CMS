@@ -3,14 +3,17 @@
 namespace App\Domains\ProjectGallery\Repositories;
 
 use App\Domains\ProjectGallery\Models\ProjectGallery;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectGalleryRepository
 {
-    public function __construct()
+    public function countGalleryOfUser()
     {
-        //
+        $userId = Auth::id();
+        return ProjectGallery::whereHas('project', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->count();
     }
-
     public function findAll()
     {
         return ProjectGallery::where('status', 'active')->get();

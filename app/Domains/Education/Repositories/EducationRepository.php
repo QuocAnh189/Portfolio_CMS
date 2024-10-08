@@ -3,12 +3,13 @@
 namespace App\Domains\Education\Repositories;
 
 use App\Domains\Education\Models\Education;
+use Illuminate\Support\Facades\Auth;
 
 class EducationRepository
 {
-    public function __construct()
+    public function countEducationByUserId()
     {
-        //
+        return Education::where('user_id', Auth::id())->count();
     }
 
     public function createEducation($createEducationDto)

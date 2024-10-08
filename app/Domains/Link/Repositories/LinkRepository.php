@@ -3,12 +3,16 @@
 namespace App\Domains\Link\Repositories;
 
 use App\Domains\Link\Models\Link;
+use Illuminate\Support\Facades\Auth;
 
 class LinkRepository
 {
-    public function __construct()
+    public function countLinkOfUser()
     {
-        //
+        $userId = Auth::id();
+        return Link::whereHas('project', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->count();
     }
 
     public function findAll()

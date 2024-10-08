@@ -65,7 +65,7 @@ class EducationDataTable extends DataTable
      */
     public function query(Education $model): QueryBuilder
     {
-        return $model->newQuery()->where('user_id', Auth::user()->id);
+        return $model->newQuery()->where('user_id', Auth::id());
     }
 
     /**

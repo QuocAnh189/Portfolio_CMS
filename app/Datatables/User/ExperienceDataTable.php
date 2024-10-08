@@ -62,7 +62,7 @@ class ExperienceDataTable extends DataTable
      */
     public function query(Experience $model): QueryBuilder
     {
-        return $model->newQuery()->where('user_id', Auth::user()->id);
+        return $model->newQuery()->where('user_id', Auth::id());
     }
 
     /**

@@ -15,6 +15,11 @@ class SkillService
         $this->skillRepository = $skillRepository;
     }
 
+    public function countSkillOfUser()
+    {
+        return $this->skillRepository->countSkillByUserId();
+    }
+
     public function createSkill($createSkillDto)
     {
         return $this->skillRepository->createSkill($createSkillDto);

@@ -16,6 +16,11 @@ class EducationService
         $this->educationRepository = $educationRepository;
     }
 
+    public function countEducationOfUser()
+    {
+        return $this->educationRepository->countEducationByUserId();
+    }
+
     public function createEducation($createEducationDto)
     {
         if (file_exists(filename: $createEducationDto['logo'])) {

@@ -18,7 +18,7 @@
                                 @csrf
                                 <div class="row">
                                     <input class="form-control d-none" name="user_id" type="text"
-                                        value="{{ Auth::user()->id }}">
+                                        value="{{ Auth::id() }}">
                                     <div class="form-group col-md-6 col-12">
                                         <label>Company</label>
                                         <input class="form-control" name="company_name" type="text">

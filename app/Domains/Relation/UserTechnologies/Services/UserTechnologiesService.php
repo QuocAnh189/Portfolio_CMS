@@ -15,6 +15,11 @@ class UserTechnologiesService
         $this->userTechnologiesRepository = $userTechnologiesRepository;
     }
 
+    public function countTechnologiesOfUser()
+    {
+        return $this->userTechnologiesRepository->countTechnologiesOfUser();
+    }
+
     public function getAllUserTechnologies()
     {
         return $this->userTechnologiesRepository->findAll();

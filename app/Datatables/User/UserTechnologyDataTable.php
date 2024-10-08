@@ -65,7 +65,7 @@ class UserTechnologyDataTable extends DataTable
      */
     public function query(UserTechnologies $model): QueryBuilder
     {
-        return $model->newQuery()->with('technology')->where('user_id', Auth::user()->id);
+        return $model->newQuery()->with('technology')->where('user_id', Auth::id());
     }
 
     /**

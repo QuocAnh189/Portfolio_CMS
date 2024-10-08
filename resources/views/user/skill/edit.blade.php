@@ -20,7 +20,7 @@
                                 @csrf
                                 <div class="row">
                                     <input class="form-control d-none" name="user_id" type="text"
-                                        value="{{ Auth::user()->id }}">
+                                        value="{{ Auth::id() }}">
                                     <div class="form-group col-12">
                                         <label>Description</label>
                                         <input class="form-control" name="description" type="text"

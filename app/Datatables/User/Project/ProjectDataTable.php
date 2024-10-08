@@ -76,7 +76,7 @@ class ProjectDataTable extends DataTable
      */
     public function query(Project $model): QueryBuilder
     {
-        return $model->newQuery()->with('category')->where('user_id', Auth::user()->id);
+        return $model->newQuery()->with('category')->where('user_id', Auth::id());
     }
 
     /**

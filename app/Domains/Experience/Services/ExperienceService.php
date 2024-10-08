@@ -13,6 +13,11 @@ class ExperienceService
         $this->experienceRepository = $experienceRepository;
     }
 
+    public function countExperienceOfUser()
+    {
+        return $this->experienceRepository->countExperienceByUserId();
+    }
+
     public function createExperiences($createExperiencesDto)
     {
         return $this->experienceRepository->createExperience($createExperiencesDto);

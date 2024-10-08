@@ -3,12 +3,13 @@
 namespace App\Domains\Skill\Repositories;
 
 use App\Domains\Skill\Models\Skill;
+use Illuminate\Support\Facades\Auth;
 
 class SkillRepository
 {
-    public function __construct()
+    public function countSkillByUserId()
     {
-        //
+        return Skill::where('user_id', Auth::id())->count();
     }
 
     public function createSkill($createSkillDto): Skill

@@ -13,6 +13,11 @@ class FeatureService
         $this->featureRepository = $featureRepository;
     }
 
+    public function countFeatureOfUser()
+    {
+        return $this->featureRepository->countFeatureOfUser();
+    }
+
     public function getAllFeature()
     {
         return $this->featureRepository->findAll();

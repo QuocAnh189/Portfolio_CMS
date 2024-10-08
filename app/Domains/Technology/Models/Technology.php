@@ -2,7 +2,7 @@
 
 namespace App\Domains\Technology\Models;
 
-use App\Domains\Relation\Models\UserTechnologies;
+use App\Domains\Relation\UserTechnologies\Models\UserTechnologies;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

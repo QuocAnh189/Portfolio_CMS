@@ -13,6 +13,11 @@ class LinkService
         $this->linkRepository = $linkRepository;
     }
 
+    public function countLinkOfUser()
+    {
+        return $this->linkRepository->countLinkOfUser();
+    }
+
     public function getAllLink()
     {
         return $this->linkRepository->findAll();

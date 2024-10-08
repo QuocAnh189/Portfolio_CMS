@@ -62,7 +62,7 @@ class SkillDataTable extends DataTable
      */
     public function query(Skill $model): QueryBuilder
     {
-        return $model->newQuery()->with('role_software')->where('user_id', Auth::user()->id);
+        return $model->newQuery()->with('role_software')->where('user_id', Auth::id());
     }
 
     /**

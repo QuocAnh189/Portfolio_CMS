@@ -3,12 +3,13 @@
 namespace App\Domains\Relation\UserTechnologies\Repositories;
 
 use App\Domains\Relation\UserTechnologies\Models\UserTechnologies;
+use Illuminate\Support\Facades\Auth;
 
 class UserTechnologiesRepository
 {
-    public function __construct()
+    public function countTechnologiesOfUser()
     {
-        //
+        return UserTechnologies::where('user_id', Auth::id())->count();
     }
 
     public function findAll()

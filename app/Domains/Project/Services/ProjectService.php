@@ -15,6 +15,11 @@ class ProjectService
         $this->projectRepository = $projectRepository;
     }
 
+    public function countProjectOfUser()
+    {
+        return $this->projectRepository->countProjectOfUser();
+    }
+
     public function getAllProject()
     {
         return $this->projectRepository->findAll();

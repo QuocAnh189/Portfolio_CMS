@@ -3,12 +3,21 @@
 namespace App\Domains\Feature\Repositories;
 
 use App\Domains\Feature\Models\Feature;
+use Illuminate\Support\Facades\Auth;
 
 class FeatureRepository
 {
     public function __construct()
     {
         //
+    }
+
+    public function countFeatureOfUser()
+    {
+        $userId = Auth::id();
+        return Feature::whereHas('project', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->count();
     }
 
     public function findAll()

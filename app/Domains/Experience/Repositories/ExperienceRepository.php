@@ -3,12 +3,13 @@
 namespace App\Domains\Experience\Repositories;
 
 use App\Domains\Experience\Models\Experience;
+use Illuminate\Support\Facades\Auth;
 
 class ExperienceRepository
 {
-    public function __construct()
+    public function countExperienceByUserId()
     {
-        //
+        return Experience::where('user_id', Auth::id())->count();
     }
 
     public function createExperience($createExperienceDto)
