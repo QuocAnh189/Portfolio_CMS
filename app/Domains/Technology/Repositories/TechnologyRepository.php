@@ -3,12 +3,18 @@
 namespace App\Domains\Technology\Repositories;
 
 use App\Domains\Technology\Models\Technology;
+use App\Enum\Status;
 
 class TechnologyRepository
 {
     public function __construct()
     {
         //
+    }
+
+    public function findAllCategory()
+    {
+        return Technology::where('status', Status::Active)->get();
     }
 
     public function createTechnology($createTechnologyDto): Technology

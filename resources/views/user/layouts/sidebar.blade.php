@@ -16,6 +16,13 @@
                 </a>
             </li>
 
+            <li class="{{ setActive(['user.userTechnologies.*']) }}">
+                <a class="nav-link" href="{{ route('user.userTechnologies.index') }}">
+                    <i class="fas fa-tv"></i>
+                    <span>My Technologies</span>
+                </a>
+            </li>
+
             <li class="{{ setActive(['user.projects.*']) }}">
                 <a class="nav-link" href="{{ route('user.projects.index') }}">
                     <i class="fas fa-book"></i>

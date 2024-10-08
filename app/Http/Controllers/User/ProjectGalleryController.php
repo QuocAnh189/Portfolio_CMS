@@ -29,9 +29,9 @@ class ProjectGalleryController extends Controller
     {
         try {
             $createGalleryDto = CreateProjectGalleryDto::fromAppRequest($request);
-            $projectGalleryService->createProjectGallery($createGalleryDto);
+            $createdGallery = $projectGalleryService->createProjectGallery($createGalleryDto);
 
-            if ($createGalleryDto) {
+            if ($createdGallery) {
                 flash()->option('position', 'top-center')->success('Create gallery successfully.');
             }
 

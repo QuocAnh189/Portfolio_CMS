@@ -13,9 +13,14 @@ use App\Http\Controllers\User\Project\ProjectTechnologyController;
 use App\Http\Controllers\User\ProjectGalleryController as GalleryController;
 use App\Http\Controllers\User\SkillController;
 use App\Http\Controllers\User\UserDashboardController;
+use App\Http\Controllers\User\UserTechnologiesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
+
+/**Technology route */
+Route::put('userTechnologies/change-status', [UserTechnologiesController::class, 'change_status'])->name('userTechnologies.change-status');
+Route::resource('userTechnologies', UserTechnologiesController::class);
 
 /**Project route */
 Route::put('projects/change-status', [ProjectController::class, 'change_status'])->name('projects.change-status');

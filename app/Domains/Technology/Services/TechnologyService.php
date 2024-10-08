@@ -16,6 +16,11 @@ class TechnologyService
         $this->technologyRepository = $technologyRepository;
     }
 
+    public function getAllTechnology()
+    {
+        return $this->technologyRepository->findAllCategory();
+    }
+
     public function createTechnology($createTechnologyDto)
     {
         if (file_exists($createTechnologyDto['image'])) {

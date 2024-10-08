@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Relation\Models;
+namespace App\Domains\Relation\UserTechnologies\Models;
 
 use App\Domains\Technology\Models\Technology;
 use App\Domains\User\Models\User;
@@ -13,6 +13,12 @@ use Illuminate\Support\Str;
 class UserTechnologies extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'user_id',
+        'technology_id',
+        'status',
+    ];
 
     public $incrementing = false;
 
