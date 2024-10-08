@@ -26,7 +26,8 @@ Route::resource('userTechnologies', UserTechnologiesController::class);
 Route::put('projects/change-status', [ProjectController::class, 'change_status'])->name('projects.change-status');
 Route::resource('projects', ProjectController::class);
 Route::resource('projects.galleries', ProjectGalleryController::class);
-Route::resource('projects.technologies', ProjectTechnologyController::class);
+Route::put('projects.projectTechnologies/change-status', [ProjectTechnologyController::class, 'change_status'])->name('project-technologies.change-status');;
+Route::resource('projects.projectTechnologies', ProjectTechnologyController::class);
 Route::resource('projects.features', ProjectFeatureController::class);
 Route::resource('projects.links', ProjectLinkController::class);
 

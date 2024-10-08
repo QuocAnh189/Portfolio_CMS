@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('project_technologies', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignUuid('project_id')->constrained('projects');
             $table->foreignUuid('technology_id')->constrained('technologies');
             $table->enum('status', Status::toArray())->default(Status::Active->value);

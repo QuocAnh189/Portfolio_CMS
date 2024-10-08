@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Domains\Relation\Models;
+namespace App\Domains\Relation\ProjectTechnologies\Models;
 
 use App\Domains\Project\Models\Project;
-use App\Domains\RoleSoftware\Models\Tool;
 use App\Domains\Technology\Models\Technology;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +13,12 @@ use Illuminate\Support\Str;
 class ProjectTechnologies extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'project_id',
+        'technology_id',
+        'status',
+    ];
 
     public $incrementing = false;
 
@@ -35,6 +40,6 @@ class ProjectTechnologies extends Model
 
     public function technology(): BelongsTo
     {
-        return $this->belongsTo(related: Technology::class);
+        return $this->belongsTo(Technology::class);
     }
 }
