@@ -25,21 +25,21 @@ class ProjectTechnologiesService
 
     public function createProjectTechnologies($createProjectTechnologiesDto)
     {
-        return $this->projectTechnologiesRepository->createProjectTechnologies($createProjectTechnologiesDto);
+        return $this->projectTechnologiesRepository->create($createProjectTechnologiesDto);
     }
 
     public function updateProjectTechnologies(ProjectTechnologies $projectTechnologies, $updateProjectTechnologiesDto)
     {
-        return $this->projectTechnologiesRepository->updateProjectTechnologies($updateProjectTechnologiesDto, $projectTechnologies);
+        return $this->projectTechnologiesRepository->update($$projectTechnologies->id, $updateProjectTechnologiesDto);
     }
 
     public function deleteProjectTechnologies(ProjectTechnologies $projectTechnologies)
     {
-        return $this->projectTechnologiesRepository->deleteProjectTechnologies($projectTechnologies);
+        return $this->projectTechnologiesRepository->delete($projectTechnologies);
     }
 
     public function changeStatusProjectTechnologies($projectTechnologiesId, $status)
     {
-        return $this->projectTechnologiesRepository->changeStatusProjectTechnologies($projectTechnologiesId, $status);
+        return $this->projectTechnologiesRepository->changeStatus($projectTechnologiesId, $status);
     }
 }

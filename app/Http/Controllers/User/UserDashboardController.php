@@ -28,9 +28,9 @@ class UserDashboardController extends Controller
     ) {
         $total_technology = $userTechnologyService->countTechnologiesOfUser();
         $total_project = $total_project->countProjectOfUser();
-        $total_gallery = $projectGalleryService->countGalleryOfUser();
-        $total_feature = $featureService->countFeatureOfUser();
-        $total_link = $linkService->countLinkOfUser();
+        $total_gallery = $projectGalleryService->countGalleryOfUserProject();
+        $total_feature = $featureService->countFeatureOfUserProject();
+        $total_link = $linkService->countLinkUserProject();
         $total_experiences  = $experiencesService->countExperienceOfUser();
         $total_skill  = $skillService->countSkillOfUser();
         $total_education = $educationService->countEducationOfUser();

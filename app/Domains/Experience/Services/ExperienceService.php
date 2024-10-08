@@ -15,26 +15,26 @@ class ExperienceService
 
     public function countExperienceOfUser()
     {
-        return $this->experienceRepository->countExperienceByUserId();
+        return $this->experienceRepository->countOfUser();
     }
 
     public function createExperiences($createExperiencesDto)
     {
-        return $this->experienceRepository->createExperience($createExperiencesDto);
+        return $this->experienceRepository->create($createExperiencesDto);
     }
 
     public function updateExperiences(Experience $experiences, $updateExperiencesDto)
     {
-        return $this->experienceRepository->updateExperience($experiences, $updateExperiencesDto);
+        return $this->experienceRepository->update($experiences->id, $updateExperiencesDto);
     }
 
     public function deleteExperiences(Experience $experiences)
     {
-        return $this->experienceRepository->deleteExperience($experiences);
+        return $this->experienceRepository->delete($experiences->id);
     }
 
     public function changeStatusExperiences($experiencesId, $status)
     {
-        return $this->experienceRepository->changeStatusExperience($experiencesId, $status);
+        return $this->experienceRepository->changeStatus($experiencesId, $status);
     }
 }

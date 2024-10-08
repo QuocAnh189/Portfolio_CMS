@@ -24,21 +24,18 @@ class ProfileService
 
     public function getProfileByUserId($userId)
     {
-        $profile = $this->profileRepository->findProfileByUserId($userId);
-
-        return $profile;
+        return $this->profileRepository->findProfileByUserId($userId);
     }
 
     public function updateProfile($updateProfileDto)
     {
-
-        $user = $this->userRepository->updateUser($updateProfileDto['user']);
+        $user = $this->userRepository->update($updateProfileDto['user']['id'], $updateProfileDto['user']);
 
         if (file_exists($updateProfileDto['upload'])) {
             $updateProfileDto['avatar'] = $this->uploadImage($updateProfileDto['upload'], 'user', ['width' => 300, 'height' => 300]);
         }
 
-        $profile = $this->profileRepository->updateProfile($updateProfileDto);
+        $profile = $this->profileRepository->update($updateProfileDto['id'], $updateProfileDto);
 
         return [
             'user' => $user,
@@ -53,11 +50,11 @@ class ProfileService
 
     public function deleteProfile(Profile $profile)
     {
-        return $this->profileRepository->deleteProfile($profile);
+        return $this->profileRepository->delete($profile->id);
     }
 
-    public function changeStatusProfileByUserId($userId, $status)
+    public function changeStatusProfile($profileId, $status)
     {
-        return $this->profileRepository->changeStatusProfileByUserId($userId, $status);
+        return $this->profileRepository->changeStatus($profileId, $status);
     }
 }

@@ -18,7 +18,7 @@ class EducationService
 
     public function countEducationOfUser()
     {
-        return $this->educationRepository->countEducationByUserId();
+        return $this->educationRepository->countOfUser();
     }
 
     public function createEducation($createEducationDto)
@@ -27,7 +27,7 @@ class EducationService
             $createEducationDto['logo'] = $this->uploadImage($createEducationDto['logo'], 'education', ['width' => 300, 'height' => 300]);
         }
 
-        return $this->educationRepository->createEducation($createEducationDto);
+        return $this->educationRepository->create($createEducationDto);
     }
 
     public function updateEducation(Education $education, $updateEducationDto)
@@ -36,16 +36,16 @@ class EducationService
             $updateEducationDto['logo'] = $this->uploadImage($updateEducationDto['logo'], 'education', ['width' => 300, 'height' => 300]);
         }
 
-        return $this->educationRepository->updateEducation($education, $updateEducationDto);
+        return $this->educationRepository->update($education->id, $updateEducationDto);
     }
 
     public function deleteEducation(Education $education)
     {
-        return $this->educationRepository->deleteEducation($education);
+        return $this->educationRepository->delete($education->id);
     }
 
     public function changeStatusEducation($educationId, $status)
     {
-        return $this->educationRepository->changeStatusEducation($educationId, $status);
+        return $this->educationRepository->changeStatus($educationId, $status);
     }
 }

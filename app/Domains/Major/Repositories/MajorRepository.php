@@ -4,39 +4,12 @@ namespace App\Domains\Major\Repositories;
 
 use App\Domains\Major\Models\Major;
 use App\Enum\Status;
+use App\Repository\Eloquent\BaseRepository;
 
-class MajorRepository
+class MajorRepository extends BaseRepository
 {
-    public function __construct()
+    public function model()
     {
-        //
-    }
-
-    public function findAll()
-    {
-        return Major::where('status', operator: Status::Active)->orderBy('created_at', 'desc')->get();
-    }
-
-    public function createMajor($createMajorDto): Major
-    {
-        return Major::create($createMajorDto);
-    }
-
-    public function updateMajor($updateMajorDto, Major $major)
-    {
-        return $major->update($updateMajorDto);
-    }
-
-    public function deleteMajor(Major $major)
-    {
-        return $major->delete();
-    }
-
-    public function changeStatusMajor($majorId, $status)
-    {
-        $major = Major::findOrFail($majorId);
-        $major->status = $status === 'true' ? 'active' : 'inactive';
-
-        return $major->save();
+        return Major::class;
     }
 }

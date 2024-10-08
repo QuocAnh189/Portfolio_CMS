@@ -2,6 +2,15 @@
 
 namespace App\Repository\Contracts;
 
-use Illuminate\Database\Eloquent\Collection;
+interface RepositoryInterface
+{
+    public function findAll();
 
-class RepositoryInterface {}
+    public function findById($id);
+
+    public function create(array $attributes);
+
+    public function update($id, array $attributes);
+
+    public function delete($id);
+}

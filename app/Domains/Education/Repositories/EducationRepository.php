@@ -3,35 +3,13 @@
 namespace App\Domains\Education\Repositories;
 
 use App\Domains\Education\Models\Education;
+use App\Repository\Eloquent\BaseRepository;
 use Illuminate\Support\Facades\Auth;
 
-class EducationRepository
+class EducationRepository extends BaseRepository
 {
-    public function countEducationByUserId()
+    public function model()
     {
-        return Education::where('user_id', Auth::id())->count();
-    }
-
-    public function createEducation($createEducationDto)
-    {
-        return Education::create($createEducationDto);
-    }
-
-    public function updateEducation(Education $education, $updateEducationDto)
-    {
-        return $education->update($updateEducationDto);
-    }
-
-    public function deleteEducation(Education $education)
-    {
-        return $education->delete();
-    }
-
-    public function changeStatusEducation($educationId, $status)
-    {
-        $education = Education::findOrFail($educationId);
-        $education->status = $status === 'true' ? 'active' : 'inactive';
-
-        return $education->save();
+        return Education::class;
     }
 }

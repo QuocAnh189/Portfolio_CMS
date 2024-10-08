@@ -17,7 +17,7 @@ class UserTechnologiesService
 
     public function countTechnologiesOfUser()
     {
-        return $this->userTechnologiesRepository->countTechnologiesOfUser();
+        return $this->userTechnologiesRepository->countOfUser();
     }
 
     public function getAllUserTechnologies()
@@ -32,21 +32,21 @@ class UserTechnologiesService
 
     public function createUserTechnologies($createUserTechnologiesDto)
     {
-        return $this->userTechnologiesRepository->createUserTechnologies($createUserTechnologiesDto);
+        return $this->userTechnologiesRepository->create($createUserTechnologiesDto);
     }
 
     public function updateUserTechnologies(UserTechnologies $userTechnologies, $updateUserTechnologiesDto)
     {
-        return $this->userTechnologiesRepository->updateUserTechnologies($updateUserTechnologiesDto, $userTechnologies);
+        return $this->userTechnologiesRepository->update($userTechnologies->id, $updateUserTechnologiesDto);
     }
 
     public function deleteUserTechnologies(UserTechnologies $userTechnologies)
     {
-        return $this->userTechnologiesRepository->deleteUserTechnologies($userTechnologies);
+        return $this->userTechnologiesRepository->delete($userTechnologies->id);
     }
 
     public function changeStatusUserTechnologies($userTechnologiesId, $status)
     {
-        return $this->userTechnologiesRepository->changeStatusUserTechnologies($userTechnologiesId, $status);
+        return $this->userTechnologiesRepository->changeStatus($userTechnologiesId, $status);
     }
 }

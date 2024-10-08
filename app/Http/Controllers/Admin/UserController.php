@@ -93,7 +93,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($userService, ProfileService $profileService, User $user)
+    public function destroy(UserService $userService, ProfileService $profileService, User $user)
     {
         try {
             $userService->deleteUser($user);
@@ -106,11 +106,13 @@ class UserController extends Controller
         }
     }
 
-    public function change_status($userService, ProfileService $profileService, ChangeStatusRequest $request)
+    public function change_status(UserService $userService, ProfileService $profileService, ChangeStatusRequest $request)
     {
         try {
             $userService->changeStatusUser($request->id, $request->status);
-            $profileService->changeStatusProfileByUserId($request->id, $request->status);
+
+            $profile = $profileService->getProfileByUserId($request->id);
+            $profileService->changeStatusProfile($profile->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {

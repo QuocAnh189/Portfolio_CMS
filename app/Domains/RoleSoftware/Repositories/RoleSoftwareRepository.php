@@ -3,39 +3,12 @@
 namespace App\Domains\RoleSoftware\Repositories;
 
 use App\Domains\RoleSoftware\Models\RoleSoftware;
+use App\Repository\Eloquent\BaseRepository;
 
-class RoleSoftwareRepository
+class RoleSoftwareRepository extends BaseRepository
 {
-    public function __construct()
+    public function model()
     {
-        //
-    }
-
-    public function findAll()
-    {
-        return RoleSoftware::where("status", "active")->get();
-    }
-
-    public function createRoleSoftware($createRoleSoftwareDto): RoleSoftware
-    {
-        return RoleSoftware::create($createRoleSoftwareDto);
-    }
-
-    public function updateRoleSoftware($updateRoleSoftwareDto, RoleSoftware $roleSoftware)
-    {
-        return $roleSoftware->update($updateRoleSoftwareDto);
-    }
-
-    public function deleteRoleSoftware(RoleSoftware $roleSoftware)
-    {
-        return $roleSoftware->delete();
-    }
-
-    public function changeStatusRoleSoftware($roleSoftwareId, $status)
-    {
-        $roleSoftware = RoleSoftware::findOrFail($roleSoftwareId);
-        $roleSoftware->status = $status === 'true' ? 'active' : 'inactive';
-
-        return $roleSoftware->save();
+        return RoleSoftware::class;
     }
 }

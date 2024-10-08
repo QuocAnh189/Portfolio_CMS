@@ -64,7 +64,8 @@ class GalleryDataTable extends DataTable
      */
     public function query(ProjectGallery $model): QueryBuilder
     {
-        return $model->newQuery()->with('project')->whereIn('project_id', Auth::user()->projects->pluck('id')->toArray());
+        return $model->newQuery()
+            ->whereIn('project_id', Auth::user()->projects->pluck('id')->toArray());
     }
 
     /**
@@ -95,7 +96,7 @@ class GalleryDataTable extends DataTable
     {
         return [
             Column::make('id')->width(300),
-            Column::make('project.name')->title('Project Name'),
+            // Column::make('project.name')->title('Project Name'),
             Column::make('image'),
             Column::make('status'),
             Column::computed('action')

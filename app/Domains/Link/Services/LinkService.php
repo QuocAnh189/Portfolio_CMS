@@ -13,9 +13,9 @@ class LinkService
         $this->linkRepository = $linkRepository;
     }
 
-    public function countLinkOfUser()
+    public function countLinkUserProject()
     {
-        return $this->linkRepository->countLinkOfUser();
+        return $this->linkRepository->countOfUserProject();
     }
 
     public function getAllLink()
@@ -25,21 +25,21 @@ class LinkService
 
     public function createLink($createLinkDto)
     {
-        return $this->linkRepository->createLink($createLinkDto);
+        return $this->linkRepository->create($createLinkDto);
     }
 
     public function updateLink(Link $link, $updateLinkDto)
     {
-        return $this->linkRepository->updateLink($link, $updateLinkDto);
+        return $this->linkRepository->update($link, $updateLinkDto);
     }
 
     public function deleteLink(Link $link)
     {
-        return $this->linkRepository->deleteLink($link);
+        return $this->linkRepository->delete($link);
     }
 
     public function changeStatusLink($linkId, $status)
     {
-        return $this->linkRepository->changeStatusLink($linkId, $status);
+        return $this->linkRepository->changeStatus($linkId, $status);
     }
 }

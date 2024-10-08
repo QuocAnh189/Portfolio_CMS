@@ -10,7 +10,6 @@ use App\Domains\ProjectGallery\Services\ProjectGalleryService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Gallery\CreateProjectGalleryRequest;
-use Illuminate\Http\Request;
 
 class ProjectGalleryController extends Controller
 {

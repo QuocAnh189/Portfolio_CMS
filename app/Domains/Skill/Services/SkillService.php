@@ -22,21 +22,21 @@ class SkillService
 
     public function createSkill($createSkillDto)
     {
-        return $this->skillRepository->createSkill($createSkillDto);
+        return $this->skillRepository->create($createSkillDto);
     }
 
     public function updateSkill(Skill $skill,  $updateSkillDto)
     {
-        return $this->skillRepository->updateSkill($skill, $updateSkillDto,);
+        return $this->skillRepository->update($skill->id, $updateSkillDto);
     }
 
     public function deleteSkill(Skill $skill)
     {
-        return $this->skillRepository->deleteSkill($skill);
+        return $this->skillRepository->delete($skill->id);
     }
 
     public function changeStatusSkill($skillId, $status)
     {
-        return $this->skillRepository->changeStatusSkill($skillId, $status);
+        return $this->skillRepository->changeStatus($skillId, $status);
     }
 }

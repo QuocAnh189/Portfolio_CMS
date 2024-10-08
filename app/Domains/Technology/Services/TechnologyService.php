@@ -18,7 +18,7 @@ class TechnologyService
 
     public function getAllTechnology()
     {
-        return $this->technologyRepository->findAllCategory();
+        return $this->technologyRepository->findAll();
     }
 
     public function createTechnology($createTechnologyDto)
@@ -26,7 +26,7 @@ class TechnologyService
         if (file_exists($createTechnologyDto['image'])) {
             $createTechnologyDto['image'] = $this->uploadImage($createTechnologyDto['image'], 'technology', ['width' => 300, 'height' => 300]);
         }
-        return $this->technologyRepository->createTechnology($createTechnologyDto);
+        return $this->technologyRepository->create($createTechnologyDto);
     }
 
     public function updateTechnology($updateTechnologyDto, Technology $technology)
@@ -35,16 +35,16 @@ class TechnologyService
             $updateTechnologyDto['image'] = $this->uploadImage($updateTechnologyDto['image'], 'technology', ['width' => 300, 'height' => 300]);
         }
 
-        return $this->technologyRepository->updateTechnology($updateTechnologyDto, $technology);
+        return $this->technologyRepository->update($technology->id, $updateTechnologyDto);
     }
 
     public function deleteTechnology(Technology $technology)
     {
-        return $this->technologyRepository->deleteTechnology($technology);
+        return $this->technologyRepository->delete($technology->id);
     }
 
     public function changeStatusTechnology($technologyId, $status)
     {
-        return $this->technologyRepository->changeStatusTechnology($technologyId, $status);
+        return $this->technologyRepository->changeStatus($technologyId, $status);
     }
 }

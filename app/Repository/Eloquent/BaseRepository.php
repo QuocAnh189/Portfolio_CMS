@@ -2,12 +2,33 @@
 
 namespace App\Repository\Eloquent;
 
-use App\Repository\Contracts\RepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
-class BaseRepository extends RepositoryAbstract
+abstract class BaseRepository extends RepositoryAbstract
 {
-    public function __construct()
+    public function findByStatus($status)
     {
-        //
+        return $this->model->where('status', $status)->get();
+    }
+
+    public function changeStatus($id, $status)
+    {
+        $model = $this->findById($id);
+        $model->status = $status === 'true' ? 'active' : 'inactive';
+
+        return $model->save();
+    }
+
+    public function countOfUser()
+    {
+        return $this->model->where('user_id', Auth::id())->count();
+    }
+
+    public function countOfUserProject()
+    {
+        $userId = Auth::id();
+        return $this->model->whereHas('project', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->count();
     }
 }

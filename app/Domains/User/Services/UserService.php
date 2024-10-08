@@ -6,6 +6,7 @@ use App\Domains\Profile\Repositories\ProfileRepository;
 use App\Domains\User\Models\User;
 use App\Domains\User\Repositories\UserRepository;
 use App\Models\Traits\UploadImage;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -20,7 +21,9 @@ class UserService
 
     public function createUser($createUserDto)
     {
-        $user = $this->userRepository->createUser($createUserDto['user']);
+        $password = Hash::make($createUserDto['user']['password']);
+        $user = $this->userRepository->create([...$createUserDto['user'], 'password' => $password]);
+
         if ($user) {
             $createUserDto['profile']['user_id'] = (string) $user->id;
 
@@ -28,7 +31,7 @@ class UserService
                 $createUserDto['profile']['avatar'] = $this->uploadImage($createUserDto['profile']['avatar'], 'user', ['width' => 300, 'height' => 300]);
             }
 
-            $profile = $this->profileRepository->createProfile($createUserDto['profile']);
+            $profile = $this->profileRepository->create($createUserDto['profile']);
 
             return [
                 'user' => $user,
@@ -39,13 +42,13 @@ class UserService
 
     public function updateUser($updateUserDto)
     {
-        $user = $this->userRepository->updateUser($updateUserDto['user']);
+        $user = $this->userRepository->update($updateUserDto['user']['id'], $updateUserDto['user']);
 
         if (file_exists($updateUserDto['profile']['avatar'])) {
             $updateUserDto['profile']['avatar'] = $this->uploadImage($updateUserDto['profile']['avatar'], 'user', ['width' => 300, 'height' => 300]);
         }
 
-        $profile = $this->profileRepository->updateProfile($updateUserDto['profile']);
+        $profile = $this->profileRepository->update($updateUserDto['profile']['id'], $updateUserDto['profile']);
 
         return [
             'user' => $user,
@@ -55,11 +58,11 @@ class UserService
 
     public function deleteUser(User $user)
     {
-        return $this->userRepository->deleteUser(user: $user);
+        return $this->userRepository->delete($user->id);
     }
 
     public function changeStatusUser($userId, $status)
     {
-        return $this->userRepository->changeStatusUser($userId, $status);
+        return $this->userRepository->changeStatus($userId, $status);
     }
 }

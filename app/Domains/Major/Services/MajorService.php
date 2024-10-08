@@ -25,7 +25,7 @@ class MajorService
         if (file_exists($createMajorDto['image'])) {
             $createMajorDto['image'] = $this->uploadImage($createMajorDto['image'], 'major', ['width' => 300, 'height' => 300]);
         }
-        return $this->majorRepository->createMajor($createMajorDto);
+        return $this->majorRepository->create($createMajorDto);
     }
 
     public function updateMajor($updateMajorDto, Major $major)
@@ -34,16 +34,16 @@ class MajorService
             $updateMajorDto['image'] = $this->uploadImage($updateMajorDto['image'], 'major', ['width' => 300, 'height' => 300]);
         }
 
-        return $this->majorRepository->updateMajor($updateMajorDto, $major);
+        return $this->majorRepository->update($major->id, $updateMajorDto);
     }
 
     public function deleteMajor(Major $major)
     {
-        return $this->majorRepository->deleteMajor($major);
+        return $this->majorRepository->delete($major->id);
     }
 
     public function changeStatusMajor($majorId, $status)
     {
-        return $this->majorRepository->changeStatusMajor($majorId, $status);
+        return $this->majorRepository->changeStatus($majorId, $status);
     }
 }

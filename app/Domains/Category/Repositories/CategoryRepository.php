@@ -3,39 +3,12 @@
 namespace App\Domains\Category\Repositories;
 
 use App\Domains\Category\Models\Category;
+use App\Repository\Eloquent\BaseRepository;
 
-class CategoryRepository
+class CategoryRepository extends BaseRepository
 {
-    public function __construct()
+    public function model()
     {
-        //
-    }
-
-    public function findAll()
-    {
-        return Category::where('status', 'active')->get();
-    }
-
-    public function createCategory($createCategoryDto): Category
-    {
-        return Category::create($createCategoryDto);
-    }
-
-    public function updateCategory($updateCategoryDto, Category $category)
-    {
-        return $category->update($updateCategoryDto);
-    }
-
-    public function deleteCategory(Category $category)
-    {
-        return $category->delete();
-    }
-
-    public function changeStatusCategory($categoryId, $status)
-    {
-        $category = Category::findOrFail($categoryId);
-        $category->status = $status === 'true' ? 'active' : 'inactive';
-
-        return $category->save();
+        return Category::class;
     }
 }

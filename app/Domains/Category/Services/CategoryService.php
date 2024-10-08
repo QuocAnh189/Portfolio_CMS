@@ -26,7 +26,7 @@ class CategoryService
         if (file_exists($createCategoryDto['image'])) {
             $createCategoryDto['image'] = $this->uploadImage($createCategoryDto['image'], 'category', ['width' => 300, 'height' => 300]);
         }
-        return $this->categoryRepository->createCategory($createCategoryDto);
+        return $this->categoryRepository->create($createCategoryDto);
     }
 
     public function updateCategory($updateCategoryDto, Category $category)
@@ -35,16 +35,16 @@ class CategoryService
             $updateCategoryDto['image'] = $this->uploadImage($updateCategoryDto['image'], 'category', ['width' => 300, 'height' => 300]);
         }
 
-        return $this->categoryRepository->updateCategory($updateCategoryDto, $category);
+        return $this->categoryRepository->update($category->id, $updateCategoryDto);
     }
 
     public function deleteCategory(Category $category)
     {
-        return $this->categoryRepository->deleteCategory($category);
+        return $this->categoryRepository->delete($category->id);
     }
 
     public function changeStatusCategory($categoryId, $status)
     {
-        return $this->categoryRepository->changeStatusCategory($categoryId, $status);
+        return $this->categoryRepository->changeStatus($categoryId, $status);
     }
 }

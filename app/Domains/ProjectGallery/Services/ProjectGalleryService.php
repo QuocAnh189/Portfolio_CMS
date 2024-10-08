@@ -15,9 +15,9 @@ class ProjectGalleryService
         $this->projectGalleryRepository = $projectGalleryRepository;
     }
 
-    public function countGalleryOfUser()
+    public function countGalleryOfUserProject()
     {
-        return $this->projectGalleryRepository->countGalleryOfUser();
+        return $this->projectGalleryRepository->countOfUserProject();
     }
 
     public function getAllProjectGallery()
@@ -31,16 +31,16 @@ class ProjectGalleryService
             $createProjectGalleryDto['image'] = $this->uploadImage($createProjectGalleryDto['image'], 'project-gallery', ['width' => 800, 'height' => 500]);
         }
 
-        return $this->projectGalleryRepository->createProjectGallery($createProjectGalleryDto);
+        return $this->projectGalleryRepository->create($createProjectGalleryDto);
     }
 
     public function deleteProjectGallery(ProjectGallery $projectGallery)
     {
-        return $this->projectGalleryRepository->deleteProjectGallery($projectGallery);
+        return $this->projectGalleryRepository->delete($projectGallery->id);
     }
 
     public function changeStatusProjectGallery($projectGalleryId, $status)
     {
-        return $this->projectGalleryRepository->changeStatusProjectGallery($projectGalleryId, $status);
+        return $this->projectGalleryRepository->changeStatus($projectGalleryId, $status);
     }
 }

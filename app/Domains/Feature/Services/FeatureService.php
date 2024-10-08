@@ -13,9 +13,9 @@ class FeatureService
         $this->featureRepository = $featureRepository;
     }
 
-    public function countFeatureOfUser()
+    public function countFeatureOfUserProject()
     {
-        return $this->featureRepository->countFeatureOfUser();
+        return $this->featureRepository->countOfUserProject();
     }
 
     public function getAllFeature()
@@ -25,21 +25,21 @@ class FeatureService
 
     public function createFeature($createFeatureDto)
     {
-        return $this->featureRepository->createFeature($createFeatureDto);
+        return $this->featureRepository->create($createFeatureDto);
     }
 
     public function updateFeature(Feature $feature, $updateFeatureDto)
     {
-        return $this->featureRepository->updateFeature($feature, $updateFeatureDto);
+        return $this->featureRepository->update($feature->id, $updateFeatureDto);
     }
 
     public function deleteFeature(Feature $feature)
     {
-        return $this->featureRepository->deleteFeature($feature);
+        return $this->featureRepository->delete($feature->id);
     }
 
     public function changeStatusFeature($featureId, $status)
     {
-        return $this->featureRepository->changeStatusFeature($featureId, $status);
+        return $this->featureRepository->changeStatus($featureId, $status);
     }
 }

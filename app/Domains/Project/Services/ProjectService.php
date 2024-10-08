@@ -17,7 +17,7 @@ class ProjectService
 
     public function countProjectOfUser()
     {
-        return $this->projectRepository->countProjectOfUser();
+        return $this->projectRepository->countOfUser();
     }
 
     public function getAllProject()
@@ -30,7 +30,7 @@ class ProjectService
         if (file_exists($createProjectDto['cover_image'])) {
             $createProjectDto['cover_image'] = $this->uploadImage($createProjectDto['cover_image'], 'project', ['width' => 800, 'height' => 500]);
         }
-        return $this->projectRepository->createProject($createProjectDto);
+        return $this->projectRepository->create($createProjectDto);
     }
 
     public function updateProject($updateProjectDto, Project $project)
@@ -39,16 +39,16 @@ class ProjectService
             $updateProjectDto['cover_image'] = $this->uploadImage($updateProjectDto['cover_image'], 'project', ['width' => 800, 'height' => 500]);
         }
 
-        return $this->projectRepository->updateProject($updateProjectDto, $project);
+        return $this->projectRepository->update($project->id, $updateProjectDto);
     }
 
     public function deleteProject(Project $project)
     {
-        return $this->projectRepository->deleteProject($project);
+        return $this->projectRepository->delete($project->id);
     }
 
     public function changeStatusProject($projectId, $status)
     {
-        return $this->projectRepository->changeStatusProject($projectId, $status);
+        return $this->projectRepository->changeStatus($projectId, $status);
     }
 }
