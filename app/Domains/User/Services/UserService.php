@@ -19,6 +19,11 @@ class UserService
         $this->profileRepository = $profileRepository;
     }
 
+    public function countAllUsers()
+    {
+        return $this->userRepository->countAll();
+    }
+
     public function countUsers()
     {
         return $this->userRepository->countOfUser();

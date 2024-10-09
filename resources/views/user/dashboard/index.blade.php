@@ -34,7 +34,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Project</h4>
+                            <h4>Total My Project</h4>
                         </div>
                         <div class="card-body">
                             {{ $total_project }}
@@ -52,7 +52,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Gallery</h4>
+                            <h4>Total My Gallery</h4>
                         </div>
                         <div class="card-body">
                             {{ $total_gallery }}
@@ -70,7 +70,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Feature</h4>
+                            <h4>Total My Feature</h4>
                         </div>
                         <div class="card-body">
                             {{ $total_feature }}
@@ -88,7 +88,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Links</h4>
+                            <h4>Total My Links</h4>
                         </div>
                         <div class="card-body">
                             {{ $total_link }}
@@ -106,7 +106,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Experiences</h4>
+                            <h4>Total My Experiences</h4>
                         </div>
                         <div class="card-body">
                             {{ $total_experiences }}
@@ -124,7 +124,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Skills</h4>
+                            <h4>Total My Skills</h4>
                         </div>
                         <div class="card-body">
                             {{ $total_skill }}
@@ -142,7 +142,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Education</h4>
+                            <h4>Total My Education</h4>
                         </div>
                         <div class="card-body">
                             {{ $total_education }}

@@ -15,6 +15,11 @@ class MajorService
         $this->majorRepository = $majorRepository;
     }
 
+    public function countAllMajor()
+    {
+        return $this->majorRepository->countAll();
+    }
+
     public function getAllMajor()
     {
         return $this->majorRepository->findAll();

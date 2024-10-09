@@ -17,6 +17,11 @@ class RoleSoftwareService
         $this->roleSoftwareRepository = $roleSoftwareRepository;
     }
 
+    public function countAllRoleSoftware()
+    {
+        return $this->roleSoftwareRepository->countAll();
+    }
+
     public function getAllRoleSoftwares()
     {
         return $this->roleSoftwareRepository->findAll();

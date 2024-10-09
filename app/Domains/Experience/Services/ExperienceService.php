@@ -13,6 +13,11 @@ class ExperienceService
         $this->experienceRepository = $experienceRepository;
     }
 
+    public function countAllExperience()
+    {
+        return $this->experienceRepository->countAll();
+    }
+
     public function countExperienceOfUser()
     {
         return $this->experienceRepository->countOfUser();

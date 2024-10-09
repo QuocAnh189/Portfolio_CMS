@@ -12,4 +12,9 @@ class UserRepository extends BaseRepository
     {
         return User::class;
     }
+
+    public function countAll()
+    {
+        return $this->model->where("is_admin", 0)->count();
+    }
 }

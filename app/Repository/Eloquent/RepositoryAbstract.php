@@ -21,6 +21,11 @@ abstract class RepositoryAbstract implements RepositoryInterface
         $this->model = app($this->model());
     }
 
+    public function countAll()
+    {
+        return $this->model->count();
+    }
+
     public function findAll()
     {
         $query = $this->model->newQuery();

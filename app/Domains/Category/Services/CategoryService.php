@@ -16,6 +16,11 @@ class CategoryService
         $this->categoryRepository = $categoryRepository;
     }
 
+    public function countAllCategory()
+    {
+        return $this->categoryRepository->countAll();
+    }
+
     public function getAllCategory()
     {
         return $this->categoryRepository->findAll();

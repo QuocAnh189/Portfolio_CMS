@@ -15,6 +15,11 @@ class ProjectGalleryService
         $this->projectGalleryRepository = $projectGalleryRepository;
     }
 
+    public function countAllGallery()
+    {
+        return $this->projectGalleryRepository->countAll();
+    }
+
     public function countGalleryOfUserProject()
     {
         return $this->projectGalleryRepository->countOfUserProject();

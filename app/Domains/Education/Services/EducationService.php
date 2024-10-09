@@ -16,6 +16,11 @@ class EducationService
         $this->educationRepository = $educationRepository;
     }
 
+    public function countAllEducation()
+    {
+        return $this->educationRepository->countAll();
+    }
+
     public function countEducationOfUser()
     {
         return $this->educationRepository->countOfUser();

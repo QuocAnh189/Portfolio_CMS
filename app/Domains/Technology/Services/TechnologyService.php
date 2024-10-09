@@ -16,6 +16,11 @@ class TechnologyService
         $this->technologyRepository = $technologyRepository;
     }
 
+    public function countAllTechnology()
+    {
+        return $this->technologyRepository->countAll();
+    }
+
     public function getAllTechnology()
     {
         return $this->technologyRepository->findAll();
