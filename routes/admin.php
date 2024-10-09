@@ -51,7 +51,8 @@ Route::put('users/change-status', [UserController::class, 'change_status'])->nam
 Route::resource('users', UserController::class);
 
 /**Experience route */
-Route::resource('experience', ExperienceController::class);
+Route::put('experiences/change-status', [ExperienceController::class, 'change_status'])->name('experiences.change-status');
+Route::resource('experiences', ExperienceController::class);
 
 /**Skill route */
 Route::put('skills/change-status', [SkillController::class, 'change_status'])->name('skills.change-status');

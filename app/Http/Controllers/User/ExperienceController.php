@@ -15,16 +15,6 @@ use App\Http\Requests\Experience\UpdateExperienceRequest;
 
 class ExperienceController extends Controller
 {
-
-    private ExperienceService $experienceService;
-    private RoleSoftwareService $roleSoftwareService;
-
-    public function __construct(ExperienceService $experienceService, RoleSoftwareService $roleSoftwareService)
-    {
-        $this->experienceService = $experienceService;
-        $this->roleSoftwareService = $roleSoftwareService;
-    }
-
     /**
      * Display a listing of the resource.
      */

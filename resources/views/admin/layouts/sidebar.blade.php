@@ -78,8 +78,8 @@
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['admin.experiences.*']) }}">
+                <a class="nav-link" href="{{ route('admin.experiences.index') }}">
                     <i class="fab fa-creative-commons-nd"></i>
                     <span>Experiences</span>
                 </a>
