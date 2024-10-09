@@ -9,6 +9,9 @@
                 <div class="breadcrumb-item">User</div>
             </div>
         </div>
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('admin.users.index') }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row mt-sm-4">
                 <div class="col-12">

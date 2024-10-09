@@ -10,7 +10,9 @@ $levels = Experience::$levels;
         <div class="section-header">
             <h1>Experiences</h1>
         </div>
-
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('admin.experiences.index') }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
@@ -19,8 +21,8 @@ $levels = Experience::$levels;
                             <h4>Update Experiences</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.experiences.update', $experience) }}" enctype="multipart/form-data"
-                                method="POST">
+                            <form action="{{ route('admin.experiences.update', $experience) }}"
+                                enctype="multipart/form-data" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">

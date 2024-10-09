@@ -3,15 +3,17 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Project</h1>
+            <h1>My Project</h1>
         </div>
-
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('user.projects.index') }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Create Project</h4>
+                            <h4>Update Project</h4>
                         </div>
                         <div class="card-body">
                             <form action="{{ route('user.projects.update', $project) }}" enctype="multipart/form-data"

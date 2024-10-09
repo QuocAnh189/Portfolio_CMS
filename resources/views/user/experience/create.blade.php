@@ -5,7 +5,9 @@
         <div class="section-header">
             <h1>Experiences</h1>
         </div>
-
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('user.experiences.index') }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
@@ -14,7 +16,8 @@
                             <h4>Create Experiences</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('user.experiences.store') }}" enctype="multipart/form-data" method="POST">
+                            <form action="{{ route('user.experiences.store') }}" enctype="multipart/form-data"
+                                method="POST">
                                 @csrf
                                 <div class="row">
                                     <input class="form-control d-none" name="user_id" type="text"

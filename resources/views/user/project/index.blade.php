@@ -3,14 +3,14 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Project</h1>
+            <h1>My Project</h1>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>All Project</h4>
+                            <h4>Projects</h4>
                             <div class="card-header-action">
                                 <a class="btn btn-primary" href="{{ route('user.projects.create') }}">
                                     <i class="fas fa-plus"></i>

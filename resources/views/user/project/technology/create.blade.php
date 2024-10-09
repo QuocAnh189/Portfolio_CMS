@@ -5,7 +5,9 @@
         <div class="section-header">
             <h1>Create Project Technology</h1>
         </div>
-
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('user.projects.projectTechnologies.index', $project) }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">

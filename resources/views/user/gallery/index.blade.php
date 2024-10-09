@@ -5,9 +5,6 @@
         <div class="section-header">
             <h1>Galleries</h1>
         </div>
-        <div class="mb-3">
-            <a class="btn btn-primary" href="{{ route('user.project-galleries.index') }}">Back</a>
-        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
@@ -45,7 +42,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary" type="submit">Upload</button>
+                                <div class="text-right"><button class="btn btn-primary" type="submit">Upload</button></div>
                             </form>
                         </div>
 

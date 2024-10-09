@@ -5,7 +5,9 @@
         <div class="section-header">
             <h1>Education</h1>
         </div>
-
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('admin.education.index') }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
@@ -14,7 +16,8 @@
                             <h4>Create Education</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.education.store') }}" enctype="multipart/form-data" method="POST">
+                            <form action="{{ route('admin.education.store') }}" enctype="multipart/form-data"
+                                method="POST">
                                 @csrf
                                 <div class="row">
                                     <div class="form-group col-12">

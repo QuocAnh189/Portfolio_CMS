@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Galleries</h1>
+            <h1>Manage Galleries</h1>
         </div>
         <div class="section-body">
             <div class="row">
@@ -41,7 +41,9 @@
                                         </select>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary" type="submit">Upload</button>
+                                <div class="text-right">
+                                    <button class="btn btn-primary" type="submit">Upload</button>
+                                </div>
                             </form>
                         </div>
 

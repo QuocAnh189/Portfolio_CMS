@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            {{ $dataTable->table() }}D
+                            {{ $dataTable->table() }}
                         </div>
                     </div>
                 </div>

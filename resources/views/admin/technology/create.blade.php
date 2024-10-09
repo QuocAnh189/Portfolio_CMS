@@ -5,13 +5,15 @@
         <div class="section-header">
             <h1>Technology</h1>
         </div>
-
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('admin.technologies.index') }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Create Category</h4>
+                            <h4>Create Techonology</h4>
                         </div>
                         <div class="card-body">
                             <form action="{{ route('admin.technologies.store') }}" enctype="multipart/form-data"
@@ -35,7 +37,9 @@
                                         <option value="inactive">Inactive</option>
                                     </select>
                                 </div>
-                                <button class="btn btn-primary" type="submmit">Create</button>
+                                <div class="text-right">
+                                    <button class="btn btn-primary" type="submmit">Create</button>
+                                </div>
                             </form>
                         </div>
                     </div>

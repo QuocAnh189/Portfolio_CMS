@@ -5,7 +5,9 @@
         <div class="section-header">
             <h1>Major</h1>
         </div>
-
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('admin.majors.index') }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
@@ -38,7 +40,9 @@
                                         <option value="inactive">Inactive</option>
                                     </select>
                                 </div>
-                                <button class="btn btn-primary" type="submmit">Create</button>
+                                <div class="text-right">
+                                    <button class="btn btn-primary" type="submmit">Create</button>
+                                </div>
                             </form>
                         </div>
                     </div>

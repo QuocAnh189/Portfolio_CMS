@@ -5,7 +5,9 @@
         <div class="section-header">
             <h1>Update Role Software</h1>
         </div>
-
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('admin.role-softwares.index') }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
@@ -43,7 +45,9 @@
                                         </option>
                                     </select>
                                 </div>
-                                <button class="btn btn-primary" type="submmit">Update</button>
+                                <div class="text-right">
+                                    <button class="btn btn-primary" type="submmit">Update</button>
+                                </div>
                             </form>
                         </div>
                     </div>

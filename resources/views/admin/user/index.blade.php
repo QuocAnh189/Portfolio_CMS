@@ -3,14 +3,14 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>User</h1>
+            <h1>Manage User</h1>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>All Users</h4>
+                            <h4>Users</h4>
                             <div class="card-header-action">
                                 <a class="btn btn-primary" href="{{ route('admin.users.create') }}">
                                     <i class="fas fa-plus"></i>

@@ -5,13 +5,15 @@
         <div class="section-header">
             <h1>Skill</h1>
         </div>
-
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('admin.skills.index') }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Create Skill</h4>
+                            <h4>Update Skill</h4>
                         </div>
                         <div class="card-body">
                             <form action="{{ route('admin.skills.update', $skill) }}" enctype="multipart/form-data"

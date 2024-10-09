@@ -10,6 +10,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
+                            <h4>Technologies</h4>
                             <div class="card-header-action">
                                 <a class="btn btn-primary" href="{{ route('user.userTechnologies.create') }}">
                                     <i class="fas fa-plus"></i>

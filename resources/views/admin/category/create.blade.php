@@ -5,7 +5,9 @@
         <div class="section-header">
             <h1>Category</h1>
         </div>
-
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('admin.categories.index') }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
@@ -14,7 +16,8 @@
                             <h4>Create Category</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.categories.store') }}" enctype="multipart/form-data" method="POST">
+                            <form action="{{ route('admin.categories.store') }}" enctype="multipart/form-data"
+                                method="POST">
                                 @csrf
                                 <div class="form-group col-12">
                                     <div class="mb-3">
@@ -34,7 +37,9 @@
                                         <option value="inactive">Inactive</option>
                                     </select>
                                 </div>
-                                <button class="btn btn-primary" type="submmit">Create</button>
+                                <div class="text-right">
+                                    <button class="btn btn-primary" type="submmit">Create</button>
+                                </div>
                             </form>
                         </div>
                     </div>

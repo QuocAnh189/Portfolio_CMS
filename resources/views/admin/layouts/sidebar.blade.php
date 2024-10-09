@@ -8,7 +8,7 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Portfolio Dashboard</li>
-            <li class="dropdown active">
+            <li class="{{ setActive(['admin.dashboard']) }}">
                 <a class="nav-link" href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-fire"></i>
                     <span>Dashboard</span>

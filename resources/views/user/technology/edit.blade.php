@@ -3,9 +3,11 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Update My Technology</h1>
+            <h1>My Technology</h1>
         </div>
-
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('user.userTechnologies.index') }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">

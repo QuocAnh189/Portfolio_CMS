@@ -5,7 +5,9 @@
         <div class="section-header">
             <h1>Project Feature</h1>
         </div>
-
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('user.projects.features.index', $project) }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
@@ -14,17 +16,17 @@
                             <h4>Create Feature</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('user.projects.features.store', $project) }}" enctype="multipart/form-data"
-                                method="POST">
+                            <form action="{{ route('user.projects.features.store', $project) }}"
+                                enctype="multipart/form-data" method="POST">
                                 @csrf
                                 <div class="row">
                                     <input class="form-control d-none" name="project_id" type="text"
                                         value="{{ $project->id }}">
-                                    <div class="form-group col-12">
+                                    <div class="form-group col-12 col-md-6">
                                         <label>Name</label>
                                         <input class="form-control" name="name" type="text" value="">
                                     </div>
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-12 col-md-6">
                                         <label for="inputState">Status</label>
                                         <select class="form-control" id="status" name="status">
                                             <option value="active">Active</option>

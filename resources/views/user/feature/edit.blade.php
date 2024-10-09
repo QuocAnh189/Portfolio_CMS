@@ -5,7 +5,9 @@
         <div class="section-header">
             <h1>Feature</h1>
         </div>
-
+        <div class="mb-3">
+            <a class="btn btn-primary" href="{{ route('user.features.index') }}">Back</a>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
@@ -21,12 +23,12 @@
                                 <div class="row">
                                     <input class="form-control d-none" name="project_id" type="text"
                                         value="{{ $feature->project_id }}">
-                                    <div class="form-group col-12">
+                                    <div class="form-group col-md-6 col-12">
                                         <label>Name</label>
                                         <input class="form-control" name="name" type="text"
                                             value="{{ $feature->name }}">
                                     </div>
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-md-6 col-12">
                                         <label for="inputState">Status</label>
                                         <select class="form-control" id="status" name="status">
                                             <option @if ($feature->status == 'active') selected @endif value="active">Active

@@ -33,7 +33,9 @@
                                         </select>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary" type="submit">Upload</button>
+                                <div class="text-right">
+                                    <button class="btn btn-primary" type="submit">Upload</button>
+                                </div>
                             </form>
                         </div>
 
