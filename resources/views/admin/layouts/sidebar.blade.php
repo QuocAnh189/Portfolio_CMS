@@ -57,8 +57,8 @@
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['admin.features.*']) }}">
+                <a class="nav-link" href="{{ route('admin.features.index') }}">
                     <i class="fas fa-x-ray"></i>
                     <span>Feature</span>
                 </a>
