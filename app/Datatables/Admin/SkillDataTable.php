@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables\User;
+namespace App\DataTables\Admin;
 
 use App\Domains\Skill\Models\Skill;
 use App\Enum\Status;
@@ -22,8 +22,8 @@ class SkillDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('role_software.name', function ($query) {
-                return '<h6 class="">' . $query->role_software->name . '</h6>';
+            ->addColumn('user.name', function ($query) {
+                return '<h6 class="">' . $query->user->name . '</h6>';
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === Status::Active->value) {
@@ -44,16 +44,16 @@ class SkillDataTable extends DataTable
                 return $button;
             })
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('user.skills.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('user.skills.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $editBtn = "<a href='" . route('admin.skills.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.skills.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
                 return $editBtn . $deleteBtn;
             })
-            ->filterColumn('role_software.name', function ($query, $keyword) {
+            ->filterColumn('user.name', function ($query, $keyword) {
                 $query->where('name', 'like', "%" . $keyword . "%");
             })
 
-            ->rawColumns(['role_software.name', 'status', 'action'])
+            ->rawColumns(['user.name', 'status', 'action'])
             ->setRowId('id');
     }
 
@@ -62,7 +62,7 @@ class SkillDataTable extends DataTable
      */
     public function query(Skill $model): QueryBuilder
     {
-        return $model->newQuery()->with('user')->with('role_software')->where('user_id', Auth::id());
+        return $model->newQuery()->with('user')->with('role_software');
     }
 
     /**
@@ -92,15 +92,16 @@ class SkillDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(300),
-            Column::make('role_software.name')
+            Column::make('id')->width(200),
+            Column::make('user.name')->width(100),
+            Column::make('role_software.name')->width(200)
                 ->title('Role Software'),
             Column::make('description'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(200)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }

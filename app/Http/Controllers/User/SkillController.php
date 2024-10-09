@@ -9,9 +9,9 @@ use App\Domains\Skill\Dto\CreateSkillDto;
 use App\Domains\Skill\Dto\UpdateSkillDto;
 use App\Domains\Skill\Models\Skill;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Skill\CreateSkillRequest;
 use App\Http\Requests\Skill\UpdateSkillRequest;
-use Illuminate\Http\Request;
 
 class SkillController extends Controller
 {
@@ -95,7 +95,7 @@ class SkillController extends Controller
         }
     }
 
-    public function change_status(SkillService $skillService, Request $request)
+    public function change_status(SkillService $skillService, ChangeStatusRequest $request)
     {
         try {
             $skillService->changeStatusSkill($request->id, $request->status);

@@ -14,36 +14,62 @@
                             <h4>Create Skill</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.skills.store') }}" enctype="multipart/form-data" method="POST">
+                            <form action="{{ route('admin.skills.update', $skill) }}" enctype="multipart/form-data"
+                                method="POST">
+                                @method('PUT')
                                 @csrf
-                                <div class="form-group col-12">
-                                    <label>Description</label>
-                                    <input class="form-control" name="description" type="text" value="">
-                                </div>
-                                <div class="form-group col-md-6 col-12">
-                                    <label for="inputState">Role Software</label>
-                                    <select class="form-control" id="role_software_id" name="role_software_id">
-                                        <option value="">
-                                            None
-                                        </option>
-                                        @forelse ($role_softwares as $role_software)
-                                            <option @if ($profile->role_software_id == $role_software->id) selected @endif
-                                                value="{{ $role_software->id }}">
-                                                {{ $role_software->name }}
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-12">
+                                        <label for="inputState">User</label>
+                                        <select class="form-control" id="user_id" name="user_id">
+                                            <option value="">
+                                                None
                                             </option>
-                                        @empty
-                                            No data
-                                        @endforelse
-                                    </select>
+                                            @forelse ($users as $user)
+                                                <option @if ($user->id == $skill->user_id) selected @endif
+                                                    value="{{ $user->id }}">
+                                                    {{ $user->name }}
+                                                </option>
+                                            @empty
+                                                No data
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label>Description</label>
+                                        <input class="form-control" name="description" type="text"
+                                            value="{{ $skill->description }}">
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        <label for="inputState">Role Software</label>
+                                        <select class="form-control" id="role_software_id" name="role_software_id">
+                                            <option value="">
+                                                None
+                                            </option>
+                                            @forelse ($role_softwares as $role_software)
+                                                <option @if ($skill->role_software_id == $role_software->id) selected @endif
+                                                    value="{{ $role_software->id }}">
+                                                    {{ $role_software->name }}
+                                                </option>
+                                            @empty
+                                                No data
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        <label for="inputState">Status</label>
+                                        <select class="form-control" id="status" name="status">
+                                            <option @if ($skill->status == 'active') selected @endif value="active">Active
+                                            </option>
+                                            <option @if ($skill->status == 'inactive') selected @endif value="inactive">
+                                                Inactive
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-6 col-12">
-                                    <label for="inputState">Status</label>
-                                    <select class="form-control" id="status" name="status">
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
-                                    </select>
+                                <div class="card-footer text-right">
+                                    <button class="btn btn-primary" type="submmit">Update</button>
                                 </div>
-                                <button class="btn btn-primary" type="submmit">Create</button>
                             </form>
                         </div>
                     </div>
