@@ -7,8 +7,12 @@ use App\Http\Controllers\Admin\ExperienceController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\LinkController;
 use App\Http\Controllers\Admin\MajorController;
-use App\Http\Controllers\Admin\ProjectController;
-use App\Http\Controllers\Admin\ProjectGalleryController;
+use App\Http\Controllers\Admin\Project\ProjectController;
+use App\Http\Controllers\Admin\Project\ProjectFeatureController;
+use App\Http\Controllers\Admin\Project\ProjectLinkController;
+use App\Http\Controllers\Admin\Project\ProjectTechnologyController;
+use App\Http\Controllers\Admin\Project\ProjectGalleryController;
+use App\Http\Controllers\Admin\ProjectGalleryController as GalleryController;
 use App\Http\Controllers\Admin\RoleSoftwareController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\TechnologyController;
@@ -35,11 +39,17 @@ Route::put('technologies/change-status', [TechnologyController::class, 'change_s
 Route::resource('technologies', TechnologyController::class);
 
 /**Project route */
+Route::put('projects/change-status', [ProjectController::class, 'change_status'])->name('projects.change-status');
 Route::resource('projects', ProjectController::class);
+Route::resource('projects.galleries', ProjectGalleryController::class);
+Route::put('projects.projectTechnologies/change-status', [ProjectTechnologyController::class, 'change_status'])->name('project-technologies.change-status');;
+Route::resource('projects.projectTechnologies', ProjectTechnologyController::class);
+Route::resource('projects.features', ProjectFeatureController::class);
+Route::resource('projects.links', ProjectLinkController::class);
 
 /**Project Gallery route */
-Route::put('galleries/change-status', [ProjectGalleryController::class, 'change_status'])->name('galleries.change-status');
-Route::resource('galleries', ProjectGalleryController::class);
+Route::put('galleries/change-status', [GalleryController::class, 'change_status'])->name('galleries.change-status');
+Route::resource('galleries', GalleryController::class);
 
 /**Feature route */
 Route::put('features/change-status', [FeatureController::class, 'change_status'])->name('features.change-status');

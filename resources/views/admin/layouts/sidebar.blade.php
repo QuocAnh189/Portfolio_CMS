@@ -43,8 +43,8 @@
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['admin.projects.*']) }}">
+                <a class="nav-link" href="{{ route('admin.projects.index') }}">
                     <i class="fas fa-book"></i>
                     <span>Projects</span>
                 </a>

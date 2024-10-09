@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\User\Project;
+namespace App\Http\Controllers\Admin\Project;
 
-use App\DataTables\User\Project\ProjectDataTable;
+use App\DataTables\Admin\Project\ProjectDataTable;
 use App\Domains\Category\Services\CategoryService;
 use App\Domains\Project\Dto\CreateProjectDto;
 use App\Domains\Project\Dto\UpdateProjectDto;
 use App\Domains\Project\Models\Project;
 use App\Domains\Project\Services\ProjectService;
+use App\Domains\User\Services\UserService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Project\CreateProjectRequest;
@@ -21,16 +22,17 @@ class ProjectController extends Controller
      */
     public function index(ProjectDataTable $dataTable)
     {
-        return $dataTable->render('user.project.index');
+        return $dataTable->render('admin.project.index');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(CategoryService $categoryService)
+    public function create(UserService $userService, CategoryService $categoryService)
     {
+        $users = $userService->getAllUser();
         $categories = $categoryService->getAllCategory();
-        return view('user.project.create', compact('categories'));
+        return view('admin.project.create', compact('users', 'categories'));
     }
 
     /**
@@ -46,7 +48,7 @@ class ProjectController extends Controller
                 flash()->option('position', 'top-center')->success('Create project successfully.');
             }
 
-            return redirect()->route('user.projects.index');
+            return redirect()->route('admin.projects.index');
         } catch (\Exception $e) {
             flash()->option('position', 'top-center')->error($e->getMessage());
         }
@@ -55,10 +57,11 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CategoryService $categoryService, Project $project)
+    public function edit(UserService $userService, CategoryService $categoryService, Project $project)
     {
+        $users = $userService->getAllUser();
         $categories = $categoryService->getAllCategory();
-        return view('user.project.edit', compact('project', 'categories'));
+        return view('admin.project.edit', compact('project', 'users', 'categories'));
     }
 
     /**
@@ -74,7 +77,7 @@ class ProjectController extends Controller
                 flash()->option('position', 'top-center')->success('Update project successfully.');
             }
 
-            return redirect()->route('user.projects.index');
+            return redirect()->route('admin.projects.index');
         } catch (\Exception $e) {
             flash()->option('position', 'top-center')->error($e->getMessage());
         }

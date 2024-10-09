@@ -30,12 +30,12 @@ class ProjectTechnologiesService
 
     public function updateProjectTechnologies(ProjectTechnologies $projectTechnologies, $updateProjectTechnologiesDto)
     {
-        return $this->projectTechnologiesRepository->update($$projectTechnologies->id, $updateProjectTechnologiesDto);
+        return $this->projectTechnologiesRepository->update($projectTechnologies->id, $updateProjectTechnologiesDto);
     }
 
     public function deleteProjectTechnologies(ProjectTechnologies $projectTechnologies)
     {
-        return $this->projectTechnologiesRepository->delete($projectTechnologies);
+        return $this->projectTechnologiesRepository->delete($projectTechnologies->id);
     }
 
     public function changeStatusProjectTechnologies($projectTechnologiesId, $status)

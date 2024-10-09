@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Project Feature</h1>
+            <h1>Project Links</h1>
         </div>
         <div class="mb-3">
             <a class="btn btn-primary" href="{{ route('admin.projects.index') }}">Back</a>
@@ -15,7 +15,7 @@
                         <div class="card-header">
                             <h4>{{ $project->name }}</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-primary" href="{{ route('admin.projects.features.create', $project) }}">
+                                <a class="btn btn-primary" href="{{ route('admin.projects.links.create', $project) }}">
                                     <i class="fas fa-plus"></i>
                                     Create New
                                 </a>
@@ -41,7 +41,7 @@
                 let id = $(this).data('id');
 
                 $.ajax({
-                    url: "{{ route('user.features.change-status') }}",
+                    url: "{{ route('admin.links.change-status') }}",
                     method: 'PUT',
                     data: {
                         status: isChecked,

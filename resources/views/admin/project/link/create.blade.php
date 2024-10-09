@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Project Feature</h1>
+            <h1>Project Link</h1>
         </div>
 
         <div class="section-body">
@@ -11,18 +11,22 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Create Feature</h4>
+                            <h4>Create Link</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.projects.features.store', $project) }}"
-                                enctype="multipart/form-data" method="POST">
+                            <form action="{{ route('admin.projects.links.store', $project) }}" enctype="multipart/form-data"
+                                method="POST">
                                 @csrf
                                 <div class="row">
                                     <input class="form-control d-none" name="project_id" type="text"
                                         value="{{ $project->id }}">
-                                    <div class="form-group col-12">
-                                        <label>Name</label>
-                                        <input class="form-control" name="name" type="text" value="">
+                                    <div class="form-group col-6">
+                                        <label>Title</label>
+                                        <input class="form-control" name="title" type="text">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label>Url</label>
+                                        <input class="form-control" name="url" type="text">
                                     </div>
                                     <div class="form-group col-6">
                                         <label for="inputState">Status</label>
