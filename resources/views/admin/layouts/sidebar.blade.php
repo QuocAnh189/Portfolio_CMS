@@ -64,8 +64,8 @@
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['admin.links.*']) }}">
+                <a class="nav-link" href="{{ route('admin.links.index') }}">
                     <i class="fas fa-link"></i>
                     <span>Links</span>
                 </a>

@@ -30,12 +30,12 @@ class LinkService
 
     public function updateLink(Link $link, $updateLinkDto)
     {
-        return $this->linkRepository->update($link, $updateLinkDto);
+        return $this->linkRepository->update($link->id, $updateLinkDto);
     }
 
     public function deleteLink(Link $link)
     {
-        return $this->linkRepository->delete($link);
+        return $this->linkRepository->delete($link->id);
     }
 
     public function changeStatusLink($linkId, $status)
