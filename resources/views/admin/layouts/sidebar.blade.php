@@ -50,8 +50,8 @@
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['admin.galleries.*']) }}">
+                <a class="nav-link" href="{{ route('admin.galleries.index') }}">
                     <i class="fas fa-image"></i>
                     <span>Project Galleries</span>
                 </a>

@@ -2,8 +2,9 @@
 
 namespace App\DataTables\Admin;
 
+use App\Domains\Project\Models\Project;
+use App\Domains\ProjectGallery\Models\ProjectGallery;
 use App\Enum\Status;
-use App\Domains\Feature\Models\Feature;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -11,8 +12,14 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class FeatureDataTable extends DataTable
+class GalleryDataTable extends DataTable
 {
+    private Project $project;
+    public function __construct(Project $project)
+    {
+        $this->project = $project;
+    }
+
     /**
      * Build the DataTable class.
      *
@@ -23,6 +30,9 @@ class FeatureDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('project.name', function ($query) {
                 return '<h6 class="">' . $query->project->name . '</h6>';
+            })
+            ->addColumn('image', function ($query) {
+                return "<img width='200px' src='" . asset($query->image) . "' ></img>";
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === Status::Active->value) {
@@ -43,20 +53,18 @@ class FeatureDataTable extends DataTable
                 return $button;
             })
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.features.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('admin.features.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.galleries.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
-                return $editBtn . $deleteBtn;
+                return $deleteBtn;
             })
-
-            ->rawColumns(['project.name', 'status', 'action'])
+            ->rawColumns(['project.name', 'image', 'status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Feature $model): QueryBuilder
+    public function query(ProjectGallery $model): QueryBuilder
     {
         return $model->newQuery()->with('project');
     }
@@ -67,10 +75,10 @@ class FeatureDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('feature-table')
+            ->setTableId('gallery-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->orderBy(0)
+            ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -88,10 +96,10 @@ class FeatureDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(300),
+            Column::make('id')->width(200),
             Column::make('project.name')
                 ->title('Project'),
-            Column::make('name'),
+            Column::make('image'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
@@ -106,6 +114,6 @@ class FeatureDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Feature_' . date('YmdHis');
+        return 'ProductImageGallery_' . date('YmdHis');
     }
 }

@@ -38,7 +38,8 @@ Route::resource('technologies', TechnologyController::class);
 Route::resource('projects', ProjectController::class);
 
 /**Project Gallery route */
-Route::resource('project-galleries', ProjectGalleryController::class);
+Route::put('galleries/change-status', [ProjectGalleryController::class, 'change_status'])->name('galleries.change-status');
+Route::resource('galleries', ProjectGalleryController::class);
 
 /**Feature route */
 Route::put('features/change-status', [FeatureController::class, 'change_status'])->name('features.change-status');

@@ -59,9 +59,8 @@
                                     </div>
                                     <div class="form-group col-md-6 col-12">
                                         <label>Bio</label>
-                                        <textarea class="form-control" cols="6" name="bio" type="text">
-                                            {{ $profile->bio }}
-                                        </textarea>
+                                        <input class="form-control" name="bio" type="text"
+                                            value="{{ $profile->bio }}">
                                     </div>
                                     <div class="form-group col-md-6 col-12">
                                         <label for="inputState">Role Software</label>
