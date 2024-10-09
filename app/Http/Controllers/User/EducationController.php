@@ -16,15 +16,6 @@ use Illuminate\Http\Request;
 
 class EducationController extends Controller
 {
-    private EducationService $educationService;
-    private MajorService $majorService;
-
-    public function __construct(EducationService $educationService, MajorService $majorService)
-    {
-        $this->educationService = $educationService;
-        $this->majorService = $majorService;
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -36,20 +27,20 @@ class EducationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(MajorService $majorService)
     {
-        $majors = $this->majorService->getAllMajor();
+        $majors = $majorService->getAllMajor();
         return view("user.education.create", compact("majors"));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateEducationRequest $request)
+    public function store(EducationService $educationService, CreateEducationRequest $request)
     {
         try {
             $createEducationDto = CreateEducationDto::fromAppRequest($request);
-            $createdEducation = $this->educationService->createEducation($createEducationDto);
+            $createdEducation = $educationService->createEducation($createEducationDto);
 
             if ($createdEducation) {
                 flash()->option('position', 'top-center')->success('Create Education successfully.');
@@ -64,21 +55,21 @@ class EducationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Education $education)
+    public function edit(MajorService $majorService, Education $education)
     {
-        $majors = $this->majorService->getAllMajor();
+        $majors = $majorService->getAllMajor();
         return view("user.education.edit", compact("education", "majors"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Education $education, UpdateEducationRequest $request)
+    public function update(EducationService $educationService, Education $education, UpdateEducationRequest $request)
     {
         try {
             $updateEducationDto = UpdateEducationDto::fromAppRequest($request, $education);
 
-            $updatedEducation = $this->educationService->updateEducation($education, $updateEducationDto);
+            $updatedEducation = $educationService->updateEducation($education, $updateEducationDto);
 
             if ($updatedEducation) {
                 flash()->option('position', 'top-center')->success('Update Education successfully.');
@@ -93,10 +84,10 @@ class EducationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Education $education)
+    public function destroy(EducationService $educationService, Education $education)
     {
         try {
-            $this->educationService->deleteEducation($education);
+            $educationService->deleteEducation($education);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
@@ -104,10 +95,10 @@ class EducationController extends Controller
         }
     }
 
-    public function change_status(ChangeStatusRequest $request)
+    public function change_status(EducationService $educationService, ChangeStatusRequest $request)
     {
         try {
-            $this->educationService->changeStatusEducation($request->id, $request->status);
+            $educationService->changeStatusEducation($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {

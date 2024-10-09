@@ -19,6 +19,16 @@ class UserService
         $this->profileRepository = $profileRepository;
     }
 
+    public function countUsers()
+    {
+        return $this->userRepository->countOfUser();
+    }
+
+    public function getAllUser(): mixed
+    {
+        return $this->userRepository->findAll();
+    }
+
     public function createUser($createUserDto)
     {
         $password = Hash::make($createUserDto['user']['password']);

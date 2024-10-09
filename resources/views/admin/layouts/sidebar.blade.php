@@ -92,8 +92,8 @@
                 </a>
             </li>
 
-            <li class="{{ setActive(['']) }}">
-                <a class="nav-link" href="">
+            <li class="{{ setActive(['admin.education.*']) }}">
+                <a class="nav-link" href="{{ route('admin.education.index') }}">
                     <i class="fas fa-school"></i>
                     <span>Education</span>
                 </a>

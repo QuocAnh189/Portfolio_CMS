@@ -57,7 +57,8 @@ Route::resource('experience', ExperienceController::class);
 Route::resource('skills', SkillController::class);
 
 /**Education route */
-Route::resource('educations', EducationController::class);
+Route::put('education/change-status', [EducationController::class, 'change_status'])->name('education.change-status');
+Route::resource('education', EducationController::class);
 
 /**Profile route */
 Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
