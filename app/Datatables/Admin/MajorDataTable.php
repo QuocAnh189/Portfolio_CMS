@@ -102,7 +102,7 @@ class MajorDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(200)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }

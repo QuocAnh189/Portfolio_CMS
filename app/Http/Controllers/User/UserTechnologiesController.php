@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
-use App\DataTables\User\UserTechnologyDataTable;
+use App\DataTables\User\UserTechnologies\TrashUserTechnologyDataTable;
+use App\DataTables\User\UserTechnologies\UserTechnologyDataTable;
 use App\Domains\Relation\UserTechnologies\Models\UserTechnologies;
 use App\Domains\Relation\UserTechnologies\Dto\CreateUserTechnologiesDto;
 use App\Domains\Relation\UserTechnologies\Dto\UpdateUserTechnologiesDto;
@@ -21,6 +22,11 @@ class UserTechnologiesController extends Controller
     public function index(UserTechnologyDataTable $dataTable)
     {
         return $dataTable->render('user.technology.index');
+    }
+
+    public function trash_index(TrashUserTechnologyDataTable $dataTable)
+    {
+        return $dataTable->render('user.technology.trash');
     }
 
     /**
@@ -100,6 +106,32 @@ class UserTechnologiesController extends Controller
     {
         try {
             $userTechnologiesService->deleteUserTechnologies($userTechnology);
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function restore(UserTechnologiesService $userTechnologiesService, UserTechnologies $userTechnology)
+    {
+        try {
+            $restoredUserTechnology = $userTechnologiesService->restoreUserTechnologies($userTechnology);
+
+            if ($restoredUserTechnology) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('user.userTechnologies.trash-index');
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function delete(UserTechnologiesService $userTechnologiesService, UserTechnologies $userTechnology)
+    {
+        try {
+            $userTechnologiesService->removeUserTechnologies($userTechnology);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {

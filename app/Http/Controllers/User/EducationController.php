@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\DataTables\User\EducationDataTable;
+use App\DataTables\User\Education\EducationDataTable;
 use App\Domains\Education\Dto\CreateEducationDto;
 use App\Domains\Education\Dto\UpdateEducationDto;
 use App\Domains\Education\Models\Education;

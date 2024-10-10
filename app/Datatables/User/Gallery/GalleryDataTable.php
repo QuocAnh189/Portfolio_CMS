@@ -1,19 +1,26 @@
 <?php
 
-namespace App\DataTables\User;
+namespace App\DataTables\User\Gallery;
 
-use App\Domains\Link\Models\Link;
+use App\Domains\Project\Models\Project;
+use App\Domains\ProjectGallery\Models\ProjectGallery;
 use App\Enum\Status;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class LinkDataTable extends DataTable
+class GalleryDataTable extends DataTable
 {
+    private Project $project;
+    public function __construct(Project $project)
+    {
+        $this->project = $project;
+    }
+
     /**
      * Build the DataTable class.
      *
@@ -22,8 +29,13 @@ class LinkDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('project.name', function ($query) {
-                return '<h6 class="">' . $query->project->name . '</h6>';
+            ->addColumn('action', function ($query) {
+                $deleteBtn = "<a href='" . route('user.project-galleries.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+
+                return $deleteBtn;
+            })
+            ->addColumn('image', function ($query) {
+                return "<img width='200px' src='" . asset($query->image) . "' ></img>";
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === Status::Active->value) {
@@ -43,21 +55,14 @@ class LinkDataTable extends DataTable
 
                 return $button;
             })
-            ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('user.links.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('user.links.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
-
-                return $editBtn . $deleteBtn;
-            })
-
-            ->rawColumns(['project.name', 'status', 'action'])
+            ->rawColumns(['image', 'status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Link $model): QueryBuilder
+    public function query(ProjectGallery $model): QueryBuilder
     {
         return $model->newQuery()
             ->whereIn('project_id', Auth::user()->projects->pluck('id')->toArray());
@@ -69,10 +74,10 @@ class LinkDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('link-table')
+            ->setTableId('gallery-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->orderBy(0)
+            ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -90,16 +95,14 @@ class LinkDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(200),
-            Column::make('project.name')
-                ->title('Project'),
-            Column::make('title'),
-            Column::make('url'),
+            Column::make('id')->width(300),
+            // Column::make('project.name')->title('Project Name'),
+            Column::make('image'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(200)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }
@@ -109,6 +112,6 @@ class LinkDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Link_' . date('YmdHis');
+        return 'ProductImageGallery_' . date('YmdHis');
     }
 }

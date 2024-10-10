@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\DataTables\User\SkillDataTable;
+use App\DataTables\User\Skill\SkillDataTable;
 use App\Domains\RoleSoftware\Services\RoleSoftwareService;
 use App\Domains\Skill\Services\SkillService;
 use App\Domains\Skill\Dto\CreateSkillDto;

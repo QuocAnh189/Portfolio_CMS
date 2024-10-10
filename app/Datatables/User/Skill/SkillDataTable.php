@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DataTables\User;
+namespace App\DataTables\User\Skill;
 
-use App\Domains\Experience\Models\Experience;
+use App\Domains\Skill\Models\Skill;
 use App\Enum\Status;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class ExperienceDataTable extends DataTable
+class SkillDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,8 +22,8 @@ class ExperienceDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('company_name', function ($query) {
-                return '<h6 class="">' . $query->company_name . '</h6>';
+            ->addColumn('role_software.name', function ($query) {
+                return '<h6 class="">' . $query->role_software->name . '</h6>';
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === Status::Active->value) {
@@ -44,25 +44,25 @@ class ExperienceDataTable extends DataTable
                 return $button;
             })
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('user.experiences.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('user.experiences.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $editBtn = "<a href='" . route('user.skills.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('user.skills.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
                 return $editBtn . $deleteBtn;
             })
-            ->filterColumn('name', function ($query, $keyword) {
+            ->filterColumn('role_software.name', function ($query, $keyword) {
                 $query->where('name', 'like', "%" . $keyword . "%");
             })
 
-            ->rawColumns(['company_name', 'status', 'action'])
+            ->rawColumns(['role_software.name', 'status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Experience $model): QueryBuilder
+    public function query(Skill $model): QueryBuilder
     {
-        return $model->newQuery()->where('user_id', Auth::id());
+        return $model->newQuery()->with('user')->with('role_software')->where('user_id', Auth::id());
     }
 
     /**
@@ -71,7 +71,7 @@ class ExperienceDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('experience-table')
+            ->setTableId('skill-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
@@ -93,13 +93,14 @@ class ExperienceDataTable extends DataTable
     {
         return [
             Column::make('id')->width(300),
-            Column::make('company_name'),
-            Column::make('level'),
+            Column::make('role_software.name')
+                ->title('Role Software'),
+            Column::make('description'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(200)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }
@@ -109,6 +110,6 @@ class ExperienceDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Experiences_' . date('YmdHis');
+        return 'Skill_' . date('YmdHis');
     }
 }

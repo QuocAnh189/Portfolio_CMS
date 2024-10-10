@@ -1,10 +1,10 @@
 <?php
 
-namespace App\DataTables\User\Project;
+namespace App\DataTables\User\Feature;
 
 use App\Domains\Feature\Models\Feature;
-use App\Domains\Project\Models\Project;
 use App\Enum\Status;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,13 +12,8 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class ProjectFeatureDataTable extends DataTable
+class FeatureDataTable extends DataTable
 {
-    private Project $project;
-    public function __construct(Project $project)
-    {
-        $this->project = $project;
-    }
     /**
      * Build the DataTable class.
      *
@@ -27,8 +22,8 @@ class ProjectFeatureDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('name', function ($query) {
-                return '<h6 class="">' . $query->name . '</h6>';
+            ->addColumn('project.name', function ($query) {
+                return '<h6 class="">' . $query->project->name . '</h6>';
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === Status::Active->value) {
@@ -49,16 +44,13 @@ class ProjectFeatureDataTable extends DataTable
                 return $button;
             })
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('user.projects.features.edit', [$query->project_id, $query->id]) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $editBtn = "<a href='" . route('user.features.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
                 $deleteBtn = "<a href='" . route('user.features.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
                 return $editBtn . $deleteBtn;
             })
-            ->filterColumn('name', function ($query, $keyword) {
-                $query->where('name', 'like', "%" . $keyword . "%");
-            })
 
-            ->rawColumns(['name', 'status', 'action'])
+            ->rawColumns(['project.name', 'status', 'action'])
             ->setRowId('id');
     }
 
@@ -67,7 +59,8 @@ class ProjectFeatureDataTable extends DataTable
      */
     public function query(Feature $model): QueryBuilder
     {
-        return $model->newQuery()->where('project_id', $this->project->id);
+        return $model->newQuery()
+            ->whereIn('project_id', Auth::user()->projects->pluck('id')->toArray());
     }
 
     /**
@@ -76,7 +69,7 @@ class ProjectFeatureDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('project-feature-table')
+            ->setTableId('feature-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
@@ -98,6 +91,8 @@ class ProjectFeatureDataTable extends DataTable
     {
         return [
             Column::make('id')->width(300),
+            Column::make('project.name')
+                ->title('Project'),
             Column::make('name'),
             Column::make('status'),
             Column::computed('action')
@@ -113,6 +108,6 @@ class ProjectFeatureDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'ProjectFeature' . date('YmdHis');
+        return 'Feature_' . date('YmdHis');
     }
 }

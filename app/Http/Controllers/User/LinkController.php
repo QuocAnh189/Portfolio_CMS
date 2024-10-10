@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\DataTables\User\LinkDataTable;
+use App\DataTables\User\Link\LinkDataTable;
 use App\Domains\Link\Dto\CreateLinkDto;
 use App\Domains\Link\Dto\UpdateLinkDto;
 use App\Domains\Link\Models\Link;
@@ -11,7 +11,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Link\CreateLinkRequest;
 use App\Http\Requests\Link\UpdateLinkRequest;
-use Illuminate\Http\Request;
 
 class LinkController extends Controller
 {

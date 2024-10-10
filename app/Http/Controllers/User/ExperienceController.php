@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\DataTables\User\ExperienceDataTable;
+use App\DataTables\User\Experience\ExperienceDataTable;
 use App\Domains\Experience\Dto\CreateExperienceDto;
 use App\Domains\Experience\Dto\UpdateExperienceDto;
 use App\Domains\Experience\Models\Experience;

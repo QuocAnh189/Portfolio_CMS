@@ -1,18 +1,18 @@
 <?php
 
-namespace App\DataTables\User;
+namespace App\DataTables\User\Education;
 
-use App\Domains\Relation\UserTechnologies\Models\UserTechnologies;
+use App\Domains\Education\Models\Education;
 use App\Enum\Status;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class UserTechnologyDataTable extends DataTable
+class EducationDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,11 +22,11 @@ class UserTechnologyDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('technology.image', function ($query) {
-                return '<img src="' . $query->technology->image . '" style="width: 40px; height: 40px;" alt="icon">';
+            ->addColumn('logo', function ($query) {
+                return '<img src="' . $query->logo . '" style="width: 40px; height: 40px;" alt="icon">';
             })
-            ->addColumn('technology.name', function ($query) {
-                return '<h6 class="">' . $query->technology->name . '</h6>';
+            ->addColumn('university_name', function ($query) {
+                return '<h6 class="">' . $query->university_name . '</h6>';
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === Status::Active->value) {
@@ -47,25 +47,25 @@ class UserTechnologyDataTable extends DataTable
                 return $button;
             })
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('user.userTechnologies.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('user.userTechnologies.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $editBtn = "<a href='" . route('user.education.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('user.education.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
                 return $editBtn . $deleteBtn;
             })
-            ->filterColumn('technology.name', function ($query, $keyword) {
+            ->filterColumn('name', function ($query, $keyword) {
                 $query->where('name', 'like', "%" . $keyword . "%");
             })
 
-            ->rawColumns(['technology.image', 'technology.name', 'status', 'action'])
+            ->rawColumns(['logo', 'university_name', 'status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(UserTechnologies $model): QueryBuilder
+    public function query(Education $model): QueryBuilder
     {
-        return $model->newQuery()->with('technology')->where('user_id', Auth::id());
+        return $model->newQuery()->where('user_id', Auth::id());
     }
 
     /**
@@ -74,7 +74,7 @@ class UserTechnologyDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('usertechnologies-table')
+            ->setTableId('education-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
@@ -96,15 +96,14 @@ class UserTechnologyDataTable extends DataTable
     {
         return [
             Column::make('id')->width(300),
-            Column::make('technology.image')
-                ->title('Icon'),
-            Column::make('technology.name')
-                ->title('Technology'),
+            Column::make('logo'),
+            Column::make('university_name'),
+            Column::make('gpa'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(200)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }
@@ -114,6 +113,6 @@ class UserTechnologyDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Technology_' . date('YmdHis');
+        return 'Education_' . date('YmdHis');
     }
 }

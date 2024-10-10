@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
 
 /**Technology route */
+Route::delete('userTechnologies/forced-delete/{userTechnology}', [UserTechnologiesController::class, 'delete'])->name('userTechnologies.delete')->withTrashed(true);
+Route::put('userTechnologies/{userTechnology}/restore', [UserTechnologiesController::class, 'restore'])->name('userTechnologies.restore')->withTrashed(true);
+Route::get('userTechnologies/trash', [UserTechnologiesController::class, 'trash_index'])->name('userTechnologies.trash-index');
 Route::put('userTechnologies/change-status', [UserTechnologiesController::class, 'change_status'])->name('userTechnologies.change-status');
 Route::resource('userTechnologies', UserTechnologiesController::class);
 

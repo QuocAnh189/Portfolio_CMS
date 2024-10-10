@@ -41,6 +41,11 @@ abstract class RepositoryAbstract implements RepositoryInterface
         return $this->model->findOrFail($id);
     }
 
+    public function findByIdWithTrash($id)
+    {
+        return $this->model->withTrash()->findOrFail($id);
+    }
+
     public function create(array $attributes)
     {
         return $this->model->create($attributes);
@@ -60,9 +65,13 @@ abstract class RepositoryAbstract implements RepositoryInterface
         return $model->delete();
     }
 
-    public function forceDelete($id)
+    public function restore($model)
     {
-        $model = $this->findById($id);
+        return $model->restore();
+    }
+
+    public function forceDelete($model)
+    {
         return $model->forceDelete();
     }
 }

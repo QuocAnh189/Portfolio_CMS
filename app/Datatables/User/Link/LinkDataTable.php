@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DataTables\User;
+namespace App\DataTables\User\Link;
 
-use App\Domains\Education\Models\Education;
+use App\Domains\Link\Models\Link;
 use App\Enum\Status;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class EducationDataTable extends DataTable
+class LinkDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,11 +22,8 @@ class EducationDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('logo', function ($query) {
-                return '<img src="' . $query->logo . '" style="width: 40px; height: 40px;" alt="icon">';
-            })
-            ->addColumn('university_name', function ($query) {
-                return '<h6 class="">' . $query->university_name . '</h6>';
+            ->addColumn('project.name', function ($query) {
+                return '<h6 class="">' . $query->project->name . '</h6>';
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === Status::Active->value) {
@@ -47,25 +44,23 @@ class EducationDataTable extends DataTable
                 return $button;
             })
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('user.education.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('user.education.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $editBtn = "<a href='" . route('user.links.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('user.links.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
                 return $editBtn . $deleteBtn;
             })
-            ->filterColumn('name', function ($query, $keyword) {
-                $query->where('name', 'like', "%" . $keyword . "%");
-            })
 
-            ->rawColumns(['logo', 'university_name', 'status', 'action'])
+            ->rawColumns(['project.name', 'status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Education $model): QueryBuilder
+    public function query(Link $model): QueryBuilder
     {
-        return $model->newQuery()->where('user_id', Auth::id());
+        return $model->newQuery()
+            ->whereIn('project_id', Auth::user()->projects->pluck('id')->toArray());
     }
 
     /**
@@ -74,7 +69,7 @@ class EducationDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('education-table')
+            ->setTableId('link-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
@@ -95,15 +90,16 @@ class EducationDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(300),
-            Column::make('logo'),
-            Column::make('university_name'),
-            Column::make('gpa'),
+            Column::make('id')->width(200),
+            Column::make('project.name')
+                ->title('Project'),
+            Column::make('title'),
+            Column::make('url'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(200)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }
@@ -113,6 +109,6 @@ class EducationDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Education_' . date('YmdHis');
+        return 'Link_' . date('YmdHis');
     }
 }

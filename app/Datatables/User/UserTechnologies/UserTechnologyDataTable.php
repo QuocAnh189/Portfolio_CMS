@@ -1,9 +1,8 @@
 <?php
 
-namespace App\DataTables\User;
+namespace App\DataTables\User\UserTechnologies;
 
-use App\Domains\Project\Models\Project;
-use App\Domains\ProjectGallery\Models\ProjectGallery;
+use App\Domains\Relation\UserTechnologies\Models\UserTechnologies;
 use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
@@ -13,14 +12,8 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class GalleryDataTable extends DataTable
+class UserTechnologyDataTable extends DataTable
 {
-    private Project $project;
-    public function __construct(Project $project)
-    {
-        $this->project = $project;
-    }
-
     /**
      * Build the DataTable class.
      *
@@ -29,13 +22,11 @@ class GalleryDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($query) {
-                $deleteBtn = "<a href='" . route('user.project-galleries.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
-
-                return $deleteBtn;
+            ->addColumn('technology.image', function ($query) {
+                return '<img src="' . $query->technology->image . '" style="width: 40px; height: 40px;" alt="icon">';
             })
-            ->addColumn('image', function ($query) {
-                return "<img width='200px' src='" . asset($query->image) . "' ></img>";
+            ->addColumn('technology.name', function ($query) {
+                return '<h6 class="">' . $query->technology->name . '</h6>';
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === Status::Active->value) {
@@ -55,17 +46,26 @@ class GalleryDataTable extends DataTable
 
                 return $button;
             })
-            ->rawColumns(['image', 'status', 'action'])
+            ->addColumn('action', function ($query) {
+                $editBtn = "<a href='" . route('user.userTechnologies.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('user.userTechnologies.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+
+                return $editBtn . $deleteBtn;
+            })
+            ->filterColumn('technology.name', function ($query, $keyword) {
+                $query->where('name', 'like', "%" . $keyword . "%");
+            })
+
+            ->rawColumns(['technology.image', 'technology.name', 'status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(ProjectGallery $model): QueryBuilder
+    public function query(UserTechnologies $model): QueryBuilder
     {
-        return $model->newQuery()
-            ->whereIn('project_id', Auth::user()->projects->pluck('id')->toArray());
+        return $model->newQuery()->with('technology')->where('user_id', Auth::id());
     }
 
     /**
@@ -74,10 +74,10 @@ class GalleryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('gallery-table')
+            ->setTableId('usertechnologies-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->orderBy(1)
+            ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -96,13 +96,15 @@ class GalleryDataTable extends DataTable
     {
         return [
             Column::make('id')->width(300),
-            // Column::make('project.name')->title('Project Name'),
-            Column::make('image'),
+            Column::make('technology.image')
+                ->title('Icon'),
+            Column::make('technology.name')
+                ->title('Technology'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(200)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }
@@ -112,6 +114,6 @@ class GalleryDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'ProductImageGallery_' . date('YmdHis');
+        return 'Technology_' . date('YmdHis');
     }
 }

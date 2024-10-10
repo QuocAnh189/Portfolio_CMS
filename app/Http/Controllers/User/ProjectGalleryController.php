@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\DataTables\User\GalleryDataTable;
+use App\DataTables\User\Gallery\GalleryDataTable;
 use App\Domains\ProjectGallery\Dto\CreateProjectGalleryDto;
 use App\Domains\ProjectGallery\Models\ProjectGallery;
 use App\Domains\ProjectGallery\Services\ProjectGalleryService;

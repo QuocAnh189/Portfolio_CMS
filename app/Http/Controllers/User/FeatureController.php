@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\DataTables\User\FeatureDataTable;
+use App\DataTables\User\Feature\FeatureDataTable;
 use App\Domains\Feature\Dto\CreateFeatureDto;
 use App\Domains\Feature\Dto\UpdateFeatureDto;
 use App\Domains\Feature\Models\Feature;

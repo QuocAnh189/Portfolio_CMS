@@ -45,6 +45,16 @@ class UserTechnologiesService
         return $this->userTechnologiesRepository->delete($userTechnologies->id);
     }
 
+    public function restoreUserTechnologies(UserTechnologies $userTechnologies)
+    {
+        return $this->userTechnologiesRepository->restore($userTechnologies);
+    }
+
+    public function removeUserTechnologies(UserTechnologies $userTechnologies)
+    {
+        return $this->userTechnologiesRepository->forceDelete($userTechnologies);
+    }
+
     public function changeStatusUserTechnologies($userTechnologiesId, $status)
     {
         return $this->userTechnologiesRepository->changeStatus($userTechnologiesId, $status);

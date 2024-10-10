@@ -92,7 +92,7 @@
 
             $('body').on('click', '.delete-item', function(event) {
                 event.preventDefault();
-                let deleteUrl = $(this).attr('href');
+                let deleteUrl = $(this).attr('href') ?? $(this).attr('action');
                 Swal.fire({
                     title: 'Are you sure?',
                     text: 'You won\'t be able to revert this!',
