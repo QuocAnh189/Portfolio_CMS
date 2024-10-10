@@ -32,12 +32,12 @@ class ProjectGalleryController extends Controller
             $createdGallery = $projectGalleryService->createProjectGallery($createGalleryDto);
 
             if ($createdGallery) {
-                flash()->option('position', 'top-center')->success('Create gallery successfully.');
+                flash()->success('Create gallery successfully.');
             }
 
             return redirect()->route('admin.project-galleries.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -51,7 +51,7 @@ class ProjectGalleryController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -62,7 +62,7 @@ class ProjectGalleryController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

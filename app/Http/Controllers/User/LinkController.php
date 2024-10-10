@@ -41,12 +41,12 @@ class LinkController extends Controller
             $createdLink = $linkService->createLink($createLinkDto);
 
             if ($createdLink) {
-                flash()->option('position', 'top-center')->success('Create link successfully.');
+                flash()->success('Create link successfully.');
             }
 
             return redirect()->route('user.links.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -68,12 +68,12 @@ class LinkController extends Controller
             $updatedLink = $linkService->updateLink($link, $updateLinkDto);
 
             if ($updatedLink) {
-                flash()->option('position', 'top-center')->success('Update link successfully.');
+                flash()->success('Update link successfully.');
             }
 
             return redirect()->route('user.links.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -87,7 +87,7 @@ class LinkController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -101,7 +101,7 @@ class LinkController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

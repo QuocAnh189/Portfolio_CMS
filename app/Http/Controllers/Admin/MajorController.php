@@ -11,7 +11,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Major\CreateMajorRequest;
 use App\Http\Requests\Major\UpdateMajorRequest;
-use Illuminate\Http\Request;
 
 class MajorController extends Controller
 {
@@ -41,12 +40,12 @@ class MajorController extends Controller
             $createdMajor = $majorService->createMajor($createMajorDto);
 
             if ($createdMajor) {
-                flash()->option('position', 'top-center')->success('Create major successfully.');
+                flash()->success('Create major successfully.');
             }
 
             return redirect()->route('admin.majors.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -69,12 +68,12 @@ class MajorController extends Controller
             $updatedMajor = $majorService->updateMajor($updateMajorDto, $major);
 
             if ($updatedMajor) {
-                flash()->option('position', 'top-center')->success('Update major successfully.');
+                flash()->success('Update major successfully.');
             }
 
             return redirect()->route('admin.majors.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -88,7 +87,7 @@ class MajorController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -102,7 +101,7 @@ class MajorController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

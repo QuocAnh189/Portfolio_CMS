@@ -13,7 +13,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -46,12 +45,12 @@ class UserController extends Controller
             $createdUser = $userService->createUser($createUserDto);
 
             if ($createdUser) {
-                flash()->option('position', 'top-center')->success('Create user successfully.');
+                flash()->success('Create user successfully.');
             }
 
             return redirect()->route('admin.users.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -66,7 +65,7 @@ class UserController extends Controller
 
             return view('admin.user.edit', compact('profile', 'role_softwares'));
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -81,12 +80,12 @@ class UserController extends Controller
             $updatedUser = $userService->updateUser($updateUserDto);
 
             if ($updatedUser) {
-                flash()->option('position', 'top-center')->success('Update user successfully.');
+                flash()->success('Update user successfully.');
             }
 
             return redirect()->route('admin.users.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -102,7 +101,7 @@ class UserController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -116,7 +115,7 @@ class UserController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

@@ -42,12 +42,12 @@ class ProjectFeatureController extends Controller
             $createdFeature = $featureService->createFeature($createFeatureDto);
 
             if ($createdFeature) {
-                flash()->option('position', 'top-center')->success('Create feature successfully.');
+                flash()->success('Create feature successfully.');
             }
 
             return redirect()->route('user.projects.features.index', $project);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -70,12 +70,12 @@ class ProjectFeatureController extends Controller
             $updateFeature = $featureService->updateFeature($feature,  $updateFeatureDto);
 
             if ($updateFeature) {
-                flash()->option('position', 'top-center')->success('Update feature successfully.');
+                flash()->success('Update feature successfully.');
             }
 
             return redirect()->route('user.projects.features.index', $project);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

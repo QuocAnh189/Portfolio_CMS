@@ -45,12 +45,12 @@ class ProjectController extends Controller
             $createdProject = $projectService->createProject($createProjectDto);
 
             if ($createdProject) {
-                flash()->option('position', 'top-center')->success('Create project successfully.');
+                flash()->success('Create project successfully.');
             }
 
             return redirect()->route('admin.projects.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -74,12 +74,12 @@ class ProjectController extends Controller
             $updatedProject = $projectService->updateProject($updateProjectDto, $project);
 
             if ($updatedProject) {
-                flash()->option('position', 'top-center')->success('Update project successfully.');
+                flash()->success('Update project successfully.');
             }
 
             return redirect()->route('admin.projects.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -93,7 +93,7 @@ class ProjectController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -105,7 +105,7 @@ class ProjectController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

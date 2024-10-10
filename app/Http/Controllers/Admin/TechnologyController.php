@@ -11,7 +11,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Technology\CreateTechnologyRequest;
 use App\Http\Requests\Technology\UpdateTechnologyRequest;
-use Illuminate\Http\Request;
 
 class TechnologyController extends Controller
 {
@@ -42,12 +41,12 @@ class TechnologyController extends Controller
             $createdTechnology = $technologyService->createTechnology($createTechnologyDto);
 
             if ($createdTechnology) {
-                flash()->option('position', 'top-center')->success('Create technology successfully.');
+                flash()->success('Create technology successfully.');
             }
 
             return redirect()->route('admin.technologies.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -71,12 +70,12 @@ class TechnologyController extends Controller
             $updatedTechnology = $technologyService->updateTechnology($updateTechnologyDto, $technology);
 
             if ($updatedTechnology) {
-                flash()->option('position', 'top-center')->success('Update technology successfully.');
+                flash()->success('Update technology successfully.');
             }
 
             return redirect()->route('admin.technologies.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 

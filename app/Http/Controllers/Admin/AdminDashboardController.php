@@ -10,7 +10,6 @@ use App\Domains\Feature\Services\FeatureService;
 use App\Domains\Link\Services\LinkService;
 use App\Domains\Major\Services\MajorService;
 use App\Domains\Project\Services\ProjectService;
-use App\Domains\ProjectGallery\Models\ProjectGallery;
 use App\Domains\ProjectGallery\Services\ProjectGalleryService;
 use App\Domains\RoleSoftware\Services\RoleSoftwareService;
 use App\Domains\Skill\Services\SkillService;

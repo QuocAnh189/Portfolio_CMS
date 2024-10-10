@@ -59,4 +59,10 @@ abstract class RepositoryAbstract implements RepositoryInterface
         $model = $this->findById($id);
         return $model->delete();
     }
+
+    public function forceDelete($id)
+    {
+        $model = $this->findById($id);
+        return $model->forceDelete();
+    }
 }

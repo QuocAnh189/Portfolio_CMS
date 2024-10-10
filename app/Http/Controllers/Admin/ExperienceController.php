@@ -45,7 +45,7 @@ class ExperienceController extends Controller
             $createdExperience = $experienceService->createExperiences($createExperienceDto);
 
             if ($createdExperience) {
-                flash()->option('position', 'top-center')->success('Create Experience successfully.');
+                flash()->success('Create Experience successfully.');
             }
 
             return redirect()->route('admin.experiences.index');
@@ -75,7 +75,7 @@ class ExperienceController extends Controller
             $updatedExperiences = $experienceService->updateExperiences($experience, $updateExperiencesDto);
 
             if ($updatedExperiences) {
-                flash()->option('position', 'top-center')->success('Update Experiences successfully.');
+                flash()->success('Update Experiences successfully.');
             }
 
             return redirect()->route("admin.experiences.index");
@@ -94,7 +94,7 @@ class ExperienceController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -105,7 +105,7 @@ class ExperienceController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

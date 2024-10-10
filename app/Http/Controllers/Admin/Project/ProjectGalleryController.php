@@ -32,12 +32,12 @@ class ProjectGalleryController extends Controller
             $createdGallery = $galleryService->createProjectGallery($createGalleryDto);
 
             if ($createdGallery) {
-                flash()->option('position', 'top-center')->success('Create gallery successfully.');
+                flash()->success('Create gallery successfully.');
             }
 
             return redirect()->route('admin.projects.galleries.index', $project);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

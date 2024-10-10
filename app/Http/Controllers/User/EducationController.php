@@ -43,7 +43,7 @@ class EducationController extends Controller
             $createdEducation = $educationService->createEducation($createEducationDto);
 
             if ($createdEducation) {
-                flash()->option('position', 'top-center')->success('Create Education successfully.');
+                flash()->success('Create Education successfully.');
             }
 
             return redirect()->route("user.education.index");
@@ -72,7 +72,7 @@ class EducationController extends Controller
             $updatedEducation = $educationService->updateEducation($education, $updateEducationDto);
 
             if ($updatedEducation) {
-                flash()->option('position', 'top-center')->success('Update Education successfully.');
+                flash()->success('Update Education successfully.');
             }
 
             return redirect()->route("user.education.index");
@@ -91,7 +91,7 @@ class EducationController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -102,7 +102,7 @@ class EducationController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

@@ -11,7 +11,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\RoleSoftware\CreateRoleSoftwareRequest;
 use App\Http\Requests\RoleSoftware\UpdateRoleSoftwareRequest;
-use Illuminate\Http\Request;
 
 class RoleSoftwareController extends Controller
 {
@@ -42,12 +41,12 @@ class RoleSoftwareController extends Controller
             $createdRoleSoftware = $roleSoftwareService->createRoleSoftware($createRoleSoftwareDto);
 
             if ($createdRoleSoftware) {
-                flash()->option('position', 'top-center')->success('Create roleSoftware successfully.');
+                flash()->success('Create roleSoftware successfully.');
             }
 
             return redirect()->route('admin.role-softwares.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -70,12 +69,12 @@ class RoleSoftwareController extends Controller
             $updatedRoleSoftware = $roleSoftwareService->updateRoleSoftware($updateRoleSoftwareDto, $roleSoftware);
 
             if ($updatedRoleSoftware) {
-                flash()->option('position', 'top-center')->success('Update rolesoftware successfully.');
+                flash()->success('Update rolesoftware successfully.');
             }
 
             return redirect()->route('admin.role-softwares.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -89,7 +88,7 @@ class RoleSoftwareController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -103,7 +102,7 @@ class RoleSoftwareController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

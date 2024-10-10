@@ -6,7 +6,6 @@ use App\DataTables\User\UserTechnologyDataTable;
 use App\Domains\Relation\UserTechnologies\Models\UserTechnologies;
 use App\Domains\Relation\UserTechnologies\Dto\CreateUserTechnologiesDto;
 use App\Domains\Relation\UserTechnologies\Dto\UpdateUserTechnologiesDto;
-
 use App\Domains\Technology\Services\TechnologyService;
 use App\Domains\Relation\UserTechnologies\Services\UserTechnologiesService;
 use App\Http\Controllers\Controller;
@@ -40,21 +39,22 @@ class UserTechnologiesController extends Controller
     {
         try {
             $createUserTechnologiesDto = CreateUserTechnologiesDto::fromAppRequest($request);
+
             $checkExists = $userTechnologiesService->checkExistsUserTechnologies($createUserTechnologiesDto['user_id'], $createUserTechnologiesDto['technology_id']);
             if ($checkExists) {
-                flash()->option('position', 'top-center')->error('Your technology already exists.');
+                flash()->error('Your technology already exists.');
                 return redirect()->route('user.userTechnologies.index');
             }
 
             $createdUserTechnologies = $userTechnologiesService->createUserTechnologies($createUserTechnologiesDto);
 
             if ($createdUserTechnologies) {
-                flash()->option('position', 'top-center')->success('Create userTechnologies successfully.');
+                flash()->success('Create userTechnologies successfully.');
             }
 
             return redirect()->route('user.userTechnologies.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -77,19 +77,19 @@ class UserTechnologiesController extends Controller
 
             $checkExists = $userTechnologiesService->checkExistsUserTechnologies($updateUserTechnologiesDto['user_id'], $updateUserTechnologiesDto['technology_id']);
             if ($checkExists) {
-                flash()->option('position', 'top-center')->error('Your technology already exists.');
+                flash()->error('Your technology already exists.');
                 return redirect()->route('user.userTechnologies.index');
             }
 
             $updatedUserTechnologies = $userTechnologiesService->updateUserTechnologies($userTechnology, $updateUserTechnologiesDto);
 
             if ($updatedUserTechnologies) {
-                flash()->option('position', 'top-center')->success('Update userTechnologies successfully.');
+                flash()->success('Update userTechnologies successfully.');
             }
 
             return redirect()->route('user.userTechnologies.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -103,7 +103,7 @@ class UserTechnologiesController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -117,7 +117,7 @@ class UserTechnologiesController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

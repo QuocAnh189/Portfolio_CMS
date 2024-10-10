@@ -42,12 +42,12 @@ class FeatureController extends Controller
             $createdFeature = $featureService->createFeature($createFeatureDto);
 
             if ($createdFeature) {
-                flash()->option('position', 'top-center')->success('Create feature successfully.');
+                flash()->success('Create feature successfully.');
             }
 
             return redirect()->route('admin.features.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -70,12 +70,12 @@ class FeatureController extends Controller
             $updatedFeature = $featureService->updateFeature($feature,  $updateFeatureDto);
 
             if ($updatedFeature) {
-                flash()->option('position', 'top-center')->success('Update feature successfully.');
+                flash()->success('Update feature successfully.');
             }
 
             return redirect()->route('admin.features.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -89,7 +89,7 @@ class FeatureController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -103,7 +103,7 @@ class FeatureController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

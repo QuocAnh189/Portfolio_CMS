@@ -42,12 +42,12 @@ class ProjectLinkController extends Controller
             $createdLink = $linkService->createLink($createLinkDto);
 
             if ($createdLink) {
-                flash()->option('position', 'top-center')->success('Create link successfully.');
+                flash()->success('Create link successfully.');
             }
 
             return redirect()->route('user.projects.links.index', $project);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -69,12 +69,12 @@ class ProjectLinkController extends Controller
             $updateLink = $linkService->updateLink($link, $updateLinkDto);
 
             if ($updateLink) {
-                flash()->option('position', 'top-center')->success('Update link successfully.');
+                flash()->success('Update link successfully.');
             }
 
             return redirect()->route('user.projects.links.index', $project);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

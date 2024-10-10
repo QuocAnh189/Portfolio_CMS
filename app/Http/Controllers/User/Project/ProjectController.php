@@ -12,7 +12,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Project\CreateProjectRequest;
 use App\Http\Requests\Project\UpdateProjectRequest;
-use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -43,12 +42,12 @@ class ProjectController extends Controller
             $createdProject = $projectService->createProject($createProjectDto);
 
             if ($createdProject) {
-                flash()->option('position', 'top-center')->success('Create project successfully.');
+                flash()->success('Create project successfully.');
             }
 
             return redirect()->route('user.projects.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -71,12 +70,12 @@ class ProjectController extends Controller
             $updatedProject = $projectService->updateProject($updateProjectDto, $project);
 
             if ($updatedProject) {
-                flash()->option('position', 'top-center')->success('Update project successfully.');
+                flash()->success('Update project successfully.');
             }
 
             return redirect()->route('user.projects.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -90,7 +89,7 @@ class ProjectController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -102,7 +101,7 @@ class ProjectController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

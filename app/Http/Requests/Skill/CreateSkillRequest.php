@@ -43,7 +43,7 @@ class CreateSkillRequest extends FormRequest
      */
     protected function failedValidation(Validator $validator)
     {
-        flash()->option('position', 'top-center')->error($validator->errors()->first());
+        flash()->error($validator->errors()->first());
 
         throw new HttpResponseException(
             redirect()->back()

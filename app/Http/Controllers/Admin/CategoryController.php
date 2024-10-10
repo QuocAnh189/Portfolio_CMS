@@ -40,12 +40,12 @@ class CategoryController extends Controller
             $createdCategory = $categoryService->createCategory($createCategoryDto);
 
             if ($createdCategory) {
-                flash()->option('position', 'top-center')->success('Create category successfully.');
+                flash()->success('Create category successfully.');
             }
 
             return redirect()->route('admin.categories.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -68,12 +68,12 @@ class CategoryController extends Controller
             $updatedCategory = $categoryService->updateCategory($updateCategoryDto, $category);
 
             if ($updatedCategory) {
-                flash()->option('position', 'top-center')->success('Update category successfully.');
+                flash()->success('Update category successfully.');
             }
 
             return redirect()->route('admin.categories.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -87,7 +87,7 @@ class CategoryController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -98,7 +98,7 @@ class CategoryController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

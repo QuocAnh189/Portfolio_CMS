@@ -45,19 +45,19 @@ class ProjectTechnologyController extends Controller
 
             $checkExists = $projectTechnologiesService->checkExistsProjectTechnologies($createProjectTechnologiesDto['project_id'], $createProjectTechnologiesDto['technology_id']);
             if ($checkExists) {
-                flash()->option('position', 'top-center')->error('Your technology already exists.');
+                flash()->error('Your technology already exists.');
                 return redirect()->route('user.project.projectTechnologies.index', $project);
             }
 
             $createdProjectTechnologies = $projectTechnologiesService->createProjectTechnologies($createProjectTechnologiesDto);
 
             if ($createdProjectTechnologies) {
-                flash()->option('position', 'top-center')->success('Create Project Technologies successfully.');
+                flash()->success('Create Project Technologies successfully.');
             }
 
             return redirect()->route('user.projects.projectTechnologies.index', $project);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -80,19 +80,19 @@ class ProjectTechnologyController extends Controller
 
             $checkExists = $projectTechnologiesService->checkExistsProjectTechnologies($updateProjectTechnologiesDto['project_id'], $updateProjectTechnologiesDto['technology_id']);
             if ($checkExists) {
-                flash()->option('position', 'top-center')->error('Project technology already exists.');
+                flash()->error('Project technology already exists.');
                 return redirect()->route('user.projects.projectTechnologies.index', $project);
             }
 
             $updateProjectTechnology = $projectTechnologiesService->updateProjectTechnologies($projectTechnology, $updateProjectTechnologiesDto);
 
             if ($updateProjectTechnology) {
-                flash()->option('position', 'top-center')->success('Update Project Technology successfully.');
+                flash()->success('Update Project Technology successfully.');
             }
 
             return redirect()->route('user.projects.projectTechnologies.index', $project);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -106,7 +106,7 @@ class ProjectTechnologyController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -117,7 +117,7 @@ class ProjectTechnologyController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

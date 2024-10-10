@@ -43,12 +43,12 @@ class SkillController extends Controller
             $createdSkill = $skillService->createSkill($createSkillDto);
 
             if ($createdSkill) {
-                flash()->option('position', 'top-center')->success('Create skill successfully.');
+                flash()->success('Create skill successfully.');
             }
 
             return redirect()->route('user.skills.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -72,12 +72,12 @@ class SkillController extends Controller
             $updatedSkill = $skillService->updateSkill($skill, $updateSkillDto);
 
             if ($updatedSkill) {
-                flash()->option('position', 'top-center')->success('Update skill successfully.');
+                flash()->success('Update skill successfully.');
             }
 
             return redirect()->route('user.skills.index');
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -91,7 +91,7 @@ class SkillController extends Controller
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 
@@ -102,7 +102,7 @@ class SkillController extends Controller
 
             return response(['message' => 'status has been updated!']);
         } catch (\Exception $e) {
-            flash()->option('position', 'top-center')->error($e->getMessage());
+            flash()->error($e->getMessage());
         }
     }
 }

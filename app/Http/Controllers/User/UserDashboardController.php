@@ -35,7 +35,6 @@ class UserDashboardController extends Controller
         $total_skill  = $skillService->countSkillOfUser();
         $total_education = $educationService->countEducationOfUser();
 
-
         return view(
             'user.dashboard.index',
             [
