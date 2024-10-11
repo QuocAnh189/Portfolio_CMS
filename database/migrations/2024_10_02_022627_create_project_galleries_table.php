@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('project_galleries', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('project_id')->constrained('projects');
+            $table->foreignUuid('project_id')->constrained('projects')->cascadeOnDelete();
             $table->string('image');
             $table->enum('status', Status::toArray())->default(Status::Active->value);
 

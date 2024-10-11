@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('skills', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users');
-            $table->foreignUuid('role_software_id')->constrained('role_software');
+            $table->foreignUuid('role_software_id')->nullable()->constrained('role_software')->nullOnDelete();
             $table->text('description');
             $table->enum('status', Status::toArray())->default(Status::Active->value);
 

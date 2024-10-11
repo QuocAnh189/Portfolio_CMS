@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('logo');
             $table->float('gpa');
             $table->string('university_name');
-            $table->foreignUuid('major_id')->constrained('majors');
+            $table->foreignUuid('major_id')->nullable()->constrained('majors')->nullOnDelete();
             $table->text('description');
             $table->boolean('degree');
             $table->date('start_date');

@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users');
-            $table->foreignUuid('category_id')->constrained('categories');
+            $table->foreignUuid('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->string('name');
             $table->string('cover_image');
             $table->text('description');

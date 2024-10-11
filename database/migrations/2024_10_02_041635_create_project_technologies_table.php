@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create('project_technologies', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('project_id')->constrained('projects');
-            $table->foreignUuid('technology_id')->constrained('technologies');
+            $table->foreignUuid('project_id')->constrained('projects')->cascadeOnDelete();
+            $table->foreignUuid('technology_id')->constrained('technologies')->cascadeOnDelete();
             $table->enum('status', Status::toArray())->default(Status::Active->value);
 
             $table->timestamps();
