@@ -6,7 +6,7 @@ use App\Domains\Feature\Models\Feature;
 use App\Domains\Category\Models\Category;
 use App\Domains\Link\Models\Link;
 use App\Domains\ProjectGallery\Models\ProjectGallery;
-use App\Domains\Relation\Models\ProjectTools;
+use App\Domains\Relation\ProjectTechnologies\Models\ProjectTechnologies;
 use App\Domains\Technology\Models\Technology;
 use App\Domains\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,22 +51,22 @@ class Project extends Model
 
     public function features(): HasMany
     {
-        return $this->hasMany(Feature::class);
+        return $this->hasMany(Feature::class)->withTrashed();
     }
 
     public function project_galleries(): HasMany
     {
-        return $this->hasMany(ProjectGallery::class);
+        return $this->hasMany(ProjectGallery::class)->withTrashed();;
     }
 
     public function project_technologies(): HasMany
     {
-        return $this->hasMany(Technology::class);
+        return $this->hasMany(ProjectTechnologies::class)->withTrashed();;
     }
 
     public function links(): HasMany
     {
-        return $this->hasMany(Link::class);
+        return $this->hasMany(Link::class)->withTrashed();;
     }
 
     public function user(): BelongsTo

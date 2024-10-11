@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\DataTables\User\Feature\FeatureDataTable;
+use App\DataTables\User\Feature\TrashFeatureDataTable;
 use App\Domains\Feature\Dto\CreateFeatureDto;
 use App\Domains\Feature\Dto\UpdateFeatureDto;
 use App\Domains\Feature\Models\Feature;
@@ -20,6 +21,11 @@ class FeatureController extends Controller
     public function index(FeatureDataTable $dataTable)
     {
         return $dataTable->render('user.feature.index');
+    }
+
+    public function trash_index(TrashFeatureDataTable $dataTable)
+    {
+        return $dataTable->render('user.feature.trash');
     }
 
     /**
@@ -84,6 +90,32 @@ class FeatureController extends Controller
     {
         try {
             $featureService->deleteFeature($feature);
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function restore(FeatureService $featureService, Feature $feature)
+    {
+        try {
+            $restoredFeature = $featureService->restoreFeature($feature);
+
+            if ($restoredFeature) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('user.features.trash-index');
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function delete(FeatureService $featureService, Feature $feature)
+    {
+        try {
+            $featureService->removeFeature($feature);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {

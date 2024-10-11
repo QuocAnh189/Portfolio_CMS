@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\DataTables\User\Link\LinkDataTable;
+use App\DataTables\User\Link\TrashLinkDataTable;
 use App\Domains\Link\Dto\CreateLinkDto;
 use App\Domains\Link\Dto\UpdateLinkDto;
 use App\Domains\Link\Models\Link;
@@ -20,6 +21,11 @@ class LinkController extends Controller
     public function index(LinkDataTable $dataTable)
     {
         return $dataTable->render('user.link.index');
+    }
+
+    public function trash_index(TrashLinkDataTable $dataTable)
+    {
+        return $dataTable->render('user.link.trash');
     }
 
     /**
@@ -83,6 +89,32 @@ class LinkController extends Controller
     {
         try {
             $linkService->deleteLink($link);
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function restore(LinkService $linkService, Link $link)
+    {
+        try {
+            $restoredLink = $linkService->restoreLink($link);
+
+            if ($restoredLink) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('user.links.trash-index');
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function delete(LinkService $linkService, Link $link)
+    {
+        try {
+            $linkService->removeLink($link);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {

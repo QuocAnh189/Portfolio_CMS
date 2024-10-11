@@ -12,7 +12,7 @@
                         <div class="card-header">
                             <h4>Educations</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-primary" href="{{ route('user.educations.index') }}">
+                                <a class="btn btn-primary" href="{{ route('user.education.index') }}">
                                     <i class="fas fa-trash-alt"></i>
                                     View Active
                                 </a>
@@ -38,7 +38,7 @@
                 let id = $(this).data('id');
 
                 $.ajax({
-                    url: "{{ route('user.educations.change-status') }}",
+                    url: "{{ route('user.education.change-status') }}",
                     method: 'PUT',
                     data: {
                         status: isChecked,

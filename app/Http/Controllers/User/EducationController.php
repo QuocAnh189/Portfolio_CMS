@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\DataTables\User\Education\EducationDataTable;
+use App\DataTables\User\Education\TrashEducationDataTable;
 use App\Domains\Education\Dto\CreateEducationDto;
 use App\Domains\Education\Dto\UpdateEducationDto;
 use App\Domains\Education\Models\Education;
@@ -22,6 +23,11 @@ class EducationController extends Controller
     public function index(EducationDataTable $dataTable)
     {
         return $dataTable->render("user.education.index");
+    }
+
+    public function trash_index(TrashEducationDataTable $dataTable)
+    {
+        return $dataTable->render('user.education.trash');
     }
 
     /**
@@ -88,6 +94,32 @@ class EducationController extends Controller
     {
         try {
             $educationService->deleteEducation($education);
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function restore(EducationService $educationService, Education $education)
+    {
+        try {
+            $restoredEducation = $educationService->restoreEducation($education);
+
+            if ($restoredEducation) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('user.education.trash-index');
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function delete(EducationService $educationService, Education $education)
+    {
+        try {
+            $educationService->removeEducation($education);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {

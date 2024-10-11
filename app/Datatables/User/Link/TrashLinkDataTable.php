@@ -1,18 +1,19 @@
 <?php
 
-namespace App\DataTables\User\UserTechnologies;
+namespace App\DataTables\User\Link;
 
-use App\Domains\Relation\UserTechnologies\Models\UserTechnologies;
+use App\Domains\Link\Models\Link;
+use App\Domains\Project\Models\Project;
 use App\Enum\Status;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class TrashUserTechnologyDataTable extends DataTable
+class TrashLinkDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,23 +23,18 @@ class TrashUserTechnologyDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('technology.image', function ($query) {
-                return '<img src="' . $query->technology->image . '" style="width: 40px; height: 40px;" alt="icon">';
-            })
-            ->addColumn('technology.name', function ($query) {
-                return '<h6 class="">' . $query->technology->name . '</h6>';
+            ->addColumn('project.name', function ($query) {
+                return '<h6 class="">' . $query->project->name . '</h6>';
             })
             ->addColumn('action', function ($query) {
-                $form = "<form action='" . route('user.userTechnologies.restore', $query->id) . "' method='POST' enctype='multipart/form-data' style='display:inline-block'>";
+                $form = "<form action='" . route('user.links.restore', $query->id) . "' method='POST' enctype='multipart/form-data' style='display:inline-block'>";
                 $form .= csrf_field();
                 $form .= method_field('PUT');
 
-                // Nút Restore
                 $form .= "<button type='submit' class='btn btn-primary'><i class='far fa-circle'></i></button>";
                 $form .= "</form>";
 
-                // Nút Delete trong cùng một form
-                $form .= "<form action='" . route('user.userTechnologies.delete', $query->id) . "' method='POST' enctype='multipart/form-data' class='delete-item' style='display:inline-block'>";
+                $form .= "<form action='" . route('user.links.delete', $query->id) . "' method='POST' enctype='multipart/form-data' class='delete-item' style='display:inline-block'>";
                 $form .= csrf_field();
                 $form .= method_field('DELETE');
                 $form .= "<button type='submit' class='btn btn-danger ml-2'><i class='far fa-trash-alt'></i></button>";
@@ -46,20 +42,20 @@ class TrashUserTechnologyDataTable extends DataTable
 
                 return $form;
             })
-            ->filterColumn('technology.name', function ($query, $keyword) {
-                $query->where('name', 'like', "%" . $keyword . "%");
-            })
 
-            ->rawColumns(['technology.image', 'technology.name', 'action'])
+            ->rawColumns(['project.name', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(UserTechnologies $model): QueryBuilder
+    public function query(Link $model): QueryBuilder
     {
-        return $model->newQuery()->with('technology')->where('user_id', Auth::id())->onlyTrashed();
+        $projectIds = Project::withTrashed()->where('user_id', Auth::id())->pluck('id')->toArray();
+
+        return $model->newQuery()
+            ->whereIn('project_id', $projectIds)->onlyTrashed();
     }
 
     /**
@@ -68,7 +64,7 @@ class TrashUserTechnologyDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('usertechnologies-table')
+            ->setTableId('link-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
@@ -89,11 +85,11 @@ class TrashUserTechnologyDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(300),
-            Column::make('technology.image')
-                ->title('Icon'),
-            Column::make('technology.name')
-                ->title('Technology'),
+            Column::make('id')->width(200),
+            Column::make('project.name')
+                ->title('Project'),
+            Column::make('title'),
+            Column::make('url'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -107,6 +103,6 @@ class TrashUserTechnologyDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Technology_' . date('YmdHis');
+        return 'Link_' . date('YmdHis');
     }
 }

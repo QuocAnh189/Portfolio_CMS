@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers\User\Project;
 
+use App\DataTables\User\Education\TrashEducationDataTable;
 use App\DataTables\User\Project\ProjectDataTable;
+use App\DataTables\User\Project\TrashProjectDataTable;
 use App\Domains\Category\Services\CategoryService;
+use App\Domains\Feature\Services\FeatureService;
+use App\Domains\Link\Services\LinkService;
 use App\Domains\Project\Dto\CreateProjectDto;
 use App\Domains\Project\Dto\UpdateProjectDto;
 use App\Domains\Project\Models\Project;
 use App\Domains\Project\Services\ProjectService;
+use App\Domains\ProjectGallery\Services\ProjectGalleryService;
+use App\Domains\Relation\ProjectTechnologies\Services\ProjectTechnologiesService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Project\CreateProjectRequest;
@@ -21,6 +27,11 @@ class ProjectController extends Controller
     public function index(ProjectDataTable $dataTable)
     {
         return $dataTable->render('user.project.index');
+    }
+
+    public function trash_index(TrashProjectDataTable $dataTable)
+    {
+        return $dataTable->render('user.project.trash');
     }
 
     /**
@@ -82,10 +93,102 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProjectService $projectService, Project $project)
-    {
+    public function destroy(
+        ProjectService $projectService,
+        FeatureService $featureService,
+        LinkService $linkService,
+        ProjectGalleryService $projectGalleryService,
+        ProjectTechnologiesService $projectTechnologiesService,
+        Project $project
+    ) {
         try {
             $projectService->deleteProject($project);
+
+            $project->features->map(function ($feature) use ($featureService) {
+                $featureService->deleteFeature($feature);
+            });
+
+            $project->links->map(function ($link) use ($linkService) {
+                $linkService->deleteLink($link);
+            });
+
+            $project->project_galleries->map(function ($gallery) use ($projectGalleryService) {
+                $projectGalleryService->deleteProjectGallery($gallery);
+            });
+
+            $project->project_technologies->map(function ($project_technology) use ($projectTechnologiesService) {
+                $projectTechnologiesService->deleteProjectTechnologies($project_technology);
+            });
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function restore(
+        ProjectService $projectService,
+        FeatureService $featureService,
+        LinkService $linkService,
+        ProjectGalleryService $projectGalleryService,
+        ProjectTechnologiesService $projectTechnologiesService,
+        Project $project
+    ) {
+        try {
+            $restoredProject = $projectService->restoreProject($project);
+
+            $project->features->map(function ($feature) use ($featureService) {
+                $featureService->restoreFeature($feature);
+            });
+
+            $project->links->map(function ($link) use ($linkService) {
+                $linkService->restoreLink($link);
+            });
+
+            $project->project_galleries->map(function ($gallery) use ($projectGalleryService) {
+                $projectGalleryService->restoreProjectGallery($gallery);
+            });
+
+            $project->project_technologies->map(function ($project_technology) use ($projectTechnologiesService) {
+                $projectTechnologiesService->restoreProjectTechnologies($project_technology);
+            });
+
+            if ($restoredProject) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('user.projects.trash-index');
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function delete(
+        ProjectService $projectService,
+        FeatureService $featureService,
+        LinkService $linkService,
+        ProjectGalleryService $projectGalleryService,
+        ProjectTechnologiesService $projectTechnologiesService,
+        Project $project
+    ) {
+        try {
+            $projectService->removeProject($project);
+
+            $project->features->map(function ($feature) use ($featureService) {
+                $featureService->removeFeature($feature);
+            });
+
+            $project->links->map(function ($link) use ($linkService) {
+                $linkService->removeLink($link);
+            });
+
+            $project->project_galleries->map(function ($gallery) use ($projectGalleryService) {
+                $projectGalleryService->removeProjectGallery($gallery);
+            });
+
+            $project->project_technologies->map(function ($project_technology) use ($projectTechnologiesService) {
+                $projectTechnologiesService->removeProjectTechnologies($project_technology);
+            });
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {

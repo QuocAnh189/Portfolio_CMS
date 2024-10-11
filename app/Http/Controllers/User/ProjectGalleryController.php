@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\DataTables\User\Gallery\GalleryDataTable;
+use App\DataTables\User\Gallery\TrashGalleryDataTable;
+use App\DataTables\User\Skill\TrashSkillDataTable;
 use App\Domains\ProjectGallery\Dto\CreateProjectGalleryDto;
 use App\Domains\ProjectGallery\Models\ProjectGallery;
 use App\Domains\ProjectGallery\Services\ProjectGalleryService;
@@ -18,6 +20,11 @@ class ProjectGalleryController extends Controller
     public function index(GalleryDataTable $dataTable)
     {
         return $dataTable->render('user.gallery.index');
+    }
+
+    public function trash_index(TrashGalleryDataTable $dataTable)
+    {
+        return $dataTable->render('user.gallery.trash');
     }
 
     /**
@@ -46,6 +53,32 @@ class ProjectGalleryController extends Controller
     {
         try {
             $projectGalleryService->deleteProjectGallery($projectGallery);
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function restore(ProjectGalleryService $projectGalleryService, ProjectGallery $projectGallery)
+    {
+        try {
+            $restoredProjectGallery = $projectGalleryService->restoreProjectGallery($projectGallery);
+
+            if ($restoredProjectGallery) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('user.project-galleries.trash-index');
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function delete(ProjectGalleryService $projectGalleryService, ProjectGallery $projectGallery)
+    {
+        try {
+            $projectGalleryService->removeProjectGallery($projectGallery);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {

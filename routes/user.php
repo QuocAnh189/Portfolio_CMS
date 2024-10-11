@@ -45,8 +45,8 @@ Route::put('project-galleries/change-status', [GalleryController::class, 'change
 Route::resource('project-galleries', GalleryController::class);
 
 /**Feature route */
-Route::delete('features/forced-delete/{link}', [FeatureController::class, 'delete'])->name('features.delete')->withTrashed(true);
-Route::put('features/{link}/restore', [FeatureController::class, 'restore'])->name('features.restore')->withTrashed(true);
+Route::delete('features/forced-delete/{feature}', [FeatureController::class, 'delete'])->name('features.delete')->withTrashed(true);
+Route::put('features/{feature}/restore', [FeatureController::class, 'restore'])->name('features.restore')->withTrashed(true);
 Route::get('features/trash', [FeatureController::class, 'trash_index'])->name('features.trash-index');
 Route::put('features/change-status', [FeatureController::class, 'change_status'])->name('features.change-status');
 Route::resource('features', FeatureController::class);

@@ -2,6 +2,7 @@
 
 namespace App\Domains\Technology\Models;
 
+use App\Domains\Relation\ProjectTechnologies\Models\ProjectTechnologies;
 use App\Domains\Relation\UserTechnologies\Models\UserTechnologies;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,5 +32,10 @@ class Technology extends Model
     public function user_technologies(): HasMany
     {
         return $this->hasMany(UserTechnologies::class);
+    }
+
+    public function project_technologies(): HasMany
+    {
+        return $this->hasMany(ProjectTechnologies::class);
     }
 }

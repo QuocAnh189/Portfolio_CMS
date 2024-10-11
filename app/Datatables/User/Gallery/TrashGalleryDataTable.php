@@ -4,7 +4,6 @@ namespace App\DataTables\User\Gallery;
 
 use App\Domains\Project\Models\Project;
 use App\Domains\ProjectGallery\Models\ProjectGallery;
-use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
@@ -13,7 +12,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class GalleryDataTable extends DataTable
+class TrashGalleryDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,33 +22,26 @@ class GalleryDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($query) {
-                $deleteBtn = "<a href='" . route('user.project-galleries.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
-
-                return $deleteBtn;
-            })
             ->addColumn('image', function ($query) {
                 return "<img width='200px' src='" . asset($query->image) . "' ></img>";
             })
-            ->addColumn('status', function ($query) {
-                if ($query->status === Status::Active->value) {
-                    $button =
-                        '<label class="custom-switch mt-2">
-                            <input type="checkbox" checked name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status" >
-                            <span class="custom-switch-indicator"></span>
-                        </label>';
-                }
-                if ($query->status === Status::Inactive->value) {
-                    $button =
-                        '<label class="custom-switch mt-2">
-                            <input type="checkbox" name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status">
-                            <span class="custom-switch-indicator"></span>
-                        </label>';
-                }
+            ->addColumn('action', function ($query) {
+                $form = "<form action='" . route('user.project-galleries.restore', $query->id) . "' method='POST' enctype='multipart/form-data' style='display:inline-block'>";
+                $form .= csrf_field();
+                $form .= method_field('PUT');
 
-                return $button;
+                $form .= "<button type='submit' class='btn btn-primary'><i class='far fa-circle'></i></button>";
+                $form .= "</form>";
+
+                $form .= "<form action='" . route('user.project-galleries.delete', $query->id) . "' method='POST' enctype='multipart/form-data' class='delete-item' style='display:inline-block'>";
+                $form .= csrf_field();
+                $form .= method_field('DELETE');
+                $form .= "<button type='submit' class='btn btn-danger ml-2'><i class='far fa-trash-alt'></i></button>";
+                $form .= "</form>";
+
+                return $form;
             })
-            ->rawColumns(['image', 'status', 'action'])
+            ->rawColumns(['image', 'action'])
             ->setRowId('id');
     }
 
@@ -58,8 +50,10 @@ class GalleryDataTable extends DataTable
      */
     public function query(ProjectGallery $model): QueryBuilder
     {
+        $projectIds = Project::withTrashed()->where('user_id', Auth::id())->pluck('id')->toArray();
+
         return $model->newQuery()
-            ->whereIn('project_id', Auth::user()->projects->pluck('id')->toArray());
+            ->whereIn('project_id', $projectIds)->onlyTrashed();
     }
 
     /**
@@ -92,7 +86,6 @@ class GalleryDataTable extends DataTable
             Column::make('id')->width(300),
             // Column::make('project.name')->title('Project Name'),
             Column::make('image'),
-            Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

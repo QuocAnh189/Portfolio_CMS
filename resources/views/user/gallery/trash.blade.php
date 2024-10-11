@@ -38,7 +38,7 @@
                 let id = $(this).data('id');
 
                 $.ajax({
-                    url: "{{ route('user.gallerys.change-status') }}",
+                    url: "{{ route('user.project-galleries.change-status') }}",
                     method: 'PUT',
                     data: {
                         status: isChecked,
