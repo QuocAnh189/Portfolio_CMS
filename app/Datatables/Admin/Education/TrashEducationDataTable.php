@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables\Admin;
+namespace App\DataTables\Admin\Education;
 
 use App\Domains\Education\Models\Education;
 use App\Enum\Status;
@@ -11,7 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class EducationDataTable extends DataTable
+class TrashEducationDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -27,35 +27,27 @@ class EducationDataTable extends DataTable
             ->addColumn('university_name', function ($query) {
                 return '<h6 class="">' . $query->university_name . '</h6>';
             })
-            ->addColumn('status', function ($query) {
-                if ($query->status === Status::Active->value) {
-                    $button =
-                        '<label class="custom-switch mt-2">
-                            <input type="checkbox" checked name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status" >
-                            <span class="custom-switch-indicator"></span>
-                        </label>';
-                }
-                if ($query->status === Status::Inactive->value) {
-                    $button =
-                        '<label class="custom-switch mt-2">
-                            <input type="checkbox" name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status">
-                            <span class="custom-switch-indicator"></span>
-                        </label>';
-                }
-
-                return $button;
-            })
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.education.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('admin.education.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $form = "<form action='" . route('admin.education.restore', $query->id) . "' method='POST' enctype='multipart/form-data' style='display:inline-block'>";
+                $form .= csrf_field();
+                $form .= method_field('PUT');
 
-                return $editBtn . $deleteBtn;
+                $form .= "<button type='submit' class='btn btn-primary'><i class='far fa-circle'></i></button>";
+                $form .= "</form>";
+
+                $form .= "<form action='" . route('admin.education.delete', $query->id) . "' method='POST' enctype='multipart/form-data' class='delete-item' style='display:inline-block'>";
+                $form .= csrf_field();
+                $form .= method_field('DELETE');
+                $form .= "<button type='submit' class='btn btn-danger ml-2'><i class='far fa-trash-alt'></i></button>";
+                $form .= "</form>";
+
+                return $form;
             })
             ->filterColumn('name', function ($query, $keyword) {
                 $query->where('name', 'like', "%" . $keyword . "%");
             })
 
-            ->rawColumns(['logo', 'university_name', 'status', 'action'])
+            ->rawColumns(['logo', 'university_name', 'action'])
             ->setRowId('id');
     }
 
@@ -64,7 +56,7 @@ class EducationDataTable extends DataTable
      */
     public function query(Education $model): QueryBuilder
     {
-        return $model->newQuery()->with('user');
+        return $model->newQuery()->with('user')->onlyTrashed();
     }
 
     /**
@@ -100,7 +92,6 @@ class EducationDataTable extends DataTable
             Column::make('logo'),
             Column::make('university_name'),
             Column::make('gpa'),
-            Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\Admin\SkillDataTable;
+use App\DataTables\Admin\RoleSoftware\TrashRoleSoftwareDataTable;
+use App\DataTables\Admin\Skill\SkillDataTable;
+use App\DataTables\Admin\Skill\TrashSkillDataTable;
 use App\Domains\RoleSoftware\Services\RoleSoftwareService;
 use App\Domains\Skill\Dto\CreateSkillDto;
 use App\Domains\Skill\Dto\UpdateSkillDto;
@@ -22,6 +24,11 @@ class SkillController extends Controller
     public function index(SkillDataTable $dataTable)
     {
         return $dataTable->render("admin.skill.index");
+    }
+
+    public function trash_index(TrashSkillDataTable $dataTable)
+    {
+        return $dataTable->render('admin.skill.trash');
     }
 
     /**
@@ -90,6 +97,32 @@ class SkillController extends Controller
     {
         try {
             $skillService->deleteSkill($skill);
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function restore(SkillService $skillService, Skill $skill)
+    {
+        try {
+            $restoredSkill = $skillService->restoreSkill($skill);
+
+            if ($restoredSkill) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('admin.skills.trash-index');
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function delete(SkillService $skillService, Skill $skill)
+    {
+        try {
+            $skillService->removeSkill($skill);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {

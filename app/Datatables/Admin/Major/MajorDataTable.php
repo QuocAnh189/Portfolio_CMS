@@ -1,9 +1,8 @@
 <?php
 
-namespace App\DataTables\Admin;
+namespace App\DataTables\Admin\Major;
 
-use App\Domains\Project\Models\Project;
-use App\Domains\ProjectGallery\Models\ProjectGallery;
+use App\Domains\Major\Models\Major;
 use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -12,14 +11,8 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class GalleryDataTable extends DataTable
+class MajorDataTable extends DataTable
 {
-    private Project $project;
-    public function __construct(Project $project)
-    {
-        $this->project = $project;
-    }
-
     /**
      * Build the DataTable class.
      *
@@ -28,11 +21,11 @@ class GalleryDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('project.name', function ($query) {
-                return '<h6 class="">' . $query->project->name . '</h6>';
-            })
             ->addColumn('image', function ($query) {
-                return "<img width='200px' src='" . asset($query->image) . "' ></img>";
+                return '<img src="' . $query->image . '" style="width: 40px; height: 40px;" alt="icon">';
+            })
+            ->addColumn('name', function ($query) {
+                return '<h6 class="">' . $query->name . '</h6>';
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === Status::Active->value) {
@@ -53,20 +46,25 @@ class GalleryDataTable extends DataTable
                 return $button;
             })
             ->addColumn('action', function ($query) {
-                $deleteBtn = "<a href='" . route('admin.galleries.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $editBtn = "<a href='" . route('admin.majors.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.majors.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
-                return $deleteBtn;
+                return $editBtn . $deleteBtn;
             })
-            ->rawColumns(['project.name', 'image', 'status', 'action'])
+            ->filterColumn('name', function ($query, $keyword) {
+                $query->where('name', 'like', "%" . $keyword . "%");
+            })
+
+            ->rawColumns(['image', 'name', 'status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(ProjectGallery $model): QueryBuilder
+    public function query(Major $model): QueryBuilder
     {
-        return $model->newQuery()->with('project');
+        return $model->newQuery();
     }
 
     /**
@@ -75,10 +73,10 @@ class GalleryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('gallery-table')
+            ->setTableId('major-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->orderBy(1)
+            ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -96,10 +94,10 @@ class GalleryDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(200),
-            Column::make('project.name')
-                ->title('Project'),
+            Column::make('id')->width(300),
             Column::make('image'),
+            Column::make('name'),
+            Column::make('description'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
@@ -114,6 +112,6 @@ class GalleryDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'ProductImageGallery_' . date('YmdHis');
+        return 'Major_' . date('YmdHis');
     }
 }

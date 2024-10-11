@@ -1,10 +1,9 @@
 <?php
 
-namespace App\DataTables\User\Education;
+namespace App\DataTables\Admin\Education;
 
 use App\Domains\Education\Models\Education;
 use App\Enum\Status;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class TrashEducationDataTable extends DataTable
+class EducationDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -28,27 +27,35 @@ class TrashEducationDataTable extends DataTable
             ->addColumn('university_name', function ($query) {
                 return '<h6 class="">' . $query->university_name . '</h6>';
             })
+            ->addColumn('status', function ($query) {
+                if ($query->status === Status::Active->value) {
+                    $button =
+                        '<label class="custom-switch mt-2">
+                            <input type="checkbox" checked name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status" >
+                            <span class="custom-switch-indicator"></span>
+                        </label>';
+                }
+                if ($query->status === Status::Inactive->value) {
+                    $button =
+                        '<label class="custom-switch mt-2">
+                            <input type="checkbox" name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status">
+                            <span class="custom-switch-indicator"></span>
+                        </label>';
+                }
+
+                return $button;
+            })
             ->addColumn('action', function ($query) {
-                $form = "<form action='" . route('user.education.restore', $query->id) . "' method='POST' enctype='multipart/form-data' style='display:inline-block'>";
-                $form .= csrf_field();
-                $form .= method_field('PUT');
+                $editBtn = "<a href='" . route('admin.education.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.education.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
-                $form .= "<button type='submit' class='btn btn-primary'><i class='far fa-circle'></i></button>";
-                $form .= "</form>";
-
-                $form .= "<form action='" . route('user.education.delete', $query->id) . "' method='POST' enctype='multipart/form-data' class='delete-item' style='display:inline-block'>";
-                $form .= csrf_field();
-                $form .= method_field('DELETE');
-                $form .= "<button type='submit' class='btn btn-danger ml-2'><i class='far fa-trash-alt'></i></button>";
-                $form .= "</form>";
-
-                return $form;
+                return $editBtn . $deleteBtn;
             })
             ->filterColumn('name', function ($query, $keyword) {
                 $query->where('name', 'like', "%" . $keyword . "%");
             })
 
-            ->rawColumns(['logo', 'university_name', 'action'])
+            ->rawColumns(['logo', 'university_name', 'status', 'action'])
             ->setRowId('id');
     }
 
@@ -57,7 +64,7 @@ class TrashEducationDataTable extends DataTable
      */
     public function query(Education $model): QueryBuilder
     {
-        return $model->newQuery()->where('user_id', Auth::id())->onlyTrashed();
+        return $model->newQuery()->with('user');
     }
 
     /**
@@ -87,10 +94,13 @@ class TrashEducationDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(300),
+            Column::make('id')->width(200),
+            Column::make('user.name')
+                ->title('User'),
             Column::make('logo'),
             Column::make('university_name'),
             Column::make('gpa'),
+            Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

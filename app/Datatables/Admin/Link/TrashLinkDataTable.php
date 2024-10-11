@@ -1,10 +1,9 @@
 <?php
 
-namespace App\DataTables\User\Project;
+namespace App\DataTables\Admin\Link;
 
-use App\Domains\Project\Models\Project;
+use App\Domains\Link\Models\Link;
 use App\Enum\Status;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class TrashProjectDataTable extends DataTable
+class TrashLinkDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,21 +21,18 @@ class TrashProjectDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('cover_image', function ($query) {
-                return '<img src="' . $query->cover_image . '" style="width: 120px; height: 80px; object-fit:cover" alt="icon">';
-            })
-            ->addColumn('name', function ($query) {
-                return '<h6 class="">' . $query->name . '</h6>';
+            ->addColumn('project.name', function ($query) {
+                return '<h6 class="">' . $query->project->name . '</h6>';
             })
             ->addColumn('action', function ($query) {
-                $form = "<form action='" . route('user.projects.restore', $query->id) . "' method='POST' enctype='multipart/form-data' style='display:inline-block'>";
+                $form = "<form action='" . route('admin.links.restore', $query->id) . "' method='POST' enctype='multipart/form-data' style='display:inline-block'>";
                 $form .= csrf_field();
                 $form .= method_field('PUT');
 
                 $form .= "<button type='submit' class='btn btn-primary'><i class='far fa-circle'></i></button>";
                 $form .= "</form>";
 
-                $form .= "<form action='" . route('user.projects.delete', $query->id) . "' method='POST' enctype='multipart/form-data' class='delete-item' style='display:inline-block'>";
+                $form .= "<form action='" . route('admin.links.delete', $query->id) . "' method='POST' enctype='multipart/form-data' class='delete-item' style='display:inline-block'>";
                 $form .= csrf_field();
                 $form .= method_field('DELETE');
                 $form .= "<button type='submit' class='btn btn-danger ml-2'><i class='far fa-trash-alt'></i></button>";
@@ -44,20 +40,17 @@ class TrashProjectDataTable extends DataTable
 
                 return $form;
             })
-            ->filterColumn('name', function ($query, $keyword) {
-                $query->where('name', 'like', "%" . $keyword . "%");
-            })
 
-            ->rawColumns(['cover_image', 'name', 'action'])
+            ->rawColumns(['project.name', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Project $model): QueryBuilder
+    public function query(Link $model): QueryBuilder
     {
-        return $model->newQuery()->with('category')->where('user_id', Auth::id())->onlyTrashed();
+        return $model->newQuery()->with('project')->onlyTrashed();
     }
 
     /**
@@ -66,7 +59,7 @@ class TrashProjectDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('trash-project-table')
+            ->setTableId('link-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
@@ -87,15 +80,15 @@ class TrashProjectDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(300),
-            Column::make('cover_image'),
-            Column::make('name'),
-            Column::make('category.name')
-                ->title('Category'),
+            Column::make('id')->width(200),
+            Column::make('project.name')
+                ->title('Project'),
+            Column::make('title'),
+            Column::make('url'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(200)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }
@@ -105,6 +98,6 @@ class TrashProjectDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Project_' . date('YmdHis');
+        return 'Link_' . date('YmdHis');
     }
 }

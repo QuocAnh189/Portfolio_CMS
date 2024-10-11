@@ -20,6 +20,7 @@
     <link href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v6.5.0/css/all.css" rel="stylesheet" />
     <link href="{{ asset('backend/assets/css/bootstrap-iconpicker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/assets/modules/select2/dist/css/select2.min.css') }}" rel="stylesheet">

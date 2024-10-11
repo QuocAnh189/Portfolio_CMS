@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\Admin\TechnologyDataTable;
+use App\DataTables\Admin\Technology\TechnologyDataTable;
+use App\DataTables\Admin\Technology\TrashTechnologyDataTable;
 use App\Domains\Technology\Dto\CreateTechnologyDto;
 use App\Domains\Technology\Dto\UpdateTechnologyDto;
 use App\Domains\Technology\Models\Technology;
@@ -20,6 +21,11 @@ class TechnologyController extends Controller
     public function index(TechnologyDataTable $dataTable)
     {
         return $dataTable->render('admin.technology.index');
+    }
+
+    public function trash_index(TrashTechnologyDataTable $dataTable)
+    {
+        return $dataTable->render('admin.technology.trash');
     }
 
     /**
@@ -90,6 +96,32 @@ class TechnologyController extends Controller
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function restore(TechnologyService $technologyService, Technology $technology)
+    {
+        try {
+            $restoredTechnology = $technologyService->restoreTechnology($technology);
+
+            if ($restoredTechnology) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('admin.technologys.trash-index');
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function delete(TechnologyService $technologyService, Technology $technology)
+    {
+        try {
+            $technologyService->removeTechnology($technology);
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
         }
     }
 

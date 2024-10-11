@@ -1,10 +1,9 @@
 <?php
 
-namespace App\DataTables\Admin;
+namespace App\DataTables\Admin\Category;
 
-use App\Domains\Skill\Models\Skill;
+use App\Domains\Category\Models\Category;
 use App\Enum\Status;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class SkillDataTable extends DataTable
+class CategoryDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,8 +21,11 @@ class SkillDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('user.name', function ($query) {
-                return '<h6 class="">' . $query->user->name . '</h6>';
+            ->addColumn('image', function ($query) {
+                return '<img src="' . $query->image . '" style="width: 40px; height: 40px;" alt="icon">';
+            })
+            ->addColumn('name', function ($query) {
+                return '<h6 class="">' . $query->name . '</h6>';
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === Status::Active->value) {
@@ -44,25 +46,25 @@ class SkillDataTable extends DataTable
                 return $button;
             })
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.skills.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('admin.skills.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $editBtn = "<a href='" . route('admin.categories.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.categories.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
                 return $editBtn . $deleteBtn;
             })
-            ->filterColumn('user.name', function ($query, $keyword) {
+            ->filterColumn('name', function ($query, $keyword) {
                 $query->where('name', 'like', "%" . $keyword . "%");
             })
 
-            ->rawColumns(['user.name', 'status', 'action'])
+            ->rawColumns(['image', 'name', 'status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Skill $model): QueryBuilder
+    public function query(Category $model): QueryBuilder
     {
-        return $model->newQuery()->with('user')->with('role_software');
+        return $model->newQuery();
     }
 
     /**
@@ -71,7 +73,7 @@ class SkillDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('skill-table')
+            ->setTableId('category-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
@@ -92,11 +94,9 @@ class SkillDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(200),
-            Column::make('user.name')->width(100),
-            Column::make('role_software.name')->width(200)
-                ->title('Role Software'),
-            Column::make('description'),
+            Column::make('id')->width(300),
+            Column::make('image'),
+            Column::make('name'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
@@ -111,6 +111,6 @@ class SkillDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Skill_' . date('YmdHis');
+        return 'Category_' . date('YmdHis');
     }
 }

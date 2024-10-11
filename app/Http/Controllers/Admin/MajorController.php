@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\Admin\MajorDataTable;
+use App\DataTables\Admin\Major\MajorDataTable;
+use App\DataTables\Admin\Major\TrashMajorDataTable;
 use App\Domains\Major\Dto\CreateMajorDto;
 use App\Domains\Major\Dto\UpdateMajorDto;
 use App\Domains\Major\Models\Major;
@@ -20,6 +21,11 @@ class MajorController extends Controller
     public function index(MajorDataTable $dataTable)
     {
         return $dataTable->render('admin.major.index');
+    }
+
+    public function trash_index(TrashMajorDataTable $dataTable)
+    {
+        return $dataTable->render('admin.major.trash');
     }
 
     /**
@@ -84,6 +90,32 @@ class MajorController extends Controller
     {
         try {
             $majorService->deleteMajor($major);
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function restore(MajorService $majorService, Major $major)
+    {
+        try {
+            $restoredMajor = $majorService->restoreMajor($major);
+
+            if ($restoredMajor) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('admin.majors.trash-index');
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function delete(MajorService $majorService, Major $major)
+    {
+        try {
+            $majorService->removeMajor($major);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {

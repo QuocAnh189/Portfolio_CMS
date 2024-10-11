@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\Admin\CategoryDataTable;
+use App\DataTables\Admin\Category\CategoryDataTable;
+use App\DataTables\Admin\Category\TrashCategoryDataTable;
 use App\Domains\Category\Dto\CreateCategoryDto;
 use App\Domains\Category\Dto\UpdateCategoryDto;
 use App\Domains\Category\Models\Category;
@@ -20,6 +21,11 @@ class CategoryController extends Controller
     public function index(CategoryDataTable $dataTable)
     {
         return $dataTable->render('admin.category.index');
+    }
+
+    public function trash_index(TrashCategoryDataTable $dataTable)
+    {
+        return $dataTable->render('admin.category.trash');
     }
 
     /**
@@ -90,6 +96,34 @@ class CategoryController extends Controller
             flash()->error($e->getMessage());
         }
     }
+
+
+    public function restore(CategoryService $categoryService, Category $category)
+    {
+        try {
+            $restoredCategory = $categoryService->restoreCategory($category);
+
+            if ($restoredCategory) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('admin.category.trash-index');
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function delete(CategoryService $categoryService, Category $category)
+    {
+        try {
+            $categoryService->removeCategory($category);
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
 
     public function change_status(CategoryService $categoryService, ChangeStatusRequest $request)
     {

@@ -1,10 +1,9 @@
 <?php
 
-namespace App\DataTables\User\Project;
+namespace App\DataTables\Admin\RoleSoftware;
 
-use App\Domains\Project\Models\Project;
+use App\Domains\RoleSoftware\Models\RoleSoftware;
 use App\Enum\Status;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class TrashProjectDataTable extends DataTable
+class RoleSoftwareDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,42 +21,50 @@ class TrashProjectDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('cover_image', function ($query) {
-                return '<img src="' . $query->cover_image . '" style="width: 120px; height: 80px; object-fit:cover" alt="icon">';
+            ->addColumn('image', function ($query) {
+                return '<img src="' . $query->image . '" style="width: 40px; height: 40px;" alt="icon">';
             })
             ->addColumn('name', function ($query) {
                 return '<h6 class="">' . $query->name . '</h6>';
             })
+            ->addColumn('status', function ($query) {
+                if ($query->status === Status::Active->value) {
+                    $button =
+                        '<label class="custom-switch mt-2">
+                            <input type="checkbox" checked name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status" >
+                            <span class="custom-switch-indicator"></span>
+                        </label>';
+                }
+                if ($query->status === Status::Inactive->value) {
+                    $button =
+                        '<label class="custom-switch mt-2">
+                            <input type="checkbox" name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status">
+                            <span class="custom-switch-indicator"></span>
+                        </label>';
+                }
+
+                return $button;
+            })
             ->addColumn('action', function ($query) {
-                $form = "<form action='" . route('user.projects.restore', $query->id) . "' method='POST' enctype='multipart/form-data' style='display:inline-block'>";
-                $form .= csrf_field();
-                $form .= method_field('PUT');
+                $editBtn = "<a href='" . route('admin.role-softwares.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.role-softwares.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
-                $form .= "<button type='submit' class='btn btn-primary'><i class='far fa-circle'></i></button>";
-                $form .= "</form>";
-
-                $form .= "<form action='" . route('user.projects.delete', $query->id) . "' method='POST' enctype='multipart/form-data' class='delete-item' style='display:inline-block'>";
-                $form .= csrf_field();
-                $form .= method_field('DELETE');
-                $form .= "<button type='submit' class='btn btn-danger ml-2'><i class='far fa-trash-alt'></i></button>";
-                $form .= "</form>";
-
-                return $form;
+                return $editBtn . $deleteBtn;
             })
             ->filterColumn('name', function ($query, $keyword) {
                 $query->where('name', 'like', "%" . $keyword . "%");
             })
 
-            ->rawColumns(['cover_image', 'name', 'action'])
+            ->rawColumns(['image', 'name', 'status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Project $model): QueryBuilder
+    public function query(RoleSoftware $model): QueryBuilder
     {
-        return $model->newQuery()->with('category')->where('user_id', Auth::id())->onlyTrashed();
+        return $model->newQuery();
     }
 
     /**
@@ -66,7 +73,7 @@ class TrashProjectDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('trash-project-table')
+            ->setTableId('role-software-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
@@ -88,14 +95,13 @@ class TrashProjectDataTable extends DataTable
     {
         return [
             Column::make('id')->width(300),
-            Column::make('cover_image'),
+            Column::make('image'),
             Column::make('name'),
-            Column::make('category.name')
-                ->title('Category'),
+            Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(200)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }
@@ -105,6 +111,6 @@ class TrashProjectDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Project_' . date('YmdHis');
+        return 'Category_' . date('YmdHis');
     }
 }

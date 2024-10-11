@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Project;
 
 use App\DataTables\Admin\Project\ProjectDataTable;
+use App\DataTables\Admin\Project\TrashProjectDataTable;
 use App\Domains\Category\Services\CategoryService;
 use App\Domains\Project\Dto\CreateProjectDto;
 use App\Domains\Project\Dto\UpdateProjectDto;
@@ -13,7 +14,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Project\CreateProjectRequest;
 use App\Http\Requests\Project\UpdateProjectRequest;
-use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -23,6 +23,11 @@ class ProjectController extends Controller
     public function index(ProjectDataTable $dataTable)
     {
         return $dataTable->render('admin.project.index');
+    }
+
+    public function trash_index(TrashProjectDataTable $dataTable)
+    {
+        return $dataTable->render('admin.project.trash');
     }
 
     /**

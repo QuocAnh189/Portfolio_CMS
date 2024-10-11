@@ -1,10 +1,9 @@
 <?php
 
-namespace App\DataTables\User\Project;
+namespace App\DataTables\Admin\Project;
 
-use App\Domains\Project\Models\Project;
 use App\Enum\Status;
-use Illuminate\Support\Facades\Auth;
+use App\Domains\Project\Models\Project;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -29,14 +28,14 @@ class TrashProjectDataTable extends DataTable
                 return '<h6 class="">' . $query->name . '</h6>';
             })
             ->addColumn('action', function ($query) {
-                $form = "<form action='" . route('user.projects.restore', $query->id) . "' method='POST' enctype='multipart/form-data' style='display:inline-block'>";
+                $form = "<form action='" . route('admin.projects.restore', $query->id) . "' method='POST' enctype='multipart/form-data' style='display:inline-block'>";
                 $form .= csrf_field();
                 $form .= method_field('PUT');
 
                 $form .= "<button type='submit' class='btn btn-primary'><i class='far fa-circle'></i></button>";
                 $form .= "</form>";
 
-                $form .= "<form action='" . route('user.projects.delete', $query->id) . "' method='POST' enctype='multipart/form-data' class='delete-item' style='display:inline-block'>";
+                $form .= "<form action='" . route('admin.projects.delete', $query->id) . "' method='POST' enctype='multipart/form-data' class='delete-item' style='display:inline-block'>";
                 $form .= csrf_field();
                 $form .= method_field('DELETE');
                 $form .= "<button type='submit' class='btn btn-danger ml-2'><i class='far fa-trash-alt'></i></button>";
@@ -57,7 +56,7 @@ class TrashProjectDataTable extends DataTable
      */
     public function query(Project $model): QueryBuilder
     {
-        return $model->newQuery()->with('category')->where('user_id', Auth::id())->onlyTrashed();
+        return $model->newQuery()->with('category')->with('user')->onlyTrashed();
     }
 
     /**
@@ -66,7 +65,7 @@ class TrashProjectDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('trash-project-table')
+            ->setTableId('project-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
@@ -87,7 +86,9 @@ class TrashProjectDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(300),
+            Column::make('id')->width(200),
+            Column::make('user.name')
+                ->title('User')->width(100),
             Column::make('cover_image'),
             Column::make('name'),
             Column::make('category.name')

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DataTables\Admin;
+namespace App\DataTables\Admin\Experience;
 
-use App\Domains\User\Models\User;
+use App\Domains\Experience\Models\Experience;
 use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -11,7 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class UserDataTable extends DataTable
+class ExperienceDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -21,14 +21,8 @@ class UserDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('avatar', function ($query) {
-                return '<img src="' . ($query->profile->avatar ? $query->profile->avatar : asset('images/avatar_default.jpg')) . '" style="width: 40px; height: 40px; border-radius:20px" alt="icon">';
-            })
-            ->addColumn('name', function ($query) {
-                return '<h6 class="">' . $query->name . '</h6>';
-            })
-            ->addColumn('profile.role_software.name', function ($query) {
-                return optional($query->profile->role_software)->name ?? 'No Role';
+            ->addColumn('user.name', function ($query) {
+                return '<h6 class="">' . $query->user->name . '</h6>';
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === Status::Active->value) {
@@ -49,28 +43,25 @@ class UserDataTable extends DataTable
                 return $button;
             })
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.users.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('admin.users.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $editBtn = "<a href='" . route('admin.experiences.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.experiences.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
                 return $editBtn . $deleteBtn;
             })
-            ->filterColumn('name', function ($query, $keyword) {
+            ->filterColumn('user.name', function ($query, $keyword) {
                 $query->where('name', 'like', "%" . $keyword . "%");
             })
 
-            ->rawColumns(['avatar', 'name', 'status', 'action'])
+            ->rawColumns(['user.name', 'status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(User $model): QueryBuilder
+    public function query(Experience $model): QueryBuilder
     {
-        // dd($model->newQuery());
-        return $model->newQuery()->with('profile', function ($query) {
-            $query->with('role_software');
-        })->where('is_admin', '===', 0);
+        return $model->newQuery()->with('user');
     }
 
     /**
@@ -79,7 +70,7 @@ class UserDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('user-table')
+            ->setTableId('experience-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
@@ -100,12 +91,11 @@ class UserDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(200),
-            Column::make('avatar'),
-            Column::make('name'),
-            Column::make('email'),
-            Column::make('profile.role_software.name')
-                ->title('Role Software'),
+            Column::make('id')->width(300),
+            Column::make('user.name')->width(200)
+                ->title('User Name'),
+            Column::make('company_name'),
+            Column::make('level'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
@@ -120,6 +110,6 @@ class UserDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'User_' . date('YmdHis');
+        return 'Experiences_' . date('YmdHis');
     }
 }

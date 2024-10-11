@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\Admin\ExperienceDataTable;
+use App\DataTables\Admin\Experience\ExperienceDataTable;
+use App\DataTables\Admin\Experience\TrashExperienceDataTable;
 use App\Domains\Experience\Dto\CreateExperienceDto;
 use App\Domains\Experience\Dto\UpdateExperienceDto;
 use App\Domains\Experience\Models\Experience;
@@ -22,6 +23,11 @@ class ExperienceController extends Controller
     public function index(ExperienceDataTable $dataTable)
     {
         return $dataTable->render("admin.experience.index");
+    }
+
+    public function trash_index(TrashExperienceDataTable $dataTable)
+    {
+        return $dataTable->render('admin.experience.trash');
     }
 
     /**
@@ -91,6 +97,32 @@ class ExperienceController extends Controller
     {
         try {
             $experienceService->deleteExperiences($experience);
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function restore(ExperienceService $experienceService, Experience $experience)
+    {
+        try {
+            $restoredExperience = $experienceService->restoreExperience($experience);
+
+            if ($restoredExperience) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('admin.experiences.trash-index');
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function delete(ExperienceService $experienceService, Experience $experience)
+    {
+        try {
+            $experienceService->removeExperience($experience);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\Admin\RoleSoftwareDataTable;
+use App\DataTables\Admin\RoleSoftware\RoleSoftwareDataTable;
+use App\DataTables\Admin\RoleSoftware\TrashRoleSoftwareDataTable;
 use App\Domains\RoleSoftware\Dto\CreateRoleSoftwareDto;
 use App\Domains\RoleSoftware\Dto\UpdateRoleSoftwareDto;
 use App\Domains\RoleSoftware\Models\RoleSoftware;
@@ -20,6 +21,11 @@ class RoleSoftwareController extends Controller
     public function index(RoleSoftwareDataTable $dataTable)
     {
         return $dataTable->render('admin.role-software.index');
+    }
+
+    public function trash_index(TrashRoleSoftwareDataTable $dataTable)
+    {
+        return $dataTable->render('admin.role-software.trash');
     }
 
     /**

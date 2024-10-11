@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables\Admin;
+namespace App\DataTables\Admin\RoleSoftware;
 
 use App\Domains\RoleSoftware\Models\RoleSoftware;
 use App\Enum\Status;
@@ -11,7 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class RoleSoftwareDataTable extends DataTable
+class TrashRoleSoftwareDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -27,35 +27,27 @@ class RoleSoftwareDataTable extends DataTable
             ->addColumn('name', function ($query) {
                 return '<h6 class="">' . $query->name . '</h6>';
             })
-            ->addColumn('status', function ($query) {
-                if ($query->status === Status::Active->value) {
-                    $button =
-                        '<label class="custom-switch mt-2">
-                            <input type="checkbox" checked name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status" >
-                            <span class="custom-switch-indicator"></span>
-                        </label>';
-                }
-                if ($query->status === Status::Inactive->value) {
-                    $button =
-                        '<label class="custom-switch mt-2">
-                            <input type="checkbox" name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status">
-                            <span class="custom-switch-indicator"></span>
-                        </label>';
-                }
-
-                return $button;
-            })
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.role-softwares.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('admin.role-softwares.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $form = "<form action='" . route('admin.role-softwares.restore', $query->id) . "' method='POST' enctype='multipart/form-data' style='display:inline-block'>";
+                $form .= csrf_field();
+                $form .= method_field('PUT');
 
-                return $editBtn . $deleteBtn;
+                $form .= "<button type='submit' class='btn btn-primary'><i class='far fa-circle'></i></button>";
+                $form .= "</form>";
+
+                $form .= "<form action='" . route('admin.role-softwares.delete', $query->id) . "' method='POST' enctype='multipart/form-data' class='delete-item' style='display:inline-block'>";
+                $form .= csrf_field();
+                $form .= method_field('DELETE');
+                $form .= "<button type='submit' class='btn btn-danger ml-2'><i class='far fa-trash-alt'></i></button>";
+                $form .= "</form>";
+
+                return $form;
             })
             ->filterColumn('name', function ($query, $keyword) {
                 $query->where('name', 'like', "%" . $keyword . "%");
             })
 
-            ->rawColumns(['image', 'name', 'status', 'action'])
+            ->rawColumns(['image', 'name', 'action'])
             ->setRowId('id');
     }
 
@@ -64,7 +56,7 @@ class RoleSoftwareDataTable extends DataTable
      */
     public function query(RoleSoftware $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->onlyTrashed();
     }
 
     /**
@@ -97,7 +89,6 @@ class RoleSoftwareDataTable extends DataTable
             Column::make('id')->width(300),
             Column::make('image'),
             Column::make('name'),
-            Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

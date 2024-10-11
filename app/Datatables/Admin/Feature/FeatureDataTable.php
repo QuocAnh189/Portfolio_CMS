@@ -1,9 +1,9 @@
 <?php
 
-namespace App\DataTables\Admin;
+namespace App\DataTables\Admin\Feature;
 
-use App\Domains\Major\Models\Major;
 use App\Enum\Status;
+use App\Domains\Feature\Models\Feature;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -11,7 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class MajorDataTable extends DataTable
+class FeatureDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -21,11 +21,8 @@ class MajorDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('image', function ($query) {
-                return '<img src="' . $query->image . '" style="width: 40px; height: 40px;" alt="icon">';
-            })
-            ->addColumn('name', function ($query) {
-                return '<h6 class="">' . $query->name . '</h6>';
+            ->addColumn('project.name', function ($query) {
+                return '<h6 class="">' . $query->project->name . '</h6>';
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === Status::Active->value) {
@@ -46,25 +43,22 @@ class MajorDataTable extends DataTable
                 return $button;
             })
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.majors.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('admin.majors.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $editBtn = "<a href='" . route('admin.features.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.features.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
                 return $editBtn . $deleteBtn;
             })
-            ->filterColumn('name', function ($query, $keyword) {
-                $query->where('name', 'like', "%" . $keyword . "%");
-            })
 
-            ->rawColumns(['image', 'name', 'status', 'action'])
+            ->rawColumns(['project.name', 'status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Major $model): QueryBuilder
+    public function query(Feature $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('project');
     }
 
     /**
@@ -73,7 +67,7 @@ class MajorDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('major-table')
+            ->setTableId('feature-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
@@ -95,9 +89,9 @@ class MajorDataTable extends DataTable
     {
         return [
             Column::make('id')->width(300),
-            Column::make('image'),
+            Column::make('project.name')
+                ->title('Project'),
             Column::make('name'),
-            Column::make('description'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
@@ -112,6 +106,6 @@ class MajorDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Major_' . date('YmdHis');
+        return 'Feature_' . date('YmdHis');
     }
 }

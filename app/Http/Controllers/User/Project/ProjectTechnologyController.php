@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Project;
 
 use App\DataTables\User\Project\ProjectTechnologyDataTable;
+use App\DataTables\User\Project\TrashProjectTechnologyDataTable;
 use App\Domains\Project\Models\Project;
 use App\Domains\Relation\ProjectTechnologies\Dto\CreateProjectTechnologiesDto;
 use App\Domains\Relation\ProjectTechnologies\Dto\UpdateProjectTechnologiesDto;
@@ -24,6 +25,13 @@ class ProjectTechnologyController extends Controller
     {
         $dataTable = new ProjectTechnologyDataTable($project);
         return $dataTable->render('user.project.technology.index', compact('project'));
+    }
+
+
+    public function trash_index(Project $project)
+    {
+        $dataTable = new TrashProjectTechnologyDataTable($project);
+        return $dataTable->render('user.project.technology.trash', compact('project'));
     }
 
     /**
@@ -103,6 +111,32 @@ class ProjectTechnologyController extends Controller
     {
         try {
             $projectTechnologiesService->deleteProjectTechnologies($projectTechnology);
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function restore(ProjectTechnologiesService $projectTechnologiesService, Project $project, ProjectTechnologies $projectTechnology)
+    {
+        try {
+            $restoredProjectTechnologies = $projectTechnologiesService->restoreProjectTechnologies($projectTechnology);
+
+            if ($restoredProjectTechnologies) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('user.project-technologies.trash-index', $project);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function delete(ProjectTechnologiesService $projectTechnologiesService,  Project $project, ProjectTechnologies $projectTechnology)
+    {
+        try {
+            $projectTechnologiesService->removeProjectTechnologies($projectTechnology);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
         } catch (\Exception $e) {

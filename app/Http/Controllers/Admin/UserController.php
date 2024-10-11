@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\Admin\UserDataTable;
+use App\DataTables\Admin\User\UserDataTable;
 use App\Domains\Profile\Services\ProfileService;
 use App\Domains\RoleSoftware\Services\RoleSoftwareService;
 use App\Domains\User\Services\UserService;

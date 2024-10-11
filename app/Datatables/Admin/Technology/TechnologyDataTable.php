@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DataTables\Admin;
+namespace App\DataTables\Admin\Technology;
 
-use App\Domains\Link\Models\Link;
+use App\Domains\Technology\Models\Technology;
 use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -11,7 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class LinkDataTable extends DataTable
+class TechnologyDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -21,8 +21,11 @@ class LinkDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('project.name', function ($query) {
-                return '<h6 class="">' . $query->project->name . '</h6>';
+            ->addColumn('image', function ($query) {
+                return '<img src="' . $query->image . '" style="width: 40px; height: 40px;" alt="icon">';
+            })
+            ->addColumn('name', function ($query) {
+                return '<h6 class="">' . $query->name . '</h6>';
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === Status::Active->value) {
@@ -43,22 +46,25 @@ class LinkDataTable extends DataTable
                 return $button;
             })
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.links.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('admin.links.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $editBtn = "<a href='" . route('admin.technologies.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.technologies.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
                 return $editBtn . $deleteBtn;
             })
+            ->filterColumn('name', function ($query, $keyword) {
+                $query->where('name', 'like', "%" . $keyword . "%");
+            })
 
-            ->rawColumns(['project.name', 'status', 'action'])
+            ->rawColumns(['image', 'name', 'status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Link $model): QueryBuilder
+    public function query(Technology $model): QueryBuilder
     {
-        return $model->newQuery()->with('project');
+        return $model->newQuery();
     }
 
     /**
@@ -67,7 +73,7 @@ class LinkDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('link-table')
+            ->setTableId('technology-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
@@ -88,11 +94,9 @@ class LinkDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(200),
-            Column::make('project.name')
-                ->title('Project'),
-            Column::make('title'),
-            Column::make('url'),
+            Column::make('id')->width(300),
+            Column::make('image'),
+            Column::make('name'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
@@ -107,6 +111,6 @@ class LinkDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Link_' . date('YmdHis');
+        return 'Technology_' . date('YmdHis');
     }
 }

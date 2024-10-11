@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables\Admin;
+namespace App\DataTables\Admin\Feature;
 
 use App\Enum\Status;
 use App\Domains\Feature\Models\Feature;
@@ -11,7 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class FeatureDataTable extends DataTable
+class TrashFeatureDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -24,32 +24,24 @@ class FeatureDataTable extends DataTable
             ->addColumn('project.name', function ($query) {
                 return '<h6 class="">' . $query->project->name . '</h6>';
             })
-            ->addColumn('status', function ($query) {
-                if ($query->status === Status::Active->value) {
-                    $button =
-                        '<label class="custom-switch mt-2">
-                            <input type="checkbox" checked name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status" >
-                            <span class="custom-switch-indicator"></span>
-                        </label>';
-                }
-                if ($query->status === Status::Inactive->value) {
-                    $button =
-                        '<label class="custom-switch mt-2">
-                            <input type="checkbox" name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status">
-                            <span class="custom-switch-indicator"></span>
-                        </label>';
-                }
-
-                return $button;
-            })
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.features.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('admin.features.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $form = "<form action='" . route('admin.features.restore', $query->id) . "' method='POST' enctype='multipart/form-data' style='display:inline-block'>";
+                $form .= csrf_field();
+                $form .= method_field('PUT');
 
-                return $editBtn . $deleteBtn;
+                $form .= "<button type='submit' class='btn btn-primary'><i class='far fa-circle'></i></button>";
+                $form .= "</form>";
+
+                $form .= "<form action='" . route('admin.features.delete', $query->id) . "' method='POST' enctype='multipart/form-data' class='delete-item' style='display:inline-block'>";
+                $form .= csrf_field();
+                $form .= method_field('DELETE');
+                $form .= "<button type='submit' class='btn btn-danger ml-2'><i class='far fa-trash-alt'></i></button>";
+                $form .= "</form>";
+
+                return $form;
             })
 
-            ->rawColumns(['project.name', 'status', 'action'])
+            ->rawColumns(['project.name', 'action'])
             ->setRowId('id');
     }
 
@@ -58,7 +50,7 @@ class FeatureDataTable extends DataTable
      */
     public function query(Feature $model): QueryBuilder
     {
-        return $model->newQuery()->with('project');
+        return $model->newQuery()->with('project')->onlyTrashed();
     }
 
     /**
@@ -92,7 +84,6 @@ class FeatureDataTable extends DataTable
             Column::make('project.name')
                 ->title('Project'),
             Column::make('name'),
-            Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
