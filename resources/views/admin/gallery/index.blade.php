@@ -56,6 +56,10 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>All Images</h4>
+                            <a class="btn btn-primary" href="{{ route('admin.galleries.trash-index') }}">
+                                <i class="fas fa-trash-alt"></i>
+                                View Trash
+                            </a>
                         </div>
                         <div class="card-body">
                             {{ $dataTable->table() }}

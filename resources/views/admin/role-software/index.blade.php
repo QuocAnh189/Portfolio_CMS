@@ -12,6 +12,10 @@
                         <div class="card-header">
                             <h4>Role-softwares</h4>
                             <div class="card-header-action">
+                                <a class="btn btn-primary" href="{{ route('admin.role-softwares.trash-index') }}">
+                                    <i class="fas fa-trash-alt"></i>
+                                    View Trash
+                                </a>
                                 <a class="btn btn-primary" href="{{ route('admin.role-softwares.create') }}">
                                     <i class="fas fa-plus"></i>
                                     Create New

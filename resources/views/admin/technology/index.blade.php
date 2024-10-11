@@ -12,6 +12,10 @@
                         <div class="card-header">
                             <h4>Technologies</h4>
                             <div class="card-header-action">
+                                <a class="btn btn-primary" href="{{ route('admin.technologies.trash-index') }}">
+                                    <i class="fas fa-trash-alt"></i>
+                                    View Trash
+                                </a>
                                 <a class="btn btn-primary" href="{{ route('admin.technologies.create') }}">
                                     <i class="fas fa-plus"></i>
                                     Create New
