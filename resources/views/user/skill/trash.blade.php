@@ -12,13 +12,9 @@
                         <div class="card-header">
                             <h4>Skills</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-primary" href="{{ route('user.skills.trash-index') }}">
+                                <a class="btn btn-primary" href="{{ route('user.skills.index') }}">
                                     <i class="fas fa-trash-alt"></i>
-                                    View Trash
-                                </a>
-                                <a class="btn btn-primary" href="{{ route('user.skills.create') }}">
-                                    <i class="fas fa-plus"></i>
-                                    Create New
+                                    View Active
                                 </a>
                             </div>
                         </div>

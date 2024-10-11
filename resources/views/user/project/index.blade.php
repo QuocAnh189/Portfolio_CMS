@@ -12,6 +12,10 @@
                         <div class="card-header">
                             <h4>Projects</h4>
                             <div class="card-header-action">
+                                <a class="btn btn-primary" href="{{ route('user.projects.trash-index') }}">
+                                    <i class="fas fa-trash-alt"></i>
+                                    View Trash
+                                </a>
                                 <a class="btn btn-primary" href="{{ route('user.projects.create') }}">
                                     <i class="fas fa-plus"></i>
                                     Create New

@@ -3,22 +3,18 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>My Skill</h1>
+            <h1>My Gallery</h1>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Skills</h4>
+                            <h4>Gallerys</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-primary" href="{{ route('user.skills.trash-index') }}">
+                                <a class="btn btn-primary" href="{{ route('user.project-galleries.index') }}">
                                     <i class="fas fa-trash-alt"></i>
-                                    View Trash
-                                </a>
-                                <a class="btn btn-primary" href="{{ route('user.skills.create') }}">
-                                    <i class="fas fa-plus"></i>
-                                    Create New
+                                    View Active
                                 </a>
                             </div>
                         </div>
@@ -42,7 +38,7 @@
                 let id = $(this).data('id');
 
                 $.ajax({
-                    url: "{{ route('user.skills.change-status') }}",
+                    url: "{{ route('user.gallerys.change-status') }}",
                     method: 'PUT',
                     data: {
                         status: isChecked,
