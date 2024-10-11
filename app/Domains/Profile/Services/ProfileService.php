@@ -53,6 +53,15 @@ class ProfileService
         return $this->profileRepository->delete($profile->id);
     }
 
+    public function restoreProfile(Profile $profile)
+    {
+        return $this->profileRepository->restore($profile);
+    }
+    public function removeProfile(Profile $profile)
+    {
+        return $this->profileRepository->forceDelete($profile);
+    }
+
     public function changeStatusProfile($profileId, $status)
     {
         return $this->profileRepository->changeStatus($profileId, $status);

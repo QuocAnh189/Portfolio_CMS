@@ -48,6 +48,15 @@ class TechnologyService
         return $this->technologyRepository->delete($technology->id);
     }
 
+    public function restoreTechnology(Technology $technology)
+    {
+        return $this->technologyRepository->restore($technology);
+    }
+    public function removeTechnology(Technology $technology)
+    {
+        return $this->technologyRepository->forceDelete($technology);
+    }
+
     public function changeStatusTechnology($technologyId, $status)
     {
         return $this->technologyRepository->changeStatus($technologyId, $status);

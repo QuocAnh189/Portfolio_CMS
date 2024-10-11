@@ -40,6 +40,15 @@ class SkillService
         return $this->skillRepository->delete($skill->id);
     }
 
+    public function restoreSkill(Skill $skill)
+    {
+        return $this->skillRepository->restore($skill);
+    }
+    public function removeSkill(Skill $skill)
+    {
+        return $this->skillRepository->forceDelete($skill);
+    }
+
     public function changeStatusSkill($skillId, $status)
     {
         return $this->skillRepository->changeStatus($skillId, $status);

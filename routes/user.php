@@ -35,26 +35,44 @@ Route::resource('projects.features', ProjectFeatureController::class);
 Route::resource('projects.links', ProjectLinkController::class);
 
 /**Project Gallery route */
+Route::delete('project-galleries/forced-delete/{project_gallery}', [GalleryController::class, 'delete'])->name('project-galleries.delete')->withTrashed(true);
+Route::put('project-galleries/{project_gallery}/restore', [GalleryController::class, 'restore'])->name('project-galleries.restore')->withTrashed(true);
+Route::get('project-galleries/trash', [GalleryController::class, 'trash_index'])->name('project-galleries.trash-index');
 Route::put('project-galleries/change-status', [GalleryController::class, 'change_status'])->name('project-galleries.change-status');
 Route::resource('project-galleries', GalleryController::class);
 
 /**Feature route */
+Route::delete('features/forced-delete/{link}', [FeatureController::class, 'delete'])->name('features.delete')->withTrashed(true);
+Route::put('features/{link}/restore', [FeatureController::class, 'restore'])->name('features.restore')->withTrashed(true);
+Route::get('features/trash', [FeatureController::class, 'trash_index'])->name('features.trash-index');
 Route::put('features/change-status', [FeatureController::class, 'change_status'])->name('features.change-status');
 Route::resource('features', FeatureController::class);
 
 /**Link route */
+Route::delete('links/forced-delete/{link}', [LinkController::class, 'delete'])->name('links.delete')->withTrashed(true);
+Route::put('links/{link}/restore', [LinkController::class, 'restore'])->name('links.restore')->withTrashed(true);
+Route::get('links/trash', [LinkController::class, 'trash_index'])->name('links.trash-index');
 Route::put('links/change-status', [LinkController::class, 'change_status'])->name('links.change-status');
 Route::resource('links', LinkController::class);
 
 /**Experience route */
+Route::delete('experiences/forced-delete/{experience}', [ExperienceController::class, 'delete'])->name('experiences.delete')->withTrashed(true);
+Route::put('experiences/{experience}/restore', [ExperienceController::class, 'restore'])->name('experiences.restore')->withTrashed(true);
+Route::get('experiences/trash', [ExperienceController::class, 'trash_index'])->name('experiences.trash-index');
 Route::put('experiences/change-status', [ExperienceController::class, 'change_status'])->name('experiences.change-status');
 Route::resource('experiences', ExperienceController::class);
 
 /**Skill route */
+Route::delete('skills/forced-delete/{skill}', [SkillController::class, 'delete'])->name('skills.delete')->withTrashed(true);
+Route::put('skills/{skill}/restore', [SkillController::class, 'restore'])->name('skills.restore')->withTrashed(true);
+Route::get('skills/trash', [SkillController::class, 'trash_index'])->name('skills.trash-index');
 Route::put('skills/change-status', [SkillController::class, 'change_status'])->name('skills.change-status');
 Route::resource('skills', SkillController::class);
 
 /**Education route */
+Route::delete('education/forced-delete/{education}', [EducationController::class, 'delete'])->name('education.delete')->withTrashed(true);
+Route::put('education/{education}/restore', [EducationController::class, 'restore'])->name('education.restore')->withTrashed(true);
+Route::get('education/trash', [EducationController::class, 'trash_index'])->name('education.trash-index');
 Route::put('education/change-status', [EducationController::class, 'change_status'])->name('education.change-status');
 Route::resource('education', EducationController::class);
 

@@ -38,6 +38,15 @@ class ExperienceService
         return $this->experienceRepository->delete($experiences->id);
     }
 
+    public function restoreExperience(Experience $experience)
+    {
+        return $this->experienceRepository->restore($experience);
+    }
+    public function removeExperience(Experience $experience)
+    {
+        return $this->experienceRepository->forceDelete($experience);
+    }
+
     public function changeStatusExperiences($experiencesId, $status)
     {
         return $this->experienceRepository->changeStatus($experiencesId, $status);

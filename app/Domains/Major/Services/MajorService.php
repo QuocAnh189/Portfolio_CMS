@@ -47,6 +47,15 @@ class MajorService
         return $this->majorRepository->delete($major->id);
     }
 
+    public function restoreMajor(Major $major)
+    {
+        return $this->majorRepository->restore($major);
+    }
+    public function removeMajor(Major $major)
+    {
+        return $this->majorRepository->forceDelete($major);
+    }
+
     public function changeStatusMajor($majorId, $status)
     {
         return $this->majorRepository->changeStatus($majorId, $status);

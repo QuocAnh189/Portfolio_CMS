@@ -49,6 +49,15 @@ class EducationService
         return $this->educationRepository->delete($education->id);
     }
 
+    public function restoreEducation(Education $education)
+    {
+        return $this->educationRepository->restore($education);
+    }
+    public function removeEducation(Education $education)
+    {
+        return $this->educationRepository->forceDelete($education);
+    }
+
     public function changeStatusEducation($educationId, $status)
     {
         return $this->educationRepository->changeStatus($educationId, $status);

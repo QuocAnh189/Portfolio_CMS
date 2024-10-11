@@ -43,6 +43,15 @@ class FeatureService
         return $this->featureRepository->delete($feature->id);
     }
 
+    public function restoreFeature(Feature $feature)
+    {
+        return $this->featureRepository->restore($feature);
+    }
+    public function removeFeature(Feature $feature)
+    {
+        return $this->featureRepository->forceDelete($feature);
+    }
+
     public function changeStatusFeature($featureId, $status)
     {
         return $this->featureRepository->changeStatus($featureId, $status);

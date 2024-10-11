@@ -48,6 +48,15 @@ class CategoryService
         return $this->categoryRepository->delete($category->id);
     }
 
+    public function restoreCategory(Category $category)
+    {
+        return $this->categoryRepository->restore($category);
+    }
+    public function removeCategory(Category $category)
+    {
+        return $this->categoryRepository->forceDelete($category);
+    }
+
     public function changeStatusCategory($categoryId, $status)
     {
         return $this->categoryRepository->changeStatus($categoryId, $status);

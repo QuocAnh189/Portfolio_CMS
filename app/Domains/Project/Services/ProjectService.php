@@ -52,6 +52,15 @@ class ProjectService
         return $this->projectRepository->delete($project->id);
     }
 
+    public function restoreProject(Project $project)
+    {
+        return $this->projectRepository->restore($project);
+    }
+    public function removeProject(Project $project)
+    {
+        return $this->projectRepository->forceDelete($project);
+    }
+
     public function changeStatusProject($projectId, $status)
     {
         return $this->projectRepository->changeStatus($projectId, $status);

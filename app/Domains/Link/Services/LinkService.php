@@ -43,6 +43,15 @@ class LinkService
         return $this->linkRepository->delete($link->id);
     }
 
+    public function restoreLink(Link $link)
+    {
+        return $this->linkRepository->restore($link);
+    }
+    public function removeLink(Link $link)
+    {
+        return $this->linkRepository->forceDelete($link);
+    }
+
     public function changeStatusLink($linkId, $status)
     {
         return $this->linkRepository->changeStatus($linkId, $status);

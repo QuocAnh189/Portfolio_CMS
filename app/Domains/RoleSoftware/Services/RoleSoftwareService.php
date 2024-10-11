@@ -49,6 +49,15 @@ class RoleSoftwareService
         return $this->roleSoftwareRepository->delete($roleSoftware->id);
     }
 
+    public function restoreRoleSoftware(RoleSoftware $roleSoftware)
+    {
+        return $this->roleSoftwareRepository->restore($roleSoftware);
+    }
+    public function removeRoleSoftware(RoleSoftware $roleSoftware)
+    {
+        return $this->roleSoftwareRepository->forceDelete($roleSoftware);
+    }
+
     public function changeStatusRoleSoftware($roleSoftwareId, $status)
     {
         return $this->roleSoftwareRepository->changeStatus($roleSoftwareId, $status);

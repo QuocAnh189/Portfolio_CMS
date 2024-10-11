@@ -38,6 +38,15 @@ class ProjectTechnologiesService
         return $this->projectTechnologiesRepository->delete($projectTechnologies->id);
     }
 
+    public function restoreProjectTechnologies(ProjectTechnologies $projectTechnologies)
+    {
+        return $this->projectTechnologiesRepository->restore($projectTechnologies);
+    }
+    public function removeProjectTechnologies(ProjectTechnologies $projectTechnologies)
+    {
+        return $this->projectTechnologiesRepository->forceDelete($projectTechnologies);
+    }
+
     public function changeStatusProjectTechnologies($projectTechnologiesId, $status)
     {
         return $this->projectTechnologiesRepository->changeStatus($projectTechnologiesId, $status);

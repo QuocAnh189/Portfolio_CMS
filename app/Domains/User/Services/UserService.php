@@ -76,6 +76,15 @@ class UserService
         return $this->userRepository->delete($user->id);
     }
 
+    public function restoreUser(User $user)
+    {
+        return $this->userRepository->restore($user);
+    }
+    public function removeUser(User $user)
+    {
+        return $this->userRepository->forceDelete($user);
+    }
+
     public function changeStatusUser($userId, $status)
     {
         return $this->userRepository->changeStatus($userId, $status);

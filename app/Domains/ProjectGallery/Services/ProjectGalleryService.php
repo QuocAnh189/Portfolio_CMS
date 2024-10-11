@@ -44,6 +44,15 @@ class ProjectGalleryService
         return $this->projectGalleryRepository->delete($projectGallery->id);
     }
 
+    public function restoreProjectGallery(ProjectGallery $projectGallery)
+    {
+        return $this->projectGalleryRepository->restore($projectGallery);
+    }
+    public function removeProjectGallery(ProjectGallery $projectGallery)
+    {
+        return $this->projectGalleryRepository->forceDelete($projectGallery);
+    }
+
     public function changeStatusProjectGallery($projectGalleryId, $status)
     {
         return $this->projectGalleryRepository->changeStatus($projectGalleryId, $status);
