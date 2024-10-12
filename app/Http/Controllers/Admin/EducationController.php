@@ -10,6 +10,7 @@ use App\Domains\Education\Models\Education;
 use App\Domains\Education\Services\EducationService;
 use App\Domains\Major\Services\MajorService;
 use App\Domains\User\Services\UserService;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Education\CreateEducationRequest;
@@ -54,8 +55,11 @@ class EducationController extends Controller
             }
 
             return redirect()->route("admin.education.index");
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            return redirect()->back()->with("error", $e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -84,8 +88,11 @@ class EducationController extends Controller
             }
 
             return redirect()->route("admin.education.index");
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            return redirect()->back()->with("error", $e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -98,8 +105,11 @@ class EducationController extends Controller
             $educationService->deleteEducation($education);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -113,8 +123,11 @@ class EducationController extends Controller
             }
 
             return redirect()->route('admin.education.trash-index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -124,8 +137,11 @@ class EducationController extends Controller
             $educationService->removeEducation($education);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -135,8 +151,11 @@ class EducationController extends Controller
             $educationService->changeStatusEducation($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 }

@@ -8,6 +8,7 @@ use App\Domains\Category\Dto\CreateCategoryDto;
 use App\Domains\Category\Dto\UpdateCategoryDto;
 use App\Domains\Category\Models\Category;
 use App\Domains\Category\Services\CategoryService;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
@@ -50,8 +51,11 @@ class CategoryController extends Controller
             }
 
             return redirect()->route('admin.categories.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -78,8 +82,11 @@ class CategoryController extends Controller
             }
 
             return redirect()->route('admin.categories.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -92,11 +99,13 @@ class CategoryController extends Controller
             $categoryService->deleteCategory($category);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
-
 
     public function restore(CategoryService $categoryService, Category $category)
     {
@@ -108,8 +117,11 @@ class CategoryController extends Controller
             }
 
             return redirect()->route('admin.categories.trash-index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -119,8 +131,11 @@ class CategoryController extends Controller
             $categoryService->removeCategory($category);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -131,8 +146,11 @@ class CategoryController extends Controller
             $categoryService->changeStatusCategory($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 }

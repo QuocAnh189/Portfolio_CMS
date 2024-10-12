@@ -7,6 +7,7 @@ use App\Domains\Profile\Dto\UpdateProfileDto;
 use App\Domains\Profile\Models\Profile;
 use App\Domains\Profile\Services\ProfileService;
 use App\Domains\RoleSoftware\Services\RoleSoftwareService;
+use App\Exceptions\GeneralException;
 use App\Http\Requests\Profile\PasswordRequest;
 use App\Http\Requests\Profile\ProfileRequest;
 use Illuminate\Http\RedirectResponse;
@@ -29,9 +30,10 @@ class ProfileController extends Controller
                 'profile' => $profile,
                 'role_softwares' => $role_softwares,
             ]);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
-
+            flash()->error('Some thing went wrong!');
             return redirect()->back();
         }
     }
@@ -51,9 +53,10 @@ class ProfileController extends Controller
             }
 
             return Auth::user()->is_admin ? Redirect::route('admin.profile.edit') : Redirect::route('user.profile.edit');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
-
+            flash()->error('Some thing went wrong!');
             return redirect()->back();
         }
     }
@@ -71,9 +74,10 @@ class ProfileController extends Controller
             }
 
             return Auth::user()->is_admin ? Redirect::route('admin.profile.edit') : Redirect::route('user.profile.edit');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
-
+            flash()->error('Some thing went wrong!');
             return redirect()->back();
         }
     }

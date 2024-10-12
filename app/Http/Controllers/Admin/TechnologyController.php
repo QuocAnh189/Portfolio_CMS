@@ -8,6 +8,7 @@ use App\Domains\Technology\Dto\CreateTechnologyDto;
 use App\Domains\Technology\Dto\UpdateTechnologyDto;
 use App\Domains\Technology\Models\Technology;
 use App\Domains\Technology\Services\TechnologyService;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Technology\CreateTechnologyRequest;
@@ -51,8 +52,11 @@ class TechnologyController extends Controller
             }
 
             return redirect()->route('admin.technologies.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -80,8 +84,11 @@ class TechnologyController extends Controller
             }
 
             return redirect()->route('admin.technologies.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -94,8 +101,11 @@ class TechnologyController extends Controller
             $technologyService->deleteTechnology($technology);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            return response(['status' => 'error', 'message' => $e->getMessage()]);
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -108,9 +118,12 @@ class TechnologyController extends Controller
                 flash()->success('Restore successfully.');
             }
 
-            return redirect()->route('admin.technologys.trash-index');
+            return redirect()->route('admin.technologies.trash-index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -120,8 +133,11 @@ class TechnologyController extends Controller
             $technologyService->removeTechnology($technology);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -131,8 +147,11 @@ class TechnologyController extends Controller
             $technologyService->changeStatusTechnology($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            return response(['status' => 'error', 'message' => $e->getMessage()]);
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 }

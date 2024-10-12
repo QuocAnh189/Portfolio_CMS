@@ -8,6 +8,7 @@ use App\Domains\Link\Dto\CreateLinkDto;
 use App\Domains\Link\Dto\UpdateLinkDto;
 use App\Domains\Link\Models\Link;
 use App\Domains\Link\Services\LinkService;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Link\CreateLinkRequest;
@@ -50,8 +51,11 @@ class LinkController extends Controller
             }
 
             return redirect()->route('user.links.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -77,8 +81,11 @@ class LinkController extends Controller
             }
 
             return redirect()->route('user.links.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -91,8 +98,11 @@ class LinkController extends Controller
             $linkService->deleteLink($link);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -106,8 +116,11 @@ class LinkController extends Controller
             }
 
             return redirect()->route('user.links.trash-index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -117,8 +130,11 @@ class LinkController extends Controller
             $linkService->removeLink($link);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -131,8 +147,11 @@ class LinkController extends Controller
             $linkService->changeStatusLink($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 }

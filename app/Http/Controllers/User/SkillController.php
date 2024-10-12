@@ -9,6 +9,7 @@ use App\Domains\Skill\Services\SkillService;
 use App\Domains\Skill\Dto\CreateSkillDto;
 use App\Domains\Skill\Dto\UpdateSkillDto;
 use App\Domains\Skill\Models\Skill;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Skill\CreateSkillRequest;
@@ -53,8 +54,11 @@ class SkillController extends Controller
             }
 
             return redirect()->route('user.skills.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -82,8 +86,11 @@ class SkillController extends Controller
             }
 
             return redirect()->route('user.skills.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -96,8 +103,11 @@ class SkillController extends Controller
             $skillService->deleteSkill($skill);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -111,8 +121,11 @@ class SkillController extends Controller
             }
 
             return redirect()->route('user.skills.trash-index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -122,8 +135,11 @@ class SkillController extends Controller
             $skillService->removeSkill($skill);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -133,8 +149,11 @@ class SkillController extends Controller
             $skillService->changeStatusSkill($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 }

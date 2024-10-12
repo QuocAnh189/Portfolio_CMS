@@ -39,6 +39,49 @@ class CreateEducationRequest extends FormRequest
     }
 
     /**
+     * Custom messages for validation errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'user_id.required' => 'User ID là bắt buộc.',
+            'user_id.uuid' => 'User ID phải là một UUID hợp lệ.',
+            'user_id.exists' => 'User ID không tồn tại trong danh sách người dùng.',
+
+            'major_id.required' => 'Major ID là bắt buộc.',
+            'major_id.uuid' => 'Major ID phải là một UUID hợp lệ.',
+            'major_id.exists' => 'Major ID không tồn tại trong danh sách các chuyên ngành.',
+
+            'gpa.required' => 'GPA là bắt buộc.',
+            'gpa.numeric' => 'GPA phải là một số hợp lệ.',
+
+            'logo.required' => 'Logo là bắt buộc.',
+            'logo.image' => 'Logo phải là một hình ảnh.',
+            'logo.mimes' => 'Logo phải có định dạng jpg, jpeg, png hoặc gif.',
+            'logo.max' => 'Logo không được vượt quá 2048 KB.',
+
+            'university_name.required' => 'Tên trường đại học là bắt buộc.',
+            'university_name.string' => 'Tên trường đại học phải là một chuỗi.',
+
+            'description.string' => 'Mô tả phải là một chuỗi.',
+
+            'degree.required' => 'Degree là bắt buộc.',
+            'degree.boolean' => 'Degree phải là true hoặc false.',
+
+            'start_date.required' => 'Ngày bắt đầu là bắt buộc.',
+            'start_date.date' => 'Ngày bắt đầu phải là một ngày hợp lệ.',
+
+            'end_date.required' => 'Ngày kết thúc là bắt buộc.',
+            'end_date.date' => 'Ngày kết thúc phải là một ngày hợp lệ.',
+
+            'status.required' => 'Trạng thái là bắt buộc.',
+            'status.in' => 'Trạng thái phải là active hoặc inactive.',
+        ];
+    }
+
+    /**
      * Handle a failed validation attempt.
      *
      * @param  \Illuminate\Contracts\Validation\Validator  $validator

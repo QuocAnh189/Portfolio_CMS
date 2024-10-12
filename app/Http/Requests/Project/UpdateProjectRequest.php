@@ -38,6 +38,41 @@ class UpdateProjectRequest extends FormRequest
     }
 
     /**
+     * Custom messages for validation errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'user_id.required' => 'ID người dùng là bắt buộc.',
+            'user_id.uuid' => 'ID người dùng phải là một UUID hợp lệ.',
+            'user_id.exists' => 'ID người dùng không tồn tại.',
+
+            'category_id.required' => 'ID danh mục là bắt buộc.',
+            'category_id.uuid' => 'ID danh mục phải là một UUID hợp lệ.',
+            'category_id.exists' => 'ID danh mục không tồn tại.',
+
+            'name.required' => 'Tên là bắt buộc.',
+            'name.string' => 'Tên phải là một chuỗi.',
+            'name.max' => 'Tên không được vượt quá 255 ký tự.',
+            'name.unique' => 'Tên đã tồn tại, vui lòng chọn tên khác.',
+
+            'description.required' => 'Mô tả là bắt buộc.',
+            'description.string' => 'Mô tả phải là một chuỗi.',
+
+            'start_date.required' => 'Ngày bắt đầu là bắt buộc.',
+            'start_date.date' => 'Ngày bắt đầu phải là một ngày hợp lệ.',
+
+            'end_date.required' => 'Ngày kết thúc là bắt buộc.',
+            'end_date.date' => 'Ngày kết thúc phải là một ngày hợp lệ.',
+
+            'status.required' => 'Trạng thái là bắt buộc.',
+            'status.in' => 'Trạng thái phải là ' . Status::Active->value . ' hoặc ' . Status::Inactive->value . '.',
+        ];
+    }
+
+    /**
      * Handle a failed validation attempt.
      *
      * @param  \Illuminate\Contracts\Validation\Validator  $validator

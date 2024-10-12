@@ -8,6 +8,7 @@ use App\Domains\RoleSoftware\Dto\CreateRoleSoftwareDto;
 use App\Domains\RoleSoftware\Dto\UpdateRoleSoftwareDto;
 use App\Domains\RoleSoftware\Models\RoleSoftware;
 use App\Domains\RoleSoftware\Services\RoleSoftwareService;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\RoleSoftware\CreateRoleSoftwareRequest;
@@ -51,8 +52,11 @@ class RoleSoftwareController extends Controller
             }
 
             return redirect()->route('admin.role-softwares.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -79,8 +83,11 @@ class RoleSoftwareController extends Controller
             }
 
             return redirect()->route('admin.role-softwares.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -93,8 +100,11 @@ class RoleSoftwareController extends Controller
             $roleSoftwareService->deleteRoleSoftware($roleSoftware);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -107,8 +117,11 @@ class RoleSoftwareController extends Controller
             $roleSoftwareService->changeStatusRoleSoftware($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 }

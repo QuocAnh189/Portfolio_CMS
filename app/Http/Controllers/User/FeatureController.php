@@ -8,6 +8,7 @@ use App\Domains\Feature\Dto\CreateFeatureDto;
 use App\Domains\Feature\Dto\UpdateFeatureDto;
 use App\Domains\Feature\Models\Feature;
 use App\Domains\Feature\Services\FeatureService;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Feature\CreateFeatureRequest;
@@ -50,8 +51,11 @@ class FeatureController extends Controller
             }
 
             return redirect()->route('user.features.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -78,8 +82,11 @@ class FeatureController extends Controller
             }
 
             return redirect()->route('user.features.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -92,8 +99,11 @@ class FeatureController extends Controller
             $featureService->deleteFeature($feature);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -107,8 +117,11 @@ class FeatureController extends Controller
             }
 
             return redirect()->route('user.features.trash-index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -118,8 +131,11 @@ class FeatureController extends Controller
             $featureService->removeFeature($feature);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -132,8 +148,11 @@ class FeatureController extends Controller
             $featureService->changeStatusFeature($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 }

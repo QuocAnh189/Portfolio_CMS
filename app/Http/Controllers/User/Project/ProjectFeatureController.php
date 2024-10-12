@@ -8,6 +8,7 @@ use App\Domains\Feature\Dto\UpdateFeatureDto;
 use App\Domains\Feature\Models\Feature;
 use App\Domains\Feature\Services\FeatureService;
 use App\Domains\Project\Models\Project;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Feature\CreateFeatureRequest;
@@ -46,8 +47,11 @@ class ProjectFeatureController extends Controller
             }
 
             return redirect()->route('user.projects.features.index', $project);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -74,8 +78,11 @@ class ProjectFeatureController extends Controller
             }
 
             return redirect()->route('user.projects.features.index', $project);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 }

@@ -33,6 +33,27 @@ class CreateProjectTechnologiesRequest extends FormRequest
     }
 
     /**
+     * Custom messages for validation errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'project_id.required' => 'ID dự án là bắt buộc.',
+            'project_id.uuid' => 'ID dự án phải là một UUID hợp lệ.',
+            'project_id.exists' => 'ID dự án không tồn tại.',
+
+            'technology_id.required' => 'ID công nghệ là bắt buộc.',
+            'technology_id.uuid' => 'ID công nghệ phải là một UUID hợp lệ.',
+            'technology_id.exists' => 'ID công nghệ không tồn tại.',
+
+            'status.required' => 'Trạng thái là bắt buộc.',
+            'status.in' => 'Trạng thái phải là ' . Status::Active->value . ' hoặc ' . Status::Inactive->value . '.',
+        ];
+    }
+
+    /**
      * Handle a failed validation attempt.
      *
      * @param  \Illuminate\Contracts\Validation\Validator  $validator

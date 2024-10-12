@@ -33,6 +33,27 @@ class UpdateFeatureRequest extends FormRequest
     }
 
     /**
+     * Custom messages for validation errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'project_id.required' => 'Project ID là bắt buộc.',
+            'project_id.uuid' => 'Project ID phải là một UUID hợp lệ.',
+            'project_id.exists' => 'Project ID không tồn tại trong danh sách dự án.',
+
+            'name.required' => 'Tên là bắt buộc.',
+            'name.string' => 'Tên phải là một chuỗi.',
+            'name.max' => 'Tên không được vượt quá 255 ký tự.',
+
+            'status.required' => 'Trạng thái là bắt buộc.',
+            'status.in' => 'Trạng thái phải là ' . Status::Active->value . ' hoặc ' . Status::Inactive->value . '.',
+        ];
+    }
+
+    /**
      * Handle a failed validation attempt.
      *
      * @param  \Illuminate\Contracts\Validation\Validator  $validator

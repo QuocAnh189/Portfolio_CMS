@@ -9,6 +9,7 @@ use App\Domains\Relation\UserTechnologies\Dto\CreateUserTechnologiesDto;
 use App\Domains\Relation\UserTechnologies\Dto\UpdateUserTechnologiesDto;
 use App\Domains\Technology\Services\TechnologyService;
 use App\Domains\Relation\UserTechnologies\Services\UserTechnologiesService;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\User\CreateUserTechnologiesRequest;
@@ -59,8 +60,11 @@ class UserTechnologiesController extends Controller
             }
 
             return redirect()->route('user.userTechnologies.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -94,8 +98,11 @@ class UserTechnologiesController extends Controller
             }
 
             return redirect()->route('user.userTechnologies.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -108,8 +115,11 @@ class UserTechnologiesController extends Controller
             $userTechnologiesService->deleteUserTechnologies($userTechnology);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -123,8 +133,11 @@ class UserTechnologiesController extends Controller
             }
 
             return redirect()->route('user.userTechnologies.trash-index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -134,8 +147,11 @@ class UserTechnologiesController extends Controller
             $userTechnologiesService->removeUserTechnologies($userTechnology);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -148,8 +164,11 @@ class UserTechnologiesController extends Controller
             $userTechnologiesService->changeStatusUserTechnologies($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 }

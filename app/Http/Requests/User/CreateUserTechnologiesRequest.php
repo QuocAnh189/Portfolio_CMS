@@ -33,6 +33,28 @@ class CreateUserTechnologiesRequest extends FormRequest
     }
 
     /**
+     * Custom messages for validation errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'user_id.required' => 'ID người dùng là bắt buộc.',
+            'user_id.uuid' => 'ID người dùng phải có định dạng UUID hợp lệ.',
+            'user_id.exists' => 'ID người dùng không tồn tại trong hệ thống.',
+
+            'technology_id.required' => 'ID công nghệ là bắt buộc.',
+            'technology_id.uuid' => 'ID công nghệ phải có định dạng UUID hợp lệ.',
+            'technology_id.exists' => 'ID công nghệ không tồn tại trong hệ thống.',
+
+            'status.required' => 'Trạng thái là bắt buộc.',
+            'status.in' => 'Trạng thái phải là một trong các giá trị: active hoặc inactive.',
+        ];
+    }
+
+
+    /**
      * Handle a failed validation attempt.
      *
      * @param  \Illuminate\Contracts\Validation\Validator  $validator

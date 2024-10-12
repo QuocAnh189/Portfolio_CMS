@@ -8,6 +8,7 @@ use App\Domains\Link\Dto\UpdateLinkDto;
 use App\Domains\Link\Models\Link;
 use App\Domains\Project\Models\Project;
 use App\Domains\Link\Services\LinkService;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Link\CreateLinkRequest;
 use App\Http\Requests\Link\UpdateLinkRequest;
@@ -46,8 +47,11 @@ class ProjectLinkController extends Controller
             }
 
             return redirect()->route('user.projects.links.index', $project);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -73,8 +77,11 @@ class ProjectLinkController extends Controller
             }
 
             return redirect()->route('user.projects.links.index', $project);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 }

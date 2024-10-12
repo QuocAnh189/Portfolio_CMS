@@ -32,6 +32,26 @@ class CreateCategoryRequest extends FormRequest
         ];
     }
 
+
+    /**
+     * Custom messages for validation errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'image.required' => 'Hãy tải lên một hình ảnh.',
+            'image.image' => 'Tệp tải lên phải là một hình ảnh.',
+            'image.mimes' => 'Ảnh phải có định dạng: jpg, jpeg, png hoặc gif.',
+            'image.max' => 'Kích thước ảnh tối đa là 2048KB.',
+            'name.required' => 'Tên danh mục không được để trống.',
+            'name.unique' => 'Tên danh mục đã tồn tại, vui lòng chọn tên khác.',
+            'status.required' => 'Trạng thái không được để trống.',
+            'status.in' => 'Trạng thái không hợp lệ, vui lòng chọn trạng thái hợp lệ.',
+        ];
+    }
+
     /**
      * Handle a failed validation attempt.
      *

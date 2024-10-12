@@ -34,6 +34,28 @@ class CreateProjectGalleryRequest extends FormRequest
     }
 
     /**
+     * Custom messages for validation errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'project_id.required' => 'Project ID là bắt buộc.',
+            'project_id.uuid' => 'Project ID phải là một UUID hợp lệ.',
+            'project_id.exists' => 'Project ID không tồn tại trong danh sách dự án.',
+
+            'image.required' => 'Hình ảnh là bắt buộc.',
+            'image.image' => 'Trường này phải là một hình ảnh.',
+            'image.mimes' => 'Hình ảnh phải có định dạng: jpeg, png, jpg, gif, svg.',
+            'image.max' => 'Kích thước hình ảnh không được vượt quá 2MB.',
+
+            'status.required' => 'Trạng thái là bắt buộc.',
+            'status.in' => 'Trạng thái phải là ' . Status::Active->value . ' hoặc ' . Status::Inactive->value . '.',
+        ];
+    }
+
+    /**
      * Handle a failed validation attempt.
      *
      * @param  \Illuminate\Contracts\Validation\Validator  $validator

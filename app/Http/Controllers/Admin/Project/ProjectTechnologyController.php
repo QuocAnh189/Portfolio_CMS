@@ -9,6 +9,7 @@ use App\Domains\Relation\ProjectTechnologies\Dto\UpdateProjectTechnologiesDto;
 use App\Domains\Relation\ProjectTechnologies\Models\ProjectTechnologies;
 use App\Domains\Relation\ProjectTechnologies\Services\ProjectTechnologiesService;
 use App\Domains\Technology\Services\TechnologyService;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\ProjectTechnologies\CreateProjectTechnologiesRequest;
@@ -55,8 +56,11 @@ class ProjectTechnologyController extends Controller
             }
 
             return redirect()->route('admin.projects.projectTechnologies.index', $project);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -90,8 +94,11 @@ class ProjectTechnologyController extends Controller
             }
 
             return redirect()->route('admin.projects.projectTechnologies.index', $project);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -104,8 +111,11 @@ class ProjectTechnologyController extends Controller
             $projectTechnologiesService->deleteProjectTechnologies($projectTechnology);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -120,8 +130,11 @@ class ProjectTechnologyController extends Controller
             }
 
             return redirect()->route('admin.project-technologies.trash-index', $project);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -131,8 +144,11 @@ class ProjectTechnologyController extends Controller
             $projectTechnologiesService->removeProjectTechnologies($projectTechnology);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -142,8 +158,11 @@ class ProjectTechnologyController extends Controller
             $projectTechnologiesService->changeStatusProjectTechnologies($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 }

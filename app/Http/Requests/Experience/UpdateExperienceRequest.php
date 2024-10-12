@@ -40,6 +40,48 @@ class UpdateExperienceRequest extends FormRequest
     }
 
     /**
+     * Custom messages for validation errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'user_id.required' => 'User ID là bắt buộc.',
+            'user_id.uuid' => 'User ID phải là một UUID hợp lệ.',
+            'user_id.exists' => 'User ID không tồn tại trong danh sách người dùng.',
+
+            'role_software_id.required' => 'Role Software ID là bắt buộc.',
+            'role_software_id.uuid' => 'Role Software ID phải là một UUID hợp lệ.',
+            'role_software_id.exists' => 'Role Software ID không tồn tại trong danh sách vai trò phần mềm.',
+
+            'company_name.required' => 'Tên công ty là bắt buộc.',
+            'company_name.string' => 'Tên công ty phải là một chuỗi.',
+
+            'job_title.required' => 'Chức danh công việc là bắt buộc.',
+            'job_title.string' => 'Chức danh công việc phải là một chuỗi.',
+
+            'job_description.required' => 'Mô tả công việc là bắt buộc.',
+            'job_description.string' => 'Mô tả công việc phải là một chuỗi.',
+
+            'level.required' => 'Cấp độ là bắt buộc.',
+            'level.in' => 'Cấp độ phải nằm trong danh sách hợp lệ.',
+
+            'is_current.required' => 'Trạng thái hiện tại là bắt buộc.',
+            'is_current.boolean' => 'Trạng thái hiện tại phải là true hoặc false.',
+
+            'start_date.required' => 'Ngày bắt đầu là bắt buộc.',
+            'start_date.date' => 'Ngày bắt đầu phải là một ngày hợp lệ.',
+
+            'end_date.required' => 'Ngày kết thúc là bắt buộc.',
+            'end_date.date' => 'Ngày kết thúc phải là một ngày hợp lệ.',
+
+            'status.required' => 'Trạng thái là bắt buộc.',
+            'status.in' => 'Trạng thái phải là active hoặc inactive.',
+        ];
+    }
+
+    /**
      * Handle a failed validation attempt.
      *
      * @param  \Illuminate\Contracts\Validation\Validator  $validator

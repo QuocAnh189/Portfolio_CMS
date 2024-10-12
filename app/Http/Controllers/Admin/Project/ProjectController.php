@@ -10,6 +10,7 @@ use App\Domains\Project\Dto\UpdateProjectDto;
 use App\Domains\Project\Models\Project;
 use App\Domains\Project\Services\ProjectService;
 use App\Domains\User\Services\UserService;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeStatusRequest;
 use App\Http\Requests\Project\CreateProjectRequest;
@@ -54,8 +55,11 @@ class ProjectController extends Controller
             }
 
             return redirect()->route('admin.projects.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -83,8 +87,11 @@ class ProjectController extends Controller
             }
 
             return redirect()->route('admin.projects.index');
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -97,8 +104,11 @@ class ProjectController extends Controller
             $projectService->deleteProject($project);
 
             return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 
@@ -109,8 +119,11 @@ class ProjectController extends Controller
             $projectService->changeStatusProject($request->id, $request->status);
 
             return response(['message' => 'status has been updated!']);
+        } catch (GeneralException $e) {
+            return $e->render();
         } catch (\Exception $e) {
-            flash()->error($e->getMessage());
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
         }
     }
 }

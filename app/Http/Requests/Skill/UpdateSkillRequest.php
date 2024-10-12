@@ -34,6 +34,31 @@ class UpdateSkillRequest extends FormRequest
     }
 
     /**
+     * Custom messages for validation errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'user_id.required' => 'ID người dùng là bắt buộc.',
+            'user_id.uuid' => 'ID người dùng phải là định dạng UUID hợp lệ.',
+            'user_id.exists' => 'ID người dùng không tồn tại trong hệ thống.',
+
+            'role_software_id.required' => 'ID vai trò phần mềm là bắt buộc.',
+            'role_software_id.uuid' => 'ID vai trò phần mềm phải là định dạng UUID hợp lệ.',
+            'role_software_id.exists' => 'ID vai trò phần mềm không tồn tại trong hệ thống.',
+
+            'description.required' => 'Mô tả là bắt buộc.',
+            'description.string' => 'Mô tả phải là một chuỗi ký tự.',
+
+            'status.required' => 'Trạng thái là bắt buộc.',
+            'status.in' => 'Trạng thái phải là ' . Status::Active->value . ' hoặc ' . Status::Inactive->value . '.',
+        ];
+    }
+
+
+    /**
      * Handle a failed validation attempt.
      *
      * @param  \Illuminate\Contracts\Validation\Validator  $validator

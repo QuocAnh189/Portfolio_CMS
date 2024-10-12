@@ -33,6 +33,29 @@ class CreateTechnologyRequest extends FormRequest
     }
 
     /**
+     * Custom messages for validation errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'image.required' => 'Hình ảnh là bắt buộc.',
+            'image.image' => 'Định dạng tệp phải là hình ảnh.',
+            'image.mimes' => 'Hình ảnh phải có định dạng: jpg, jpeg, png, hoặc gif.',
+            'image.max' => 'Kích thước hình ảnh không được vượt quá 2MB.',
+
+            'name.required' => 'Tên là bắt buộc.',
+            'name.string' => 'Tên phải là một chuỗi ký tự.',
+            'name.max' => 'Tên không được vượt quá 255 ký tự.',
+            'name.unique' => 'Tên công nghệ này đã tồn tại.',
+
+            'status.required' => 'Trạng thái là bắt buộc.',
+            'status.in' => 'Trạng thái phải là ' . Status::Active->value . ' hoặc ' . Status::Inactive->value . '.',
+        ];
+    }
+
+    /**
      * Handle a failed validation attempt.
      *
      * @param  \Illuminate\Contracts\Validation\Validator  $validator
