@@ -49,5 +49,23 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+
+        <div class="mt-4 flex items-center justify-end">
+            <x-primary-button class="ms-3">
+                <a class="rounded-md text-sm text-white underline focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    href="/auth/github/redirect">
+                    {{ __('Login with Github') }}
+                </a>
+            </x-primary-button>
+        </div>
+
+        <div class="mt-4 flex items-center justify-end">
+            <x-primary-button class="ms-3">
+                <a class="rounded-md text-sm text-white underline focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    href="/auth/google/redirect">
+                    {{ __('Login with Google') }}
+                </a>
+            </x-primary-button>
+        </div>
     </form>
 </x-guest-layout>
