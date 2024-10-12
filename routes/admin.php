@@ -57,6 +57,9 @@ Route::get('projects/trash', [ProjectController::class, 'trash_index'])->name('p
 Route::put('projects/change-status', [ProjectController::class, 'change_status'])->name('projects.change-status');
 Route::resource('projects', ProjectController::class);
 Route::resource('projects.galleries', ProjectGalleryController::class);
+Route::delete('projects/{project}/projectTechnologies/forced-delete/{projectTechnology}', [ProjectTechnologyController::class, 'delete'])->name('project-technologies.delete')->withTrashed(true);
+Route::put('projects/{project}/projectTechnologies/{projectTechnology}/restore', [ProjectTechnologyController::class, 'restore'])->name('project-technologies.restore')->withTrashed(true);
+Route::get('projects/{project}/projectTechnologies/trash', [ProjectTechnologyController::class, 'trash_index'])->name('project-technologies.trash-index');
 Route::put('projects.projectTechnologies/change-status', [ProjectTechnologyController::class, 'change_status'])->name('project-technologies.change-status');;
 Route::resource('projects.projectTechnologies', ProjectTechnologyController::class);
 Route::resource('projects.features', ProjectFeatureController::class);

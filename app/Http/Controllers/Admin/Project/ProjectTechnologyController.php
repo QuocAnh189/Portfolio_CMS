@@ -109,6 +109,33 @@ class ProjectTechnologyController extends Controller
         }
     }
 
+
+    public function restore(ProjectTechnologiesService $projectTechnologiesService, Project $project, ProjectTechnologies $projectTechnology)
+    {
+        try {
+            $restoredProjectTechnologies = $projectTechnologiesService->restoreProjectTechnologies($projectTechnology);
+
+            if ($restoredProjectTechnologies) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('admin.project-technologies.trash-index', $project);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
+    public function delete(ProjectTechnologiesService $projectTechnologiesService,  Project $project, ProjectTechnologies $projectTechnology)
+    {
+        try {
+            $projectTechnologiesService->removeProjectTechnologies($projectTechnology);
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            flash()->error($e->getMessage());
+        }
+    }
+
     public function change_status(ProjectTechnologiesService $projectTechnologiesService, ChangeStatusRequest $request)
     {
         try {

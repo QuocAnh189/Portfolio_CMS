@@ -30,7 +30,7 @@
                                     <div class="form-group col-12">
                                         <div class="mb-3">
                                             <img alt=""
-                                                src="{{ $profile->avatar ?? assets('images/image_default.jpg') }}"
+                                                src="{{ $profile->avatar ?? asset('images/image_default.jpg') }}"
                                                 width="100px">
                                         </div>
                                         <label>Image</label>

@@ -1,4 +1,4 @@
-@extends('user.layouts.master')
+@extends('admin.layouts.master')
 
 @section('content')
     <section class="section">
@@ -13,7 +13,7 @@
                             <h4>Projects</h4>
                             <div class="card-header-action">
                                 <a class="btn btn-primary"
-                                    href="{{ route('user.projects.projectTechnologies.index', $project) }}">
+                                    href="{{ route('admin.projects.projectTechnologies.index', $project) }}">
                                     <i class="fas fa-trash-alt"></i>
                                     View Active
                                 </a>

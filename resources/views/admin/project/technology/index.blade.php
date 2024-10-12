@@ -16,7 +16,7 @@
                             <h4>{{ $project->name }}</h4>
                             <div class="card-header-action">
                                 <a class="btn btn-primary"
-                                    href="{{ route('admin.projects.projectTechnologies.trash-index', $project) }}">
+                                    href="{{ route('admin.project-technologies.trash-index', $project) }}">
                                     <i class="fas fa-trash-alt"></i>
                                     View Trash
                                 </a>
