@@ -3,7 +3,6 @@
 namespace App\DataTables\User\UserTechnologies;
 
 use App\Domains\Relation\UserTechnologies\Models\UserTechnologies;
-use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
@@ -37,7 +36,6 @@ class TrashUserTechnologyDataTable extends DataTable
                 $form .= "<button type='submit' class='btn btn-primary'><i class='far fa-circle'></i></button>";
                 $form .= "</form>";
 
-                // Nút Delete trong cùng một form
                 $form .= "<form action='" . route('user.userTechnologies.delete', $query->id) . "' method='POST' enctype='multipart/form-data' class='delete-item' style='display:inline-block'>";
                 $form .= csrf_field();
                 $form .= method_field('DELETE');
@@ -68,7 +66,7 @@ class TrashUserTechnologyDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('usertechnologies-table')
+            ->setTableId('trash-user-technologies-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)

@@ -3,7 +3,6 @@
 namespace App\DataTables\Admin\Technology;
 
 use App\Domains\Technology\Models\Technology;
-use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -65,7 +64,7 @@ class TrashTechnologyDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('technology-table')
+            ->setTableId('trash-technology-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)

@@ -14,5 +14,7 @@ interface RepositoryInterface
 
     public function delete($id);
 
-    public function forceDelete($id);
+    public function restore($model);
+
+    public function forceDelete($model);
 }

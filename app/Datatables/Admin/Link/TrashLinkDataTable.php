@@ -3,7 +3,6 @@
 namespace App\DataTables\Admin\Link;
 
 use App\Domains\Link\Models\Link;
-use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -59,7 +58,7 @@ class TrashLinkDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('link-table')
+            ->setTableId('trash-link-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)

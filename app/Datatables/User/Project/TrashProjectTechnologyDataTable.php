@@ -4,7 +4,6 @@ namespace App\DataTables\User\Project;
 
 use App\Domains\Project\Models\Project;
 use App\Domains\Relation\ProjectTechnologies\Models\ProjectTechnologies;
-use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;

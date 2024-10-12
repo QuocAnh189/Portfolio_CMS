@@ -72,7 +72,7 @@ class ProjectGalleryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('projectgallery-table')
+            ->setTableId('project-gallery-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)

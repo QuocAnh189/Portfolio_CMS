@@ -3,7 +3,6 @@
 namespace App\DataTables\Admin\Major;
 
 use App\Domains\Major\Models\Major;
-use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -65,7 +64,7 @@ class TrashMajorDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('major-table')
+            ->setTableId('trash-major-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)

@@ -3,7 +3,6 @@
 namespace App\DataTables\Admin\Skill;
 
 use App\Domains\Skill\Models\Skill;
-use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -62,7 +61,7 @@ class TrashSkillDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('skill-table')
+            ->setTableId('trash-skill-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)

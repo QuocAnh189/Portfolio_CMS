@@ -4,7 +4,6 @@ namespace App\DataTables\Admin\Gallery;
 
 use App\Domains\Project\Models\Project;
 use App\Domains\ProjectGallery\Models\ProjectGallery;
-use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -68,7 +67,7 @@ class TrashGalleryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('gallery-table')
+            ->setTableId('trash-gallery-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)

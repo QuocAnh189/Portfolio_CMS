@@ -3,7 +3,6 @@
 namespace App\DataTables\Admin\RoleSoftware;
 
 use App\Domains\RoleSoftware\Models\RoleSoftware;
-use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -65,7 +64,7 @@ class TrashRoleSoftwareDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('role-software-table')
+            ->setTableId('trash-role-software-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)

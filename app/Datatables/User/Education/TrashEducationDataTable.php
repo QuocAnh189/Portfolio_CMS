@@ -3,7 +3,6 @@
 namespace App\DataTables\User\Education;
 
 use App\Domains\Education\Models\Education;
-use App\Enum\Status;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -66,7 +65,7 @@ class TrashEducationDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('education-table')
+            ->setTableId('trash-education-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)

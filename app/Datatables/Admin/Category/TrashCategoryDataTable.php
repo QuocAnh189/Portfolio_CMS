@@ -3,7 +3,6 @@
 namespace App\DataTables\Admin\Category;
 
 use App\Domains\Category\Models\Category;
-use App\Enum\Status;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -65,7 +64,7 @@ class TrashCategoryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('category-table')
+            ->setTableId('trash-category-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)

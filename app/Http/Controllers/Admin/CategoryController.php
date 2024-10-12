@@ -107,7 +107,7 @@ class CategoryController extends Controller
                 flash()->success('Restore successfully.');
             }
 
-            return redirect()->route('admin.category.trash-index');
+            return redirect()->route('admin.categories.trash-index');
         } catch (\Exception $e) {
             flash()->error($e->getMessage());
         }

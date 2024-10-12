@@ -74,7 +74,7 @@ class UserTechnologyDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('usertechnologies-table')
+            ->setTableId('user-technologies-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)

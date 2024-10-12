@@ -62,7 +62,7 @@ class TrashGalleryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('gallery-table')
+            ->setTableId('trash-gallery-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)

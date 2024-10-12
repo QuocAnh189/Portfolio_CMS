@@ -65,7 +65,7 @@ class TrashProjectDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('project-table')
+            ->setTableId('trash-project-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
