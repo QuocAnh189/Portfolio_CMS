@@ -41,7 +41,9 @@ class TrashSkillDataTable extends DataTable
                 return $form;
             })
             ->filterColumn('role_software.name', function ($query, $keyword) {
-                $query->where('name', 'like', "%" . $keyword . "%");
+                $query->whereHas('role_software', function ($q) use ($keyword) {
+                    $q->where('name', 'like', "%" . $keyword . "%");
+                });
             })
 
             ->rawColumns(['role_software.name', 'action'])

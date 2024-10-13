@@ -42,10 +42,14 @@ class TrashEducationDataTable extends DataTable
 
                 return $form;
             })
-            ->filterColumn('name', function ($query, $keyword) {
-                $query->where('name', 'like', "%" . $keyword . "%");
+            ->filterColumn('university_name', function ($query, $keyword) {
+                $query->where('university_name', 'like', "%" . $keyword . "%");
             })
-
+            ->filterColumn('user.name', function ($query, $keyword) {
+                $query->whereHas('user', function ($query) use ($keyword) {
+                    $query->where('name', 'like', '%' . $keyword . '%');
+                });
+            })
             ->rawColumns(['logo', 'university_name', 'action'])
             ->setRowId('id');
     }

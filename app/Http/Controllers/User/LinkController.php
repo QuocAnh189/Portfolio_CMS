@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\DataTables\Admin\Link\TrashLinkDataTable;
+use App\DataTables\User\Link\TrashLinkDataTable;
 use App\DataTables\User\Link\LinkDataTable;
 use App\Domains\Link\Dto\CreateLinkDto;
 use App\Domains\Link\Dto\UpdateLinkDto;
@@ -26,7 +26,7 @@ class LinkController extends Controller
 
     public function trash_index(TrashLinkDataTable $dataTable)
     {
-        return $dataTable->render('user.gallery.trash');
+        return $dataTable->render('user.link.trash');
     }
 
     /**

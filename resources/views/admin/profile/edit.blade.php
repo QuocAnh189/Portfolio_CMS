@@ -84,6 +84,11 @@
                                             value="{{ $profile->facebook_link }}">
                                     </div>
                                     <div class="form-group col-md-6 col-12">
+                                        <label>Linked In</label>
+                                        <input class="form-control" name="linkedin_link" type="text"
+                                            value="{{ $profile->linkedin_link }}">
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
                                         <label>Gihub</label>
                                         <input class="form-control" name="github_link" type="text"
                                             value="{{ $profile->github_link }}">

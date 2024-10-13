@@ -57,6 +57,11 @@ class GalleryDataTable extends DataTable
 
                 return $deleteBtn;
             })
+            ->filterColumn('project.name', function ($query, $keyword) {
+                $query->whereHas('project', function ($query) use ($keyword) {
+                    $query->where('name', 'like', '%' . $keyword . '%');
+                });
+            })
             ->rawColumns(['project.name', 'image', 'status', 'action'])
             ->setRowId('id');
     }

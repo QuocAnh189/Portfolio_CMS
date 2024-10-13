@@ -49,6 +49,11 @@ class FeatureDataTable extends DataTable
 
                 return $editBtn . $deleteBtn;
             })
+            ->filterColumn('project.name', function ($query, $keyword) {
+                $query->whereHas('project', function ($q) use ($keyword) {
+                    $q->where('name', 'like', "%" . $keyword . "%");
+                });
+            })
 
             ->rawColumns(['project.name', 'status', 'action'])
             ->setRowId('id');

@@ -20,10 +20,11 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('fullname')->nullable();
             $table->string('contact_number')->nullable();
-            $table->string('bio')->nullable();
-            $table->string('facebook_link')->nullable();
+            $table->text('bio')->nullable();
             $table->string('github_link')->nullable();
+            $table->string('linkedin_link')->nullable();
             $table->string('youtube_link')->nullable();
+            $table->string('facebook_link')->nullable();
             $table->string('instagram_link')->nullable();
             $table->enum('status', Status::toArray())->default(Status::Active->value);
 

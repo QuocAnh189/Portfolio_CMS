@@ -30,8 +30,8 @@ Route::put('categories/change-status', [CategoryController::class, 'change_statu
 Route::resource('categories', CategoryController::class);
 
 /**RoleSoftware route */
-Route::delete('role-softwares/forced-delete/{role-software}', [RoleSoftwareController::class, 'delete'])->name('role-softwares.delete')->withTrashed(true);
-Route::put('role-softwares/{role-software}/restore', [RoleSoftwareController::class, 'restore'])->name('role-softwares.restore')->withTrashed(true);
+Route::delete('role-softwares/forced-delete/{role_software}', [RoleSoftwareController::class, 'delete'])->name('role-softwares.delete')->withTrashed(true);
+Route::put('role-softwares/{role_software}/restore', [RoleSoftwareController::class, 'restore'])->name('role-softwares.restore')->withTrashed(true);
 Route::get('role-softwares/trash', [RoleSoftwareController::class, 'trash_index'])->name('role-softwares.trash-index');
 Route::put('role-softwares/change-status', [RoleSoftwareController::class, 'change_status'])->name('role-softwares.change-status');
 Route::resource('role-softwares', RoleSoftwareController::class);
@@ -44,8 +44,8 @@ Route::put('majors/change-status', [MajorController::class, 'change_status'])->n
 Route::resource('majors', MajorController::class);
 
 /**Technology route */
-Route::delete('technologies/forced-delete/{major}', [TechnologyController::class, 'delete'])->name('technologies.delete')->withTrashed(true);
-Route::put('technologies/{major}/restore', [TechnologyController::class, 'restore'])->name('technologies.restore')->withTrashed(true);
+Route::delete('technologies/forced-delete/{technology}', [TechnologyController::class, 'delete'])->name('technologies.delete')->withTrashed(true);
+Route::put('technologies/{technology}/restore', [TechnologyController::class, 'restore'])->name('technologies.restore')->withTrashed(true);
 Route::get('technologies/trash', [TechnologyController::class, 'trash_index'])->name('technologies.trash-index');
 Route::put('technologies/change-status', [TechnologyController::class, 'change_status'])->name('technologies.change-status');
 Route::resource('technologies', TechnologyController::class);

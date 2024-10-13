@@ -13,6 +13,11 @@ class UserRepository extends BaseRepository
         return User::class;
     }
 
+    public function getUser()
+    {
+        return $this->model->with('profile')->get();
+    }
+
     public function countAll()
     {
         return $this->model->where("role", Role::User->value)->count();

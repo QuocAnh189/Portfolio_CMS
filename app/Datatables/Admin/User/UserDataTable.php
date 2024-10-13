@@ -57,6 +57,14 @@ class UserDataTable extends DataTable
                 $query->where('name', 'like', "%" . $keyword . "%");
             })
 
+            ->filterColumn('profile.role_software.name', function ($query, $keyword) {
+                $query->whereHas('profile', function ($q) use ($keyword) {
+                    $q->whereHas('role_software', function ($q) use ($keyword) {
+                        $q->where('name', 'like', "%" . $keyword . "%");
+                    });
+                });
+            })
+
             ->rawColumns(['avatar', 'name', 'status', 'action'])
             ->setRowId('id');
     }
@@ -68,7 +76,7 @@ class UserDataTable extends DataTable
     {
         return $model->newQuery()->with('profile', function ($query) {
             $query->with('role_software');
-        })->where('role', '===', 'user');
+        })->where('role', 'user');
     }
 
     /**

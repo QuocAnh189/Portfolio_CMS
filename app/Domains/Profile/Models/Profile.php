@@ -22,6 +22,7 @@ class Profile extends Model
         'contact_number',
         'bio',
         'role_software_id',
+        'linkedin_link',
         'facebook_link',
         'github_link',
         'youtube_link',

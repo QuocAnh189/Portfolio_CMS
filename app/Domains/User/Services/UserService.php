@@ -29,6 +29,11 @@ class UserService
         return $this->userRepository->countOfUser();
     }
 
+    public function getUserInformation(): mixed
+    {
+        return $this->userRepository->getUser();
+    }
+
     public function getAllUser(): mixed
     {
         return $this->userRepository->findAll();

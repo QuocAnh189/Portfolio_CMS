@@ -53,7 +53,9 @@ class UserTechnologyDataTable extends DataTable
                 return $editBtn . $deleteBtn;
             })
             ->filterColumn('technology.name', function ($query, $keyword) {
-                $query->where('name', 'like', "%" . $keyword . "%");
+                $query->whereHas('technology', function ($q) use ($keyword) {
+                    $q->where('name', 'like', "%" . $keyword . "%");
+                });
             })
 
             ->rawColumns(['technology.image', 'technology.name', 'status', 'action'])

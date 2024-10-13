@@ -52,6 +52,11 @@ class SkillDataTable extends DataTable
             ->filterColumn('user.name', function ($query, $keyword) {
                 $query->where('name', 'like', "%" . $keyword . "%");
             })
+            ->filterColumn('user.name', function ($query, $keyword) {
+                $query->whereHas('user', function ($query) use ($keyword) {
+                    $query->where('name', 'like', '%' . $keyword . '%');
+                });
+            })
 
             ->rawColumns(['user.name', 'status', 'action'])
             ->setRowId('id');

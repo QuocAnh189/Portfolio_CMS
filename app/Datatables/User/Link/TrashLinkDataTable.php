@@ -42,6 +42,12 @@ class TrashLinkDataTable extends DataTable
                 return $form;
             })
 
+            ->filterColumn('project.name', function ($query, $keyword) {
+                $query->whereHas('project', function ($q) use ($keyword) {
+                    $q->where('name', 'like', "%" . $keyword . "%");
+                });
+            })
+
             ->rawColumns(['project.name', 'action'])
             ->setRowId('id');
     }

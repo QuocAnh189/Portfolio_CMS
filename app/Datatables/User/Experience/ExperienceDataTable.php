@@ -49,8 +49,8 @@ class ExperienceDataTable extends DataTable
 
                 return $editBtn . $deleteBtn;
             })
-            ->filterColumn('name', function ($query, $keyword) {
-                $query->where('name', 'like', "%" . $keyword . "%");
+            ->filterColumn('company_name', function ($query, $keyword) {
+                $query->where('company_name', 'like', "%" . $keyword . "%");
             })
 
             ->rawColumns(['company_name', 'status', 'action'])

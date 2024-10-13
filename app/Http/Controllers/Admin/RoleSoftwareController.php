@@ -108,6 +108,39 @@ class RoleSoftwareController extends Controller
         }
     }
 
+
+    public function restore(RoleSoftwareService $roleSoftwareService, RoleSoftware $roleSoftware)
+    {
+        try {
+            $restoredRoleSoftware = $roleSoftwareService->restoreRoleSoftware($roleSoftware);
+
+            if ($restoredRoleSoftware) {
+                flash()->success('Restore successfully.');
+            }
+
+            return redirect()->route('admin.role-softwares.trash-index');
+        } catch (GeneralException $e) {
+            return $e->render();
+        } catch (\Exception $e) {
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
+        }
+    }
+
+    public function delete(RoleSoftwareService $roleSoftwareService, RoleSoftware $roleSoftware)
+    {
+        try {
+            $roleSoftwareService->removeRoleSoftware($roleSoftware);
+
+            return response(['status' => 'success', 'Deleted Successfully!']);
+        } catch (GeneralException $e) {
+            return $e->render();
+        } catch (\Exception $e) {
+            flash()->error('Some thing went wrong!');
+            return redirect()->back();
+        }
+    }
+
     /**
      * Change status
      */

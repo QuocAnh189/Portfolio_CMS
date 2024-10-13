@@ -39,7 +39,11 @@ class TrashFeatureDataTable extends DataTable
 
                 return $form;
             })
-
+            ->filterColumn('project.name', function ($query, $keyword) {
+                $query->whereHas('project', function ($query) use ($keyword) {
+                    $query->where('name', 'like', '%' . $keyword . '%');
+                });
+            })
             ->rawColumns(['project.name', 'action'])
             ->setRowId('id');
     }
