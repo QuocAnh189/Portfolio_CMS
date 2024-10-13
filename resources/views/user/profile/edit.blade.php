@@ -5,7 +5,7 @@
         <div class="section-header">
             <h1>Profile</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                <div class="breadcrumb-item active"><a href="{{ route('user.dashboard') }}">Dashboard</a></div>
                 <div class="breadcrumb-item">Profile</div>
             </div>
         </div>
@@ -125,10 +125,6 @@
                                 <div class="row">
                                     <input class="form-control d-none" name="user_id" type="text"
                                         value="{{ $profile->user_id }}">
-                                    <div class="form-group col-12">
-                                        <label>Current Password</label>
-                                        <input class="form-control" name="current_password" type="password">
-                                    </div>
                                     <div class="form-group col-12">
                                         <label>New Password</label>
                                         <input class="form-control" name="new_password" type="password">

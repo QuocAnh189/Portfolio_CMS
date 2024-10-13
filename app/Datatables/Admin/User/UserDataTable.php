@@ -68,7 +68,7 @@ class UserDataTable extends DataTable
     {
         return $model->newQuery()->with('profile', function ($query) {
             $query->with('role_software');
-        })->where('is_admin', '===', 0);
+        })->where('role', '===', 'user');
     }
 
     /**

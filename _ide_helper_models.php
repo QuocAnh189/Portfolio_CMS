@@ -13,7 +13,7 @@
 
 namespace App\Domains\Category\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $name
@@ -43,7 +43,7 @@ namespace App\Domains\Category\Models{
 
 namespace App\Domains\Education\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $user_id
@@ -87,7 +87,7 @@ namespace App\Domains\Education\Models{
 
 namespace App\Domains\Experience\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $user_id
@@ -131,7 +131,7 @@ namespace App\Domains\Experience\Models{
 
 namespace App\Domains\Feature\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $project_id
@@ -160,7 +160,7 @@ namespace App\Domains\Feature\Models{
 
 namespace App\Domains\Link\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $project_id
@@ -191,7 +191,7 @@ namespace App\Domains\Link\Models{
 
 namespace App\Domains\Major\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $name
@@ -223,7 +223,7 @@ namespace App\Domains\Major\Models{
 
 namespace App\Domains\Profile\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $user_id
@@ -271,7 +271,7 @@ namespace App\Domains\Profile\Models{
 
 namespace App\Domains\ProjectGallery\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $project_id
@@ -300,7 +300,7 @@ namespace App\Domains\ProjectGallery\Models{
 
 namespace App\Domains\Project\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $user_id
@@ -348,7 +348,7 @@ namespace App\Domains\Project\Models{
 
 namespace App\Domains\Relation\ProjectTechnologies\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $project_id
@@ -378,7 +378,7 @@ namespace App\Domains\Relation\ProjectTechnologies\Models{
 
 namespace App\Domains\Relation\UserTechnologies\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $user_id
@@ -408,7 +408,7 @@ namespace App\Domains\Relation\UserTechnologies\Models{
 
 namespace App\Domains\RoleSoftware\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $name
@@ -438,7 +438,7 @@ namespace App\Domains\RoleSoftware\Models{
 
 namespace App\Domains\Skill\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $user_id
@@ -470,7 +470,7 @@ namespace App\Domains\Skill\Models{
 
 namespace App\Domains\Technology\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $name
@@ -502,7 +502,7 @@ namespace App\Domains\Technology\Models{
 
 namespace App\Domains\User\Models{
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $name
@@ -512,7 +512,7 @@ namespace App\Domains\User\Models{
  * @property string|null $provider
  * @property string|null $provider_id
  * @property string|null $provider_token
- * @property int $is_admin
+ * @property string $role
  * @property string $status
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at

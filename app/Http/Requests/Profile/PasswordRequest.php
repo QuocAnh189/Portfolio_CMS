@@ -28,14 +28,6 @@ class PasswordRequest extends FormRequest
     {
         return [
             'user_id' => 'required|uuid',
-            'current_password' => [
-                'required',
-                function ($attribute, $value, $fail) {
-                    if (!Hash::check($value, $this->user()->password)) {
-                        $fail(__('Mật khẩu hiện tại không chính xác.'));
-                    }
-                }
-            ],
             'new_password' => [
                 'required',
                 'confirmed',
@@ -51,7 +43,6 @@ class PasswordRequest extends FormRequest
     public function messages()
     {
         return [
-            'current_password.required' => 'Vui lòng nhập mật khẩu hiện tại.',
             'new_password.required' => 'Vui lòng nhập mật khẩu mới.',
             'new_password.confirmed' => 'Mật khẩu xác nhận không khớp với mật khẩu mới.',
             'new_password_confirmation.required' => 'Vui lòng nhập xác nhận mật khẩu',

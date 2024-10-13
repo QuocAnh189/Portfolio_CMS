@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\Role;
 use App\Enum\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
             $table->string('provider_token')->nullable();
-            $table->boolean('is_admin')->default(false);
+            $table->enum('role', Role::toArray())->default(Role::User->value);
             $table->enum('status', Status::toArray())->default(Status::Active->value);
             $table->rememberToken();
             $table->timestamps();

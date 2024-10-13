@@ -126,10 +126,6 @@
                                     <input class="form-control d-none" name="user_id" type="text"
                                         value="{{ $profile->user_id }}">
                                     <div class="form-group col-12">
-                                        <label>Current Password</label>
-                                        <input class="form-control" name="current_password" type="password">
-                                    </div>
-                                    <div class="form-group col-12">
                                         <label>New Password</label>
                                         <input class="form-control" name="new_password" type="password">
                                     </div>

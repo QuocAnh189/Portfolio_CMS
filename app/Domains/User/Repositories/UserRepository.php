@@ -3,8 +3,8 @@
 namespace App\Domains\User\Repositories;
 
 use App\Domains\User\Models\User;
+use App\Enum\Role;
 use App\Repository\Eloquent\BaseRepository;
-use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository
 {
@@ -15,6 +15,6 @@ class UserRepository extends BaseRepository
 
     public function countAll()
     {
-        return $this->model->where("is_admin", 0)->count();
+        return $this->model->where("role", Role::User->value)->count();
     }
 }

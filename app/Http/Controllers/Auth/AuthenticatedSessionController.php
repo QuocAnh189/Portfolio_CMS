@@ -30,11 +30,11 @@ class AuthenticatedSessionController extends Controller
 
         flash()->success('Login successfully.');
 
-        if (!Auth::user()->is_admin) {
-            return redirect()->intended(route('user.dashboard', ['user' => Auth::user()],  false));
+        if (Auth::user()->role === 'admin') {
+            return redirect()->intended(route('admin.dashboard', absolute: false));
         }
 
-        return redirect()->intended(route('admin.dashboard', absolute: false));
+        return redirect()->intended(route('user.dashboard', ['user' => Auth::user()],  false));
     }
 
     /**

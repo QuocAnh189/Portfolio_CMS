@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Domains\Profile\Models\Profile;
 use App\Domains\User\Models\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 

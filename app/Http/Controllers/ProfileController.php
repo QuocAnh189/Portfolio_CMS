@@ -7,6 +7,7 @@ use App\Domains\Profile\Dto\UpdateProfileDto;
 use App\Domains\Profile\Models\Profile;
 use App\Domains\Profile\Services\ProfileService;
 use App\Domains\RoleSoftware\Services\RoleSoftwareService;
+use App\Domains\User\Models\User;
 use App\Exceptions\GeneralException;
 use App\Http\Requests\Profile\PasswordRequest;
 use App\Http\Requests\Profile\ProfileRequest;
@@ -26,7 +27,7 @@ class ProfileController extends Controller
             $profile = $profileService->getProfileByUserId(Auth::id());
             $role_softwares = $roleSoftwareService->getAllRoleSoftwares();
 
-            return view(Auth::user()->is_admin ? 'admin.profile.edit' : 'user.profile.edit', [
+            return view(Auth::user()->role == 'admin' ? 'admin.profile.edit' : 'user.profile.edit', [
                 'profile' => $profile,
                 'role_softwares' => $role_softwares,
             ]);
@@ -52,7 +53,7 @@ class ProfileController extends Controller
                 flash()->success('Update profile successfully.');
             }
 
-            return Auth::user()->is_admin ? Redirect::route('admin.profile.edit') : Redirect::route('user.profile.edit');
+            return Auth::user()->role == 'admin' ? Redirect::route('admin.profile.edit') : Redirect::route('user.profile.edit');
         } catch (GeneralException $e) {
             return $e->render();
         } catch (\Exception $e) {
@@ -62,7 +63,7 @@ class ProfileController extends Controller
     }
 
 
-    public function change_password(ProfileService $profileService, PasswordRequest $request)
+    public function change_password(ProfileService $profileService, PasswordRequest $request): RedirectResponse
     {
         try {
             $updatePasswordDto = UpdatePasswordDto::fromAppRequest($request);
@@ -73,7 +74,7 @@ class ProfileController extends Controller
                 flash()->success('Update password successfully.');
             }
 
-            return Auth::user()->is_admin ? Redirect::route('admin.profile.edit') : Redirect::route('user.profile.edit');
+            return Auth::user()->role == 'admin' ? Redirect::route('admin.profile.edit') : Redirect::route('user.profile.edit');
         } catch (GeneralException $e) {
             return $e->render();
         } catch (\Exception $e) {
