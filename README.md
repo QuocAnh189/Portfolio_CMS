@@ -2,23 +2,29 @@
 
 ===========================================================
 
+### Database
+
+![iamgedemo](https://res.cloudinary.com/dadvtny30/image/upload/v1729098782/database/umrpnpvdw9oekzz8tl9o.png)
+
 ### Features :
 
--   Easy Project Management
+-   Easy Project Management for Portfolio
 -   Image Gallery
 -   Project Categories
 -   Responsive Design
 -   User-Friendly Admin Interface
 -   Publish and Hide Projects
+-   Upload Image with Cloudinary
+-   Login social with Github And Google
 
-# 1. How to run the app (Development Environment)
+### How to run the app (Development Environment)
 
 1. Clone the repo and cd into it
 2. Run `composer install` local dev environment (php version >= 12)
 3. Copy `.env.example` file to `.env`
 4. Update your `.env` file your password :
     ```env
-    DB_PASSWORD=true
+    DB_PASSWORD = YOUR PASSWORD
     ```
 5. Run command `php artisan key:generate`
 6. In your terminal `php artisan serve`
