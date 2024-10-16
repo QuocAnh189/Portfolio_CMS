@@ -21,7 +21,7 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(ProfileService $profileService, RoleSoftwareService $roleSoftwareService): View
+    public function edit(ProfileService $profileService, RoleSoftwareService $roleSoftwareService)
     {
         try {
             $profile = $profileService->getProfileByUserId(Auth::id());
