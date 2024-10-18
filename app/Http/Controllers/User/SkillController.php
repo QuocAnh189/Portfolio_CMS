@@ -33,10 +33,9 @@ class SkillController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(RoleSoftwareService $roleSoftwareService)
+    public function create()
     {
-        $role_softwares = $roleSoftwareService->getAllRoleSoftwares();
-        return view('user.skill.create', compact('role_softwares'));
+        return view('user.skill.create');
     }
 
     /**
@@ -65,10 +64,9 @@ class SkillController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RoleSoftwareService $roleSoftwareService, Skill $skill)
+    public function edit(Skill $skill)
     {
-        $role_softwares = $roleSoftwareService->getAllRoleSoftwares();
-        return view('user.skill.edit', compact('skill', 'role_softwares'));
+        return view('user.skill.edit', compact('skill'));
     }
 
     /**

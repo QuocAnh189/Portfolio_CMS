@@ -34,11 +34,10 @@ class ExperienceController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(UserService $userService, RoleSoftwareService $roleSoftwareService)
+    public function create(UserService $userService)
     {
         $users = $userService->getAllUser();
-        $role_softwares = $roleSoftwareService->getAllRoleSoftwares();
-        return view("admin.experience.create", compact("users", "role_softwares"));
+        return view("admin.experience.create", compact("users"));
     }
 
     /**
@@ -67,11 +66,10 @@ class ExperienceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(UserService $userService, RoleSoftwareService $roleSoftwareService, Experience $experience)
+    public function edit(UserService $userService, Experience $experience)
     {
         $users = $userService->getAllUser();
-        $role_softwares = $roleSoftwareService->getAllRoleSoftwares();
-        return view("admin.experience.edit", compact("experience", "users", "role_softwares"));
+        return view("admin.experience.edit", compact("experience", "users"));
     }
 
     /**

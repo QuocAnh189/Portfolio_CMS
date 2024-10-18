@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\DataTables\User\Experience\ExperienceDataTable;
 use App\DataTables\User\Experience\TrashExperienceDataTable;
-use App\DataTables\User\Feature\TrashFeatureDataTable;
 use App\Domains\Experience\Dto\CreateExperienceDto;
 use App\Domains\Experience\Dto\UpdateExperienceDto;
 use App\Domains\Experience\Models\Experience;
@@ -36,8 +35,7 @@ class ExperienceController extends Controller
      */
     public function create(RoleSoftwareService $roleSoftwareService)
     {
-        $role_softwares = $roleSoftwareService->getAllRoleSoftwares();
-        return view("user.experience.create", compact("role_softwares"));
+        return view("user.experience.create");
     }
 
     /**
@@ -66,10 +64,9 @@ class ExperienceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RoleSoftwareService $roleSoftwareService, Experience $experience)
+    public function edit(Experience $experience)
     {
-        $role_softwares = $roleSoftwareService->getAllRoleSoftwares();
-        return view("user.experience.edit", compact("experience", "role_softwares"));
+        return view("user.experience.edit", compact("experience"));
     }
 
     /**

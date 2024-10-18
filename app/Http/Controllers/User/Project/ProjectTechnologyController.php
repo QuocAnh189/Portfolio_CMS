@@ -38,10 +38,9 @@ class ProjectTechnologyController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(TechnologyService $technologyService, Project $project)
+    public function create(Project $project)
     {
-        $technologies = $technologyService->getAllTechnology();
-        return view('user.project.technology.create', compact('project', 'technologies'));
+        return view('user.project.technology.create', compact('project'));
     }
 
     /**
@@ -76,10 +75,9 @@ class ProjectTechnologyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TechnologyService $technologyService, Project $project, ProjectTechnologies $projectTechnology)
+    public function edit(Project $project, ProjectTechnologies $projectTechnology)
     {
-        $technologies = $technologyService->getAllTechnology();
-        return view('user.project.technology.edit', compact('project', 'projectTechnology', 'technologies'));
+        return view('user.project.technology.edit', compact('project', 'projectTechnology'));
     }
 
     /**

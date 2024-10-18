@@ -33,10 +33,9 @@ class EducationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(MajorService $majorService)
+    public function create()
     {
-        $majors = $majorService->getAllMajor();
-        return view("user.education.create", compact("majors"));
+        return view("user.education.create");
     }
 
     /**
@@ -64,10 +63,9 @@ class EducationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MajorService $majorService, Education $education)
+    public function edit(Education $education)
     {
-        $majors = $majorService->getAllMajor();
-        return view("user.education.edit", compact("education", "majors"));
+        return view("user.education.edit", compact("education"));
     }
 
     /**

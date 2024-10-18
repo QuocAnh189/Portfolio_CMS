@@ -34,11 +34,10 @@ class ProjectController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(UserService $userService, CategoryService $categoryService)
+    public function create(UserService $userService)
     {
         $users = $userService->getAllUser();
-        $categories = $categoryService->getAllCategory();
-        return view('admin.project.create', compact('users', 'categories'));
+        return view('admin.project.create', compact('users'));
     }
 
     /**
@@ -66,11 +65,10 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(UserService $userService, CategoryService $categoryService, Project $project)
+    public function edit(UserService $userService, Project $project)
     {
         $users = $userService->getAllUser();
-        $categories = $categoryService->getAllCategory();
-        return view('admin.project.edit', compact('project', 'users', 'categories'));
+        return view('admin.project.edit', compact('project', 'users'));
     }
 
     /**

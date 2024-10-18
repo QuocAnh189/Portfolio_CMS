@@ -37,10 +37,9 @@ class ProjectController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(CategoryService $categoryService)
+    public function create()
     {
-        $categories = $categoryService->getAllCategory();
-        return view('user.project.create', compact('categories'));
+        return view('user.project.create');
     }
 
     /**
@@ -68,10 +67,9 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CategoryService $categoryService, Project $project)
+    public function edit(Project $project)
     {
-        $categories = $categoryService->getAllCategory();
-        return view('user.project.edit', compact('project', 'categories'));
+        return view('user.project.edit', compact('project'));
     }
 
     /**

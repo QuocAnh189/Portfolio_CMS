@@ -29,10 +29,9 @@ class ProjectTechnologyController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(TechnologyService $technologyService, Project $project)
+    public function create(Project $project)
     {
-        $technologies = $technologyService->getAllTechnology();
-        return view('admin.project.technology.create', compact('project', 'technologies'));
+        return view('admin.project.technology.create', compact('project'));
     }
 
     /**
