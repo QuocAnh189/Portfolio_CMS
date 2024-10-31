@@ -20,7 +20,7 @@
 ### How to run the app (Development Environment)
 
 1. Clone the repo and cd into it
-2. Run `composer install` local dev environment (php version >= 12)
+2. Run `composer install` local dev environment (php version 8.2.12)
 3. Copy `.env.example` file to `.env`
 4. Update your `.env` file your password :
     ```env
