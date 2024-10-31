@@ -12,6 +12,7 @@ class ProviderController extends Controller
 {
     public function redirect($provider)
     {
+        // dd($provider);
         return Socialite::driver($provider)->redirect();
     }
 
