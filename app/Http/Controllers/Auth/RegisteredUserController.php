@@ -38,10 +38,13 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $role =  $request->email == 'admin@gmail.com' ? 'admin' : 'user';
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $role,
         ]);
 
         Profile::create([

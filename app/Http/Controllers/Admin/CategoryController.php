@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Http\Requests\ChangeStatusRequest;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
